@@ -11,7 +11,7 @@
 	<!-- HEADER-->
 	<jsp:include page="layout/header.jsp" />
 	<!-- END HEADER-->
-	
+
 	<div class="slideshow container-fluid">
 		<div class="row">
 			<div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -66,17 +66,17 @@
 				<div class="col-xs-12">
 					<h4 class="home-title">popular products</h4>
 				</div>
-				<c:forEach var="product" items="${listProduct}">
+				<c:forEach var="product" items="${listPopularProduct}">
 					<div class="col-xs-6 col-sm-3">
 						<div class="product-container">
 							<div class="image">
-								<img class="img-responsive"
-									src="https://badmintonshoppen.se/wp-content/uploads/2022/10/Forza-Pure-Light-7-1-896x896-jpg.webp"
-									alt="" />
+								<img class="img-responsive" src="${product.image }" alt="" />
 							</div>
 							<div class="product-meta">
 								<h5 class="name">
-									<a class="product-name" href="productDetail?id=<c:out value="${product.id}" />" title="${product.name}">${product.name}</a>
+									<a class="product-name"
+										href="productDetail?id=<c:out value="${product.id}" />"
+										title="${product.name}">${product.name}</a>
 								</h5>
 								<div class="product-item-price">
 									<span class="product-item-regular">${product.price} euro</span>
@@ -86,13 +86,14 @@
 							<div class="button-product-action clearfix">
 								<div class="cart icon">
 									<a class="btn btn-outline-inverse buy"
-										product-id="#" href="javascript:void(0)"
-										title="add to cart"> add to cart <i
-										class="fa fa-shopping-cart"></i>
+										product-id="addToCart?id=<c:out value="${product.id}" />"
+										href="javascript:void(0)" title="add to cart"> add to cart
+										<i class="fa fa-shopping-cart"></i>
 									</a>
 								</div>
 								<div class="quickview icon">
-									<a class="btn btn-outline-inverse" href="productDetail?id=<c:out value="${product.id}" />"
+									<a class="btn btn-outline-inverse"
+										href="productDetail?id=<c:out value="${product.id}" />"
 										title="quick view"> details <i class="fa fa-eye"></i>
 									</a>
 								</div>
@@ -100,230 +101,48 @@
 						</div>
 					</div>
 				</c:forEach>
-				<div class="col-xs-6 col-sm-3">
-					<div class="product-container">
-						<div class="image">
-							<img class="img-responsive"
-								src="https://www.yonex.com/media/catalog/product/s/h/shbax2_bluegray.jpg?quality=80&fit=bounds&height=300&width=240&canvas=240:300"
-								alt="victor bag br" />
-						</div>
-						<div class="product-meta">
-							<h5 class="name">
-								<a class="product-name" href="#" title="Power cushion aerus x">Power
-									cushion aerus x</a>
-							</h5>
-							<div class="product-item-price">
-								<span class="product-item-regular">200 euro</span> <span
-									class="product-item-discount">176 euro</span>
-							</div>
-						</div>
-						<div class="button-product-action clearfix">
-							<div class="cart icon">
-								<a class="btn btn-outline-inverse buy" product-id="2"
-									href="javascript:void(0)" title="add to cart"> add to cart
-									<i class="fa fa-shopping-cart"></i>
-								</a>
-							</div>
-							<div class="quickview icon">
-								<a class="btn btn-outline-inverse" href="productDetail?id=<c:out value='${product.id}' />" title="quick view">
-									details <i class="fa fa-eye"></i>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-xs-6 col-sm-3">
-					<div class="product-container">
-						<div class="image">
-							<img class="img-responsive"
-								src="https://www.yonex.com/media/catalog/product/1/0/10489_011_02.png?quality=80&fit=bounds&height=300&width=240&canvas=240:300"
-								alt="yonex crew neck shirt" />
-						</div>
-						<div class="product-meta">
-							<h5 class="name">
-								<a class="product-name" href="#" title="yonex crew shirt">Yonex
-									crew neck shirt</a>
-							</h5>
-							<div class="product-item-price">
-								<span class="product-item-regular">60 euro</span> <span
-									class="product-item-discount">32 euro</span>
-							</div>
-						</div>
-						<div class="button-product-action clearfix">
-							<div class="cart icon">
-								<a class="btn btn-outline-inverse buy" product-id="3"
-									href="javascript:void(0)" title="add to cart"> add to cart
-									<i class="fa fa-shopping-cart"></i>
-								</a>
-							</div>
-							<div class="quickview icon">
-								<a class="btn btn-outline-inverse" href="productDetail.jsp" title="quick view">
-									details <i class="fa fa-eye"></i>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-xs-6 col-sm-3">
-					<div class="product-container">
-						<div class="image">
-							<img class="img-responsive"
-								src="https://www.yonex.com/media/catalog/product/b/a/ba92231w_fabl_1.png?quality=80&fit=bounds&height=300&width=240&canvas=240:300"
-								alt="yonex tournament bag" />
-						</div>
-						<div class="product-meta">
-							<h5 class="name">
-								<a class="product-name" href="#"
-									title="Yonex pro tournament bag">Yonex pro tournament bag</a>
-							</h5>
-							<div class="product-item-price">
-								<span class="product-item-regular">150 euro</span> <span
-									class="product-item-discount">80 euro</span>
-							</div>
-						</div>
-						<div class="button-product-action clearfix">
-							<div class="cart icon">
-								<a class="btn btn-outline-inverse buy" product-id="4"
-									href="javascript:void(0)" title="add to cart"> add to cart
-									<i class="fa fa-shopping-cart"></i>
-								</a>
-							</div>
-							<div class="quickview icon">
-								<a class="btn btn-outline-inverse" href="#" title="quick view">
-									details <i class="fa fa-eye"></i>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
 			</div>
 			<div class="row equal">
 				<div class="col-xs-12">
 					<h4 class="home-title">Latest products</h4>
 				</div>
-				<div class="col-xs-6 col-sm-3">
-					<div class="product-container">
-						<div class="image">
-							<img class="img-responsive"
-								src="https://www.victorsport.com/files/en_us/product/more/94348_1_20220816170818.jpg"
-								alt="" />
-						</div>
-						<div class="product-meta">
-							<h5 class="name">
-								<a class="product-name" href="#" title="victor bag onepice">Victor
-									bag x LZJ </a>
-							</h5>
-							<div class="product-item-price">
-								<span class="product-item-price">200 euro</span>
+
+				<c:forEach var="product" items="${listPopularProduct}">
+					<div class="col-xs-6 col-sm-3">
+						<div class="product-container">
+							<div class="image">
+								<img class="img-responsive" src="${product.image }" alt="" />
 							</div>
-						</div>
-						<div class="button-product-action clearfix">
-							<div class="cart icon">
-								<a class="btn btn-outline-inverse buy" product-id="2"
-									href="javascript:void(0)" title="add to cart"> add to cart
-									<i class="fa fa-shopping-cart"></i>
-								</a>
+							<div class="product-meta">
+								<h5 class="name">
+									<a class="product-name"
+										href="productDetail?id=<c:out value="${product.id}" />"
+										title="${product.name}">${product.name}</a>
+								</h5>
+								<div class="product-item-price">
+									<span class="product-item-regular">${product.price} euro</span>
+									<span class="product-item-discount">230 euro</span>
+								</div>
 							</div>
-							<div class="quickview icon">
-								<a class="btn btn-outline-inverse" href="#" title="quickview">
-									details <i class="fa fa-eye"></i>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-xs-6 col-sm-3">
-					<div class="product-container">
-						<div class="image">
-							<img class="img-responsive"
-								src="https://www.victorsport.com/files/en_us/product/more/89647_0_20220510102305.jpg"
-								alt="" />
-						</div>
-						<div class="product-meta">
-							<h5 class="name">
-								<a class="product-name" href="#" title="victor bag onepice">Victor
-									bag x Tai Tzu Ying </a>
-							</h5>
-							<div class="product-item-price">
-								<span class="product-item-price">220 euro</span>
-							</div>
-						</div>
-						<div class="button-product-action clearfix">
-							<div class="cart icon">
-								<a class="btn btn-outline-inverse buy" product-id="2"
-									href="javascript:void(0)" title="add to cart"> add to cart
-									<i class="fa fa-shopping-cart"></i>
-								</a>
-							</div>
-							<div class="quickview icon">
-								<a class="btn btn-outline-inverse" href="#" title="quickview">
-									details <i class="fa fa-eye"></i>
-								</a>
+							<div class="button-product-action clearfix">
+								<div class="cart icon">
+									<a class="btn btn-outline-inverse buy"
+										product-id="addToCart?id=<c:out value="${product.id}" />"
+										href="javascript:void(0)" title="add to cart"> add to cart
+										<i class="fa fa-shopping-cart"></i>
+									</a>
+								</div>
+								<div class="quickview icon">
+									<a class="btn btn-outline-inverse"
+										href="productDetail?id=<c:out value="${product.id}" />"
+										title="quick view"> details <i class="fa fa-eye"></i>
+									</a>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="col-xs-6 col-sm-3">
-					<div class="product-container">
-						<div class="image">
-							<img class="img-responsive"
-								src="https://www.victorsport.com/files/en_us/product/more/95240_1_20220927153521.png"
-								alt="" />
-						</div>
-						<div class="product-meta">
-							<h5 class="name">
-								<a class="product-name" href="#" title="">Victor A970ACE
-									shoes</a>
-							</h5>
-							<div class="product-item-price">
-								<span class="product-item-price">190 euro</span>
-							</div>
-						</div>
-						<div class="button-product-action clearfix">
-							<div class="cart icon">
-								<a class="btn btn-outline-inverse buy" product-id="2"
-									href="javascript:void(0)" title="add to cart"> add to cart
-									<i class="fa fa-shopping-cart"></i>
-								</a>
-							</div>
-							<div class="quickview icon">
-								<a class="btn btn-outline-inverse" href="#" title="quickview">
-									details <i class="fa fa-eye"></i>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-xs-6 col-sm-3">
-					<div class="product-container">
-						<div class="image">
-							<img class="img-responsive"
-								src="https://www.victorsport.com/files/en_us/product/more/85750_0_20211210131121.jpg"
-								alt="" />
-						</div>
-						<div class="product-meta">
-							<h5 class="name">
-								<a class="product-name" href="#" title="">Victor track top</a>
-							</h5>
-							<div class="product-item-price">
-								<span class="product-item-price">120 euro</span>
-							</div>
-						</div>
-						<div class="button-product-action clearfix">
-							<div class="cart icon">
-								<a class="btn btn-outline-inverse buy" product-id="2"
-									href="javascript:void(0)" title="add to cart"> add to cart
-									<i class="fa fa-shopping-cart"></i>
-								</a>
-							</div>
-							<div class="quickview icon">
-								<a class="btn btn-outline-inverse" href="#" title="quickview">
-									details <i class="fa fa-eye"></i>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
+				</c:forEach>
+
 			</div>
 			<div class="row equal">
 				<div class="col-xs-12">
@@ -430,7 +249,6 @@
 			</div>
 
 		</div>
-
 	</main>
 	<!-- FOOTER-->
 	<jsp:include page="layout/footer.jsp" />

@@ -343,7 +343,8 @@ footer .newsletter .send {
   text-transform: uppercase;
   color: #ffffff;
   border-radius: 0;
-  margin-top: 5px;
+  margin: 8px;
+  
 }
 
 footer .newsletter .send:hover {

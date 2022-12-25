@@ -102,10 +102,11 @@ public class HomeServlet extends HttpServlet {
 			}
 
 			break;
-
+	
 		default:
 			try {
-				listProduct(request, response);
+				listPopularProduct(request, response);
+				
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -115,6 +116,8 @@ public class HomeServlet extends HttpServlet {
 		
 
 	}
+	
+	
 
 	private void showProductDetail(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, ServletException, IOException {
@@ -127,11 +130,18 @@ public class HomeServlet extends HttpServlet {
 		
 
 	}	
-
-	private void listProduct(HttpServletRequest request, HttpServletResponse response)
+	private void listLatestProduct(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
-		List<Product> listProduct = productDAO.selectAllProducts();
-		request.setAttribute("listProduct", listProduct);
+		List<Product> listProduct = productDAO.selectLatestProducts();
+		request.setAttribute("listLatestProduct", listProduct);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
+		dispatcher.forward(request, response);
+	}
+
+	private void listPopularProduct(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, IOException, ServletException {
+		List<Product> listProduct = productDAO.selectPopularProducts();
+		request.setAttribute("listPopularProduct", listProduct);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
 		dispatcher.forward(request, response);
 	}
