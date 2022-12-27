@@ -343,7 +343,7 @@ footer .newsletter .send {
 	background-color: #e28732;
 	text-transform: uppercase;
 	color: #ffffff;
-	margin: 8px;
+	margin: 5px;
 	border-radius: 5px;
 }
 
@@ -353,8 +353,8 @@ footer .newsletter .send:hover {
 
 footer .newsletter input {
 	
-	border-radius: 5px;
-	margin: 8px;
+	border-radius: 2px;
+
 }
 
 /*BACK TO TOP*/
