@@ -130,13 +130,7 @@ public class HomeServlet extends HttpServlet {
 		
 
 	}	
-	private void listLatestProduct(HttpServletRequest request, HttpServletResponse response)
-			throws SQLException, IOException, ServletException {
-		List<Product> listProduct = productDAO.selectLatestProducts();
-		request.setAttribute("listLatestProduct", listProduct);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
-		dispatcher.forward(request, response);
-	}
+	
 
 	private void listPopularProduct(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {

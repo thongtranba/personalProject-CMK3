@@ -44,9 +44,10 @@
 							<form action="" method="POST">
 								<div class="input-group">
 									<input type="text" class="form-control"
-										placeholder="your email.." name="email" />
+										placeholder="your email" name="email" />
 									<button type="submit" class="btn btn-primary send pull-right">
 										Send</button>
+										
 								</div>
 							</form>
 						</div>
@@ -58,7 +59,8 @@
 </footer>
 <!-- END FOOTER -->
 <!-- BACK TO TOP -->
-<div class="back-to-top" class="bg-color">Top</div>
+<div class="back-to-top" class="bg-color"><i
+						class="fa fa-chevron-up"></i> </div>
 <!-- END BACK TO TOP -->
 <!-- REGISTER DIALOG -->
 <div class="modal fade" id="modal-register" role="dialog">
@@ -66,7 +68,7 @@
 		<div class="modal-content">
 			<div class="modal-header bg-color">
 				<button type="button" class="close" data-dismiss="modal"
-					aria-hidden="true">Close</button>
+					aria-hidden="true">x</button>
 				<h3 class="modal-title text-center">Register</h3>
 			</div>
 			<form action="<%=request.getContextPath()%>/register" method="POST"
@@ -129,7 +131,7 @@
 		<div class="modal-content">
 			<div class="modal-header bg-color">
 				<button type="button" class="close" data-dismiss="modal"
-					aria-hidden="true">Close</button>
+					aria-hidden="true">x</button>
 				<h3 class="modal-title text-center">Login</h3>
 				<!-- Google login -->
 				<br />
@@ -166,7 +168,7 @@
 		<div class="modal-content">
 			<div class="modal-header bg-color">
 				<button type="button" class="close" data-dismiss="modal"
-					aria-hidden="true">×</button>
+					aria-hidden="true">Ã</button>
 				<h3 class="modal-title text-center">Forgot password</h3>
 			</div>
 			<form action="#" method="POST" role="form">

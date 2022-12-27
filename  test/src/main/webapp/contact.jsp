@@ -29,7 +29,7 @@
                     
                     </div>
                     <div class="col-md-6">
-                        <h4>Information</h4>
+                        <h4>Send your message directly to us:</h4>
                             <form class="form-contact" action="#" method="POST">
                                 <div class="form-group">
                                     <input type="text" class="form-control" name="fullname"  placeholder="Your name" required oninvalid="this.setCustomValidity('type your name')" oninput="this.setCustomValidity('')">

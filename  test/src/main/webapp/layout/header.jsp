@@ -38,7 +38,7 @@
 				<!-- LOGO -->
 				<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 logo">
 					<a href="HomeServlet"><img
-						src="public/images/bathong_Logo.png" height="100px" width="120px"
+						src="public/images/bathongLogo.png" height="100px" width="120px"
 						class="img-responsive" /></a>
 				</div>
 

@@ -3,7 +3,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="shortcut icon" type="image/x-icon"
-	href="public/images/logo_thong.ico" />
+	href="public/images/bathongIcon.ico" />
 <link rel="stylesheet"
 	href="public/vendor/fontawesome-free-5.11.2-web/css/all.min.css" />
 <link rel="stylesheet"
