@@ -42,7 +42,11 @@ $(function () {
   $(".btn-login").click(function () {
     $("#modal-login").modal("show");
   });
+  
+  $(".btn-logout").click(function () {
+    $("#modal-logout").modal("show");
 
+  });
  
   $(".modal").on("hide.bs.modal", function (e) {
     e.stopPropagation();

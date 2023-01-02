@@ -71,7 +71,7 @@
 					aria-hidden="true">x</button>
 				<h3 class="modal-title text-center">Register</h3>
 			</div>
-			<form action="<%=request.getContextPath()%>/register" method="POST"
+			<form action="register" method="POST"
 				role="form">
 				<div class="modal-body">
 					<div class="form-group">
@@ -136,11 +136,11 @@
 				<!-- Google login -->
 				<br />
 			</div>
-			<form action="<%=request.getContextPath()%>/login" method="POST" role="form">
+			<form action="login" method="GET" role="form">
 				<div class="modal-body">
 					<div class="form-group">
-						<input type="username" name="username" id="username" class="form-control"
-							placeholder="Username" required />
+						<input type="email" name="email" id="email" class="form-control"
+							placeholder="Email" required />
 					</div>
 					<div class="form-group">
 						<input type="password" name="password" id="password" class="form-control"
@@ -162,13 +162,46 @@
 	</div>
 </div>
 <!-- END LOGIN DIALOG -->
+<!-- LOGOUT DIALOG -->
+<div class="modal fade" id="modal-logout" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header bg-color">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">x</button>
+				<h3 class="modal-title text-center">Hi,${sessionScope.name}</h3>
+			
+				<br />
+			</div>
+			
+				<div class="modal-body">
+					<div class="form-group">
+						<a href="#" >Order</a> 
+						
+					</div>
+					<div class="form-group">
+						<a href="#" >Information</a> 
+						
+					</div>
+					
+				</div>
+				<div class="modal-footer">
+					
+						<a href="logoutServlet" >Logout</a> 
+					
+				</div>
+			
+		</div>
+	</div>
+</div>
+<!-- END LOGOUT DIALOG -->
 <!-- FORTGOT PASSWORD DIALOG -->
 <div class="modal fade" id="modal-forgot-password" role="dialog">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header bg-color">
 				<button type="button" class="close" data-dismiss="modal"
-					aria-hidden="true">Ã</button>
+					aria-hidden="true">x</button>
 				<h3 class="modal-title text-center">Forgot password</h3>
 			</div>
 			<form action="#" method="POST" role="form">

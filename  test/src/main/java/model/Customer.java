@@ -12,6 +12,13 @@ public class Customer {
 		super();
 	}
 
+	public Customer(int id, String username, String email) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.email = email;
+	}
+
 	public Customer(String username, String password, String mobile, String email, String address) {
 		super();
 		this.username = username;

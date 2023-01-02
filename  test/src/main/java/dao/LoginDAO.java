@@ -3,29 +3,52 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import JDBCUtil.JDBCUtil;
-import model.Login;
+import model.Customer;
 
 public class LoginDAO {
-	private static final String LOGIN_BY_USERNAME_PASSWORD = "select * from customer where username = ? and password = ? ";
+	private static final String LOGIN_BY_USERNAME_PASSWORD = "select * from customer where email = ? and password = ? ";
 
-	public boolean validate(Login login) throws ClassNotFoundException {
-		boolean status = false;
+	public Customer validate(String email, String password) throws SQLException {
+		Customer customer = null;
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet rs = null;
 
-		Class.forName("com.mysql.jdbc.Driver");
+		try {
+			connection = JDBCUtil.getConnection();
 
-		try (Connection connection = JDBCUtil.getConnection();
-				PreparedStatement preparedStatement = connection.prepareStatement(LOGIN_BY_USERNAME_PASSWORD)) {
-			preparedStatement.setString(1, login.getUsername());
-			preparedStatement.setString(2, login.getPassword());
+			preparedStatement = connection.prepareStatement(LOGIN_BY_USERNAME_PASSWORD);
+			preparedStatement.setString(1, email);
+			preparedStatement.setString(2, password);
 			System.out.println(preparedStatement);
-			ResultSet rs = preparedStatement.executeQuery();
-			status = rs.next();
 
-		} catch (Exception e) {
-			e.printStackTrace();
+			rs = preparedStatement.executeQuery();
+
+			if (rs.next()) {
+				int id = rs.getInt("id");
+				String username = rs.getString("username");
+
+				customer = new Customer(id, username, email);
+				
+			} else {
+				
+				return null;
+			}
+			return customer;
+
+		} finally {
+			close(connection, preparedStatement, rs);
+			
 		}
-		return status;
+
+	}
+
+	private void close(Connection connection, PreparedStatement preparedStatement, ResultSet rs) throws SQLException {
+		connection.close();
+		preparedStatement.close();
+		rs.close();
 	}
 }

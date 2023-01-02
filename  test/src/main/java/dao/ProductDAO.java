@@ -24,6 +24,9 @@ public class ProductDAO {
 	private static final String SELECT_PRODUCT_BY_CATEGORYID = "select * from product where categoryId =?";
 	private static final String SELECT_ALL_PRODUCT = "select * from product";
 	
+	
+	
+	
 	public List<Product> selectAllProducts() {
 		List<Product> products = new ArrayList<>();
 		try (Connection connection = JDBCUtil.getConnection();
