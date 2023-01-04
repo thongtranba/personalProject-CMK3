@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <footer class="container-fluid">
 	<div class="row">
 		<div class="col-xs-12">
@@ -47,7 +48,7 @@
 										placeholder="your email" name="email" />
 									<button type="submit" class="btn btn-primary send pull-right">
 										Send</button>
-										
+
 								</div>
 							</form>
 						</div>
@@ -59,8 +60,9 @@
 </footer>
 <!-- END FOOTER -->
 <!-- BACK TO TOP -->
-<div class="back-to-top" class="bg-color"><i
-						class="fa fa-chevron-up"></i> </div>
+<div class="back-to-top" class="bg-color">
+	<i class="fa fa-chevron-up"></i>
+</div>
 <!-- END BACK TO TOP -->
 <!-- REGISTER DIALOG -->
 <div class="modal fade" id="modal-register" role="dialog">
@@ -71,8 +73,7 @@
 					aria-hidden="true">x</button>
 				<h3 class="modal-title text-center">Register</h3>
 			</div>
-			<form action="register" method="POST"
-				role="form">
+			<form action="register" method="POST" role="form">
 				<div class="modal-body">
 					<div class="form-group">
 						<input type="text" class="form-control" id="username"
@@ -114,7 +115,7 @@
 
 					<input type="hidden" name="reference" value="${NOTIFICATION}" />
 				</div>
-				
+
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">
 						Cancle</button>
@@ -143,8 +144,8 @@
 							placeholder="Email" required />
 					</div>
 					<div class="form-group">
-						<input type="password" name="password" id="password" class="form-control"
-							placeholder="Password" required />
+						<input type="password" name="password" id="password"
+							class="form-control" placeholder="Password" required />
 					</div>
 					<input type="hidden" name="reference" value="" />
 				</div>
@@ -170,27 +171,27 @@
 				<button type="button" class="close" data-dismiss="modal"
 					aria-hidden="true">x</button>
 				<h3 class="modal-title text-center">Hi,${sessionScope.name}</h3>
-			
+
 				<br />
 			</div>
-			
-				<div class="modal-body">
-					<div class="form-group">
-						<a href="#" >Order</a> 
-						
-					</div>
-					<div class="form-group">
-						<a href="#" >Information</a> 
-						
-					</div>
-					
+
+			<div class="modal-body">
+				<div class="form-group">
+					<a href="#">Order</a>
+
 				</div>
-				<div class="modal-footer">
-					
-						<a href="logoutServlet" >Logout</a> 
-					
+				<div class="form-group">
+					<a href="#">Information</a>
+
 				</div>
-			
+
+			</div>
+			<div class="modal-footer">
+
+				<a href="logoutServlet">Logout</a>
+
+			</div>
+
 		</div>
 	</div>
 </div>
@@ -234,13 +235,14 @@
 				<div class="page-content">
 					<div class="clearfix hidden-sm hidden-xs">
 						<div class="col-xs-1"></div>
-						<div class="col-xs-3">
+						<div class="col-xs-2"><div class="header">Image</div></div>
+						<div class="col-xs-2">
 							<div class="header">Product</div>
 						</div>
 						<div class="col-xs-2">
 							<div class="header">Price</div>
 						</div>
-						<div class="label_item col-xs-3">
+						<div class="label_item col-xs-2">
 							<div class="header">Quantity</div>
 						</div>
 						<div class="col-xs-2">
@@ -250,65 +252,45 @@
 					</div>
 					<div class="cart-product">
 						<hr />
-						<div class="clearfix text-left">
-							<div class="row">
-								<div class="col-sm-6 col-md-1">
-									<div>
-										<img class="img-responsive"
-											src="https://www.yonex.com/media/catalog/product/a/x/ax77-p.jpg?quality=80&fit=bounds&height=819&width=600&canvas=600:819"
-											alt="yonex astrox 77 pro " />
+						<c:if test="${not empty cart }">
+							<c:forEach var="item" items="${cart}" varStatus="status">
+								<div class="clearfix text-left">
+									<div class="row">
+										<div class="col-sm-6 col-md-1">
+											<div>${ status.count}.</div>
+										</div>
+										<div class="col-sm-6 col-md-2">
+											<div>
+												<img class="img-responsive" src="${item.value.image}"
+													alt="${item.value.name }" />
+											</div>
+										</div>
+										<div class="col-sm-6 col-md-2">
+											<a class="product-name" href="#">${item.value.name }</a>
+										</div>
+										<div class="col-sm-6 col-md-2">
+											<span class="product-item-discount">${item.value.price }</span>
+										</div>
+										<div class="col-sm-6 col-md-2">
+											<input type="hidden" value="1" /><input type="number"
+												onchange="updateProductInCart(this,2)" min="1" value="1" />
+										</div>
+										<div class="col-sm-6 col-md-2">
+											<span>230 euro</span>
+										</div>
+										<div class="col-sm-6 col-md-1">
+											<a class="remove-product"
+												href="addToCartServlet?command=REMOVE&productId=${item.key }"><span
+												class="glyphicon glyphicon-trash"></span></a>
+										</div>
 									</div>
 								</div>
-								<div class="col-sm-6 col-md-3">
-									<a class="product-name" href="#">Yonex astrox 77 pro</a>
-								</div>
-								<div class="col-sm-6 col-md-2">
-									<span class="product-item-discount">230 euro</span>
-								</div>
-								<div class="col-sm-6 col-md-3">
-									<input type="hidden" value="1" /><input type="number"
-										onchange="updateProductInCart(this,2)" min="1" value="1" />
-								</div>
-								<div class="col-sm-6 col-md-2">
-									<span>230 euro</span>
-								</div>
-								<div class="col-sm-6 col-md-1">
-									<a class="remove-product" href="javascript:void(0)"
-										onclick="deleteProductInCart(2)"><span
-										class="glyphicon glyphicon-trash"></span></a>
-								</div>
-							</div>
-						</div>
-						<hr />
-						<div class="clearfix text-left">
-							<div class="row">
-								<div class="col-sm-6 col-md-1">
-									<div>
-										<img class="img-responsive"
-											src="https://www.victorsport.com/files/en_us/product/more/95240_1_20220927153521.png"
-											alt="Victor A970ACE shoes " />
-									</div>
-								</div>
-								<div class="col-sm-6 col-md-3">
-									<a class="product-name" href="#">Victor A970ACE shoes</a>
-								</div>
-								<div class="col-sm-6 col-md-2">
-									<span class="product-item-discount">190 euro</span>
-								</div>
-								<div class="col-sm-6 col-md-3">
-									<input type="hidden" value="1" /><input type="number"
-										onchange="updateProductInCart(this,4)" min="1" value="1" />
-								</div>
-								<div class="col-sm-6 col-md-2">
-									<span>190 euro</span>
-								</div>
-								<div class="col-sm-6 col-md-1">
-									<a class="remove-product" href="javascript:void(0)"
-										onclick="deleteProductInCart(4)"><span
-										class="glyphicon glyphicon-trash"></span></a>
-								</div>
-							</div>
-						</div>
+								<hr />
+							</c:forEach>
+						</c:if>
+						<c:if test="${ empty cart }">
+							<h4 style="text-align: center; color: gray">Empty</h4>
+						</c:if>
 					</div>
 				</div>
 			</div>
@@ -318,7 +300,7 @@
 						<p>
 							<span>Total</span> <span class="price-total">420 euro</span>
 						</p>
-						<input type="button" name="back-shopping" class="btn btn-default"
+						<input type="button" data-dismiss="modal" class="btn btn-default"
 							value="Continue shopping" /> <input type="button"
 							name="checkout" class="btn btn-primary" value="Check out" />
 					</div>

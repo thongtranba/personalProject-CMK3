@@ -84,13 +84,7 @@
 								</div>
 							</div>
 							<div class="button-product-action clearfix">
-								<div class="cart icon">
-									<a class="btn btn-outline-inverse buy"
-										product-id="addToCart?id=<c:out value="${product.id}" />"
-										href="javascript:void(0)" title="add to cart"> add to cart
-										<i class="fa fa-shopping-cart"></i>
-									</a>
-								</div>
+							
 								<div class="quickview icon">
 									<a class="btn btn-outline-inverse"
 										href="productDetail?id=<c:out value="${product.id}" />"
@@ -125,13 +119,7 @@
 								</div>
 							</div>
 							<div class="button-product-action clearfix">
-								<div class="cart icon">
-									<a class="btn btn-outline-inverse buy"
-										product-id="addToCart?id=<c:out value="${product.id}" />"
-										href="javascript:void(0)" title="add to cart"> add to cart
-										<i class="fa fa-shopping-cart"></i>
-									</a>
-								</div>
+								
 								<div class="quickview icon">
 									<a class="btn btn-outline-inverse"
 										href="productDetail?id=<c:out value="${product.id}" />"

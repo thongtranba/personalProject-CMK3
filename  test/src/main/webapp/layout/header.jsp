@@ -1,5 +1,5 @@
 <header>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 	<!-- use for ajax -->
 	<input type="hidden" id="reference" value="" />
 	<!-- Top Navbar -->
@@ -81,15 +81,15 @@
 
 			</c:if>
 			<c:if test="${sessionScope.name != null}">
-						
-				<li><a href="javascript:void(0)" class="fa fa-user-check btn-logout"></a>
-				</li>
+
+				<li><a href="javascript:void(0)"
+					class="fa fa-user-check btn-logout"></a></li>
 
 			</c:if>
 
 			<li class="cart"><a href="javascript:void(0)"
-				class="btn-cart-detail" title="Cart"><i
-					class="fa fa-shopping-cart"></i> <span class="number-total-product">2</span></a></li>
+				class="btn-cart-detail" title="Cart"> <i
+					class="fa fa-shopping-cart"></i> <span class="number-total-product">${empty sessionScope.cart? 0 : sessionScope.cart.size() }</span></a></li>
 		</ul>
 	</div>
 </nav>
