@@ -10,23 +10,20 @@ import java.util.List;
 import JDBCUtil.JDBCUtil;
 import model.Product;
 
-
 public class ProductDAO {
-	
 
 	private static final String INSERT_PRODUCT_SQL = "INSERT INTO product"
 			+ "  (name, inventoryQuantity, price, brandId, categoryId, description) VALUES " + " (?, ?, ?, ?, ?, ?);";
 	private static final String SELECT_PRODUCT_BY_ID = "select product.*, brand.name as brandName from product join brand on product.brandId = brand.id where product.id =?";
 	private static final String SELECT_POPULAR_PRODUCT = "select * from product where price < 90 limit 8";
 	private static final String SELECT_LATEST_PRODUCT = "select * from product where price < 150 limit 4";
+	private static final String SELECT_SERVICE = "select * from product where categoryId = '5' limit 6";
+	private static final String SELECT_RELATED_PRODUCTS ="select * from product where price < 100 limit 8";
 	private static final String DELETE_PRODUCT_SQL = "delete from product where id = ?;";
 	private static final String UPDATE_PRODUCT_SQL = "update product set name = ?, inventoryQuantity= ?, price= ?, brandId= ?, categoryId =?, description =? where id = ?";
 	private static final String SELECT_PRODUCT_BY_CATEGORYID = "select * from product where categoryId =?";
 	private static final String SELECT_ALL_PRODUCT = "select * from product";
-	
-	
-	
-	
+
 	public List<Product> selectAllProducts() {
 		List<Product> products = new ArrayList<>();
 		try (Connection connection = JDBCUtil.getConnection();
@@ -113,20 +110,19 @@ public class ProductDAO {
 				String description = rs.getString("description");
 				String image = rs.getString("image");
 				product = new Product(id, name, inventory_quantity, price, brandName, categoryId, description, image);
-				
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return product;
 	}
-	
 
 	public List<Product> selectPopularProducts() {
 		List<Product> products = new ArrayList<>();
 		try (Connection connection = JDBCUtil.getConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(SELECT_POPULAR_PRODUCT);) {
-			
+
 			System.out.println(preparedStatement);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
@@ -146,11 +142,62 @@ public class ProductDAO {
 		}
 		return products;
 	}
+
 	public List<Product> selectLatestProducts() {
 		List<Product> products = new ArrayList<>();
 		try (Connection connection = JDBCUtil.getConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(SELECT_LATEST_PRODUCT);) {
-			
+
+			System.out.println(preparedStatement);
+			ResultSet rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				String name = rs.getString("name");
+				int inventory_quantity = rs.getInt("inventory_quantity");
+				double price = rs.getDouble("price");
+				int brandId = rs.getInt("brandId");
+				int categoryId = rs.getInt("categoryId");
+				String description = rs.getString("description");
+				String image = rs.getString("image");
+				products.add(new Product(id, name, inventory_quantity, price, brandId, categoryId, description, image));
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return products;
+	}
+	
+	public List<Product> selectService() {
+		List<Product> products = new ArrayList<>();
+		try (Connection connection = JDBCUtil.getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(SELECT_SERVICE);) {
+
+			System.out.println(preparedStatement);
+			ResultSet rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				String name = rs.getString("name");
+				int inventory_quantity = rs.getInt("inventory_quantity");
+				double price = rs.getDouble("price");
+				int brandId = rs.getInt("brandId");
+				int categoryId = rs.getInt("categoryId");
+				String description = rs.getString("description");
+				String image = rs.getString("image");
+				products.add(new Product(id, name, inventory_quantity, price, brandId, categoryId, description, image));
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return products;
+	}
+	
+	public List<Product> selectRelatedProducts() {
+		List<Product> products = new ArrayList<>();
+		try (Connection connection = JDBCUtil.getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(SELECT_RELATED_PRODUCTS);) {
+
 			System.out.println(preparedStatement);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
@@ -194,6 +241,28 @@ public class ProductDAO {
 		return products;
 	}
 	
-	
+
+	private static final String SELECT_PRODUCT_BY_ORDER_ID = "select * from product join orderItem on orderItem.productId = product.id join bathongshop.order on bathongshop.order.id = orderItem.orderId where bathongshop.order.id = ?";
+
+	public List<Product> selectAllProductByOrderId(int orderId) {
+		List<Product> products = new ArrayList<>();
+		try (Connection connection = JDBCUtil.getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(SELECT_PRODUCT_BY_ORDER_ID);) {
+			preparedStatement.setInt(1, orderId);
+			System.out.println(preparedStatement);
+			ResultSet rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				String name = rs.getString("name");
+				double price = rs.getDouble("price");
+				String image = rs.getString("image");
+				products.add(new Product(id, name, price, image));
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return products;
+	}
 
 }

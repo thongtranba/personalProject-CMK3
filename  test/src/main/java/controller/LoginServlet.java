@@ -47,10 +47,13 @@ public class LoginServlet extends HttpServlet {
           try {
         	  Customer customer = loginDAO.validate(email, password);
               if (customer == null) {
-            	  response.sendRedirect("HomeServlet");
+            	  response.sendRedirect("rackets.jsp");
               }else {
             	  HttpSession session = request.getSession(false);
-            	  session.setAttribute("name", customer.getUsername());
+            	  session.setAttribute("customerId", customer.getId());
+            	  session.setAttribute("username", customer.getUsername());
+            	  session.setAttribute("mobile", customer.getMobile());
+            	  session.setAttribute("address", customer.getAddress());
             	  response.sendRedirect("HomeServlet");
               } 
           } catch (Exception e) {

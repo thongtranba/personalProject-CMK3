@@ -17,7 +17,7 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <ol class="breadcrumb">
-                            <li><a href="home.jsp" target="_self">Home</a></li>
+                            <li><a href="HomeServlet" target="_self">Home</a></li>
                             <li><span>/</span></li>
                             <li class="active"><span>Contact</span></li> 
                         </ol>
@@ -45,7 +45,7 @@
                                     
                                     <div class="form-group col-sm-12">
                                         
-                                        <textarea class="form-control" placeholder="Your message" name="content" rows="10" required></textarea>
+                                        <textarea class="form-control" placeholder="Your message" name="content" rows="11" required></textarea>
                                     </div>
                                     <div class="form-group col-sm-12">
                                         <button type="submit" class="btn btn-sm btn-primary pull-right">Send</button>

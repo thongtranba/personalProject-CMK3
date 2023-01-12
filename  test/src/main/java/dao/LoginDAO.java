@@ -30,8 +30,9 @@ public class LoginDAO {
 			if (rs.next()) {
 				int id = rs.getInt("id");
 				String username = rs.getString("username");
-
-				customer = new Customer(id, username, email);
+				String mobile = rs.getString("mobile");
+				String address = rs.getString("address");
+				customer = new Customer(id, username, mobile, address);
 				
 			} else {
 				

@@ -64,7 +64,7 @@ public class CustomerServlet extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			RequestDispatcher dispatcher = request.getRequestDispatcher("HomeSevlet");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("HomeServlet");
 	        dispatcher.forward(request, response);
 			 
 	    }

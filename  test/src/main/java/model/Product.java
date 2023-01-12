@@ -23,7 +23,6 @@ public class Product {
 		this.description = description;
 		this.image = image;
 	}
-	
 
 	public Product(int id, String name, int inventory_quantity, double price, String brandName, int categoryId,
 			String description, String image) {
@@ -36,19 +35,24 @@ public class Product {
 		this.categoryId = categoryId;
 		this.description = description;
 		this.image = image;
-		
+
 	}
 
+	public Product(int id, String name, double price, String image) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.price = price;
+		this.image = image;
+	}
 
 	public String getBrandName() {
 		return brandName;
 	}
 
-
 	public void setBrandName(String brandName) {
 		this.brandName = brandName;
 	}
-
 
 	public int getId() {
 		return id;

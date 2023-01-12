@@ -14,7 +14,7 @@
         <div class="row">
           <div class="col-xs-12">
             <ol class="breadcrumb">
-              <li><a href="homeServlet" target="_self">Home</a></li>
+              <li><a href="HomeServlet" target="_self">Home</a></li>
               <li><span>/</span></li>
               <li class="active"><span>Delivery</span></li>
             </ol>

@@ -8,11 +8,12 @@
 						<div class="footerLink">
 							<h4>Shop</h4>
 							<ul class="list-unstyled">
-								<li><a href="rackets?categoryId=1"> Rackets </a></li>
-								<li><a href="bags?categoryId=2">Bags</a></li>
-								<li><a href="clothing?categoryId=3">Clothing</a></li>
-								<li><a href="shoes?categoryId=4">Shoes</a></li>
-								<li><a href="strings?categoryId=5">Strings</a></li>
+								<li><a href="category?command=rackets&categoryId=1">
+										Rackets </a></li>
+								<li><a href="category?command=bags&categoryId=2">Bags</a></li>
+								<li><a href="category?command=clothing&categoryId=3">Clothing</a></li>
+								<li><a href="category?command=shoes&categoryId=4">Shoes</a></li>
+								<li><a href="category?command=strings&categoryId=5">Strings</a></li>
 							</ul>
 						</div>
 					</div>
@@ -113,9 +114,11 @@
 							name="address" placeholder="Address" required />
 					</div>
 
-					<input type="hidden" name="reference" value="${NOTIFICATION}" />
+					<div class="text-left">
+						<a href="javascript:void(0)" data-dismiss="modal"
+							class="btn-login">You are already a member? Sign in!</a>
+					</div>
 				</div>
-
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">
 						Cancle</button>
@@ -150,6 +153,8 @@
 					<input type="hidden" name="reference" value="" />
 				</div>
 				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">
+						Cancle</button>
 					<button type="submit" class="btn btn-primary">Login</button>
 					<br />
 					<div class="text-left">
@@ -170,18 +175,21 @@
 			<div class="modal-header bg-color">
 				<button type="button" class="close" data-dismiss="modal"
 					aria-hidden="true">x</button>
-				<h3 class="modal-title text-center">Hi,${sessionScope.name}</h3>
-
+				<h3 class="modal-title text-center">Hi,${sessionScope.username}</h3>
 				<br />
 			</div>
 
 			<div class="modal-body">
 				<div class="form-group">
-					<a href="#">Order</a>
+					<a href="myInformation.jsp">My information</a>
+				</div>
+				<div class="form-group">
+					<a href="myPurchase?command=MY_ORDER&id=${sessionScope.customerId}">My
+						purchase</a>
 
 				</div>
 				<div class="form-group">
-					<a href="#">Information</a>
+					<a href="contact.jsp">Contact us</a>
 
 				</div>
 
@@ -235,7 +243,9 @@
 				<div class="page-content">
 					<div class="clearfix hidden-sm hidden-xs">
 						<div class="col-xs-1"></div>
-						<div class="col-xs-2"><div class="header">Image</div></div>
+						<div class="col-xs-2">
+							<div class="header">Image</div>
+						</div>
 						<div class="col-xs-2">
 							<div class="header">Product</div>
 						</div>
@@ -266,7 +276,8 @@
 											</div>
 										</div>
 										<div class="col-sm-6 col-md-2">
-											<a class="product-name" href="#">${item.value.name }</a>
+											<a class="product-name"
+												href="productDetail?id=${item.value.id}">${item.value.name }</a>
 										</div>
 										<div class="col-sm-6 col-md-2">
 											<span class="product-item-discount">${item.value.price }</span>
@@ -279,6 +290,7 @@
 											<span>230 euro</span>
 										</div>
 										<div class="col-sm-6 col-md-1">
+
 											<a class="remove-product"
 												href="addToCartServlet?command=REMOVE&productId=${item.key }"><span
 												class="glyphicon glyphicon-trash"></span></a>
@@ -301,8 +313,16 @@
 							<span>Total</span> <span class="price-total">420 euro</span>
 						</p>
 						<input type="button" data-dismiss="modal" class="btn btn-default"
-							value="Continue shopping" /> <input type="button"
-							name="checkout" class="btn btn-primary" value="Check out" />
+							value="Continue shopping" />
+
+						<c:if test="${sessionScope.username != null && !empty cart }">
+							<input type="button" name="checkout" class="btn btn-primary"
+								value="Check out" />
+						</c:if>
+						<c:if test="${sessionScope.username == null && !empty cart }">
+							<input type="button" data-dismiss="modal"
+								class="btn btn-primary btn-login" value="Check out" />
+						</c:if>
 					</div>
 				</div>
 			</div>

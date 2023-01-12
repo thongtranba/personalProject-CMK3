@@ -5,11 +5,11 @@
 	<!-- Top Navbar -->
 	<div class="top-navbar container-fluid">
 		<div class="menu-mb">
-			<li><a href="rackets?categoryId=1"> Rackets </a></li>
-			<li><a href="bags?categoryId=2">Bags</a></li>
-			<li><a href="clothing?categoryId=3">Clothing</a></li>
-			<li><a href="shoes?categoryId=4">Shoes</a></li>
-			<li><a href="strings?categoryId=5">Strings</a></li>
+			<li><a href="category?command=rackets&categoryId=1"> Rackets </a></li>
+			<li><a href="category?command=bags&categoryId=2">Bags</a></li>
+			<li><a href="category?command=clothing&categoryId=3">Clothing</a></li>
+			<li><a href="category?command=shoes&categoryId=4">Shoes</a></li>
+			<li><a href="category?command=strings&categoryId=5">Strings</a></li>
 		</div>
 		<div class="row">
 			<div class="hidden-lg hidden-md col-sm-2 col-xs-1">
@@ -67,20 +67,20 @@
 <nav class="navbar navbar-default desktop-menu">
 	<div class="container">
 		<ul class="nav navbar-nav navbar-left hidden-sm hidden-xs">
-			<li><a href="rackets?categoryId=1"> Rackets </a></li>
-			<li><a href="bags?categoryId=2">Bags</a></li>
-			<li><a href="clothing?categoryId=3">Clothing</a></li>
-			<li><a href="shoes?categoryId=4">Shoes</a></li>
-			<li><a href="strings?categoryId=5">Strings</a></li>
+			<li><a href="category?command=rackets&categoryId=1"> Rackets </a></li>
+			<li><a href="category?command=bags&categoryId=2">Bags</a></li>
+			<li><a href="category?command=clothing&categoryId=3">Clothing</a></li>
+			<li><a href="category?command=shoes&categoryId=4">Shoes</a></li>
+			<li><a href="category?command=strings&categoryId=5">Strings</a></li>
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
-			<c:if test="${sessionScope.name == null}">
+			<c:if test="${sessionScope.username == null}">
 
 				<li><a href="javascript:void(0)" class="fa fa-user btn-login"></a>
 				</li>
 
 			</c:if>
-			<c:if test="${sessionScope.name != null}">
+			<c:if test="${sessionScope.username != null}">
 
 				<li><a href="javascript:void(0)"
 					class="fa fa-user-check btn-logout"></a></li>

@@ -1,23 +1,35 @@
 package model;
 
+import java.sql.Date;
+
 public class Order {
 	private int id;
-	private int userId;
-	private String createdDate;
-	private String productName;
-	private double totalPrice;
+	private int customerId;
+	private Date createdDate;
+//	private boolean approve;
 
-	public Order(int id, int userId, String createdDate, String productName, double totalPrice) {
+	public Order(int id, int customerId, Date createdDate) {
 		super();
 		this.id = id;
-		this.userId = userId;
+		this.customerId = customerId;
 		this.createdDate = createdDate;
-		this.productName = productName;
-		this.totalPrice = totalPrice;
+
+	}
+
+	public Order(int customerId) {
+		super();
+		this.customerId = customerId;
+
 	}
 
 	public Order() {
+
+	}
+
+	public Order(int id, Date createdDate) {
 		super();
+		this.id = id;
+		this.createdDate = createdDate;
 	}
 
 	public int getId() {
@@ -28,36 +40,20 @@ public class Order {
 		this.id = id;
 	}
 
-	public int getUserId() {
-		return userId;
+	public int getCustomerId() {
+		return customerId;
 	}
 
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public void setCustomerId(int customerId) {
+		this.customerId = customerId;
 	}
 
-	public String getCreatedDate() {
+	public Date getCreatedDate() {
 		return createdDate;
 	}
 
-	public void setCreatedDate(String createdDate) {
+	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
-	}
-
-	public String getProductName() {
-		return productName;
-	}
-
-	public void setProductName(String productName) {
-		this.productName = productName;
-	}
-
-	public double getTotalPrice() {
-		return totalPrice;
-	}
-
-	public void setTotalPrice(double totalPrice) {
-		this.totalPrice = totalPrice;
 	}
 
 }

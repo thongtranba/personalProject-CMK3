@@ -15,7 +15,7 @@
 			<div class="row">
 				<div class="col-xs-9">
 					<ol class="breadcrumb">
-						<li><a href="home.jsp" target="_self">Home</a></li>
+						<li><a href="HomeServlet" target="_self">Home</a></li>
 						<li><span>/</span></li>
 						<li class="active"><span>Bags</span></li>
 					</ol>
@@ -28,78 +28,7 @@
 				<div class="clearfix"></div>
 				<aside class="col-md-3">
 					<div class="inner-aside">
-						<div class="category">
-							<h5>Owner</h5>
-							<ul>
-								<li class="active"><a href="#" title="Women" target="_self">Women
-								</a></li>
-								<li class=""><a href="#" title="Men" target="_self">Men</a>
-								</li>
-								<li class=""><a href="#" title="Kid" target="_self">Kid</a>
-								</li>
-							</ul>
-						</div>
-						<div class="category">
-							<h5>Size</h5>
-							<ul>
-								<li class="active"><a href="#" title="1 compartment"
-									target="_self">1 compartment </a></li>
-								<li class=""><a href="#" title="2 compartments"
-									target="_self">2 compartments</a></li>
-								<li class=""><a href="#" title="3 compartments"
-									target="_self">3 compartments</a></li>
-								<li class=""><a href="#" title="backpack" target="_self">Backpack</a>
-								</li>
-							</ul>
-						</div>
-						<div class="category">
-							<h5>Brand</h5>
-							<ul>
-								<li class="active"><a href="#" title="Yonex" target="_self">Yonex
-								</a></li>
-								<li class=""><a href="#" title="Lining" target="_self">Lining</a>
-								</li>
-								<li class=""><a href="#" title="Victor" target="_self">Victor</a>
-								</li>
-								<li class=""><a href="#" title="Forza" target="_self">Forza</a>
-								</li>
-								<li class=""><a href="#" title="RSL" target="_self">RSL</a>
-								</li>
-
-								<li class=""><a href="#" title="SERV" target="_self">SERV</a>
-								</li>
-							</ul>
-						</div>
-						<div class="price-range">
-							<h5>Price</h5>
-							<ul>
-								<li><label for="filter-less-100"> <input
-										type="radio" id="filter-less-50" name="filter-price"
-										value="0-50" /> <i class="fa"></i>
-										under 50 eur
-								</label></li>
-								<li><label for="filter-50-150"> <input type="radio"
-										id="filter-50-150" name="filter-price" value="50-150" />
-										<i class="fa"></i> 50-100 eur
-								</label></li>
-								<li><label for="filter-100-500"> <input
-										type="radio" id="filter-50-150" name="filter-price"
-										value="100-500" /> <i class="fa"></i>
-										100-500 eur
-								</label></li>
-								<li><label for="filter-500-1000"> <input
-										type="radio" id="filter-50-150" name="filter-price"
-										value="500-1000" /> <i class="fa"></i>
-										500-1000 eur
-								</label></li>
-
-								<li><label for="filter-greater-1000"> <input
-										type="radio" id="filter-greater-1000" name="filter-price"
-										value="1000" /> <i class="fa"></i>
-										greater 1000 eur
-								</label></li>
-							</ul>
-						</div>
+						<jsp:include page="layout/asideMenu.jsp" />
 					</div>
 				</aside>
 				<div class="col-md-9 products">
@@ -108,18 +37,7 @@
 							<h4 class="home-title">Bags</h4>
 						</div>
 						<div class="col-xs-6 sort-by">
-							<div class="pull-right">
-								<label class="left hidden-xs" for="sort-select">Sort: </label> <select
-									id="sort-select">
-									<option value="" selected>Default</option>
-									<option value="price-asc">Price increment</option>
-									<option value="price-desc">Price decrement</option>
-									<option value="alpha-asc">A-Z</option>
-									<option value="alpha-desc">Z-A</option>
-									<option value="created-asc">Oldest</option>
-									<option value="created-desc">Newest</option>
-								</select>
-							</div>
+							<jsp:include page="layout/sort.jsp" />
 						</div>
 						<div class="clearfix"></div>
 						<c:forEach var="bag" items="${listBags}">

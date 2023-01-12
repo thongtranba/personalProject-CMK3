@@ -47,6 +47,7 @@ $(function () {
     $("#modal-logout").modal("show");
 
   });
+  
  
   $(".modal").on("hide.bs.modal", function (e) {
     e.stopPropagation();
@@ -112,12 +113,13 @@ $(function () {
 
   $("input[name=checkout]").click(function (event) {
     /* Act on the event */
-    window.location.href = "dat-hang.html";
+    window.location.href = "order.jsp";
   });
+  
 
   $("input[name=back-shopping]").click(function (event) {
     /* Act on the event */
-    window.location.href = "san-pham.html";
+    window.location.href = "HomeServlet";
   });
 
  
