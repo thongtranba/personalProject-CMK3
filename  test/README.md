@@ -4,9 +4,11 @@ This is a web application that demonstrates an E-commerce website using the MVC 
 
 ## Features
 
-- Select product to show the detail
-- Customer register and login
+- Show products by category
+- Customer register and login/logout
+- Select product to show the product detail
 - Add to cart
+- Order history by CustomerId
 
 ## Road map
 
@@ -19,7 +21,7 @@ This is a web application that demonstrates an E-commerce website using the MVC 
 - Java fundamental (OOP + data structure + algorithm) with Eclipse
 - ERD relationship and design
 ![App Screenshot](https://live.staticflickr.com/65535/52586226353_a866d87f8c_b.jpg)
-- MVC: Servlet + JSP + JDBC + CRUD
+- Model-View-Control: Servlet + JSP + JDBC + CRUD
 - SQL: query, tables and sample data with Workbench
 
 ![App Screenshot](https://live.staticflickr.com/65535/52585970304_3b63d91f63_m.jpg)
@@ -49,5 +51,6 @@ Here are some screenshots that show the E-commerce demo application in use
 
 #### My purchase:
 ![App Screenshot](https://live.staticflickr.com/65535/52623597929_cded077ea5_k.jpg)
+
 #### Order detail:
 ![App Screenshot](https://live.staticflickr.com/65535/52623826233_8328dc8900_k.jpg)
