@@ -80,7 +80,7 @@ public class AddToCartServlet extends HttpServlet {
 					
 				}	
 				session.removeAttribute("cart");
-				response.sendRedirect("HomeServlet");
+				response.sendRedirect("payment.jsp");
 			}
 
 		} catch (Exception e) {

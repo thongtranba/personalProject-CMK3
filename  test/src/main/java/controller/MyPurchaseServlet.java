@@ -23,7 +23,7 @@ import model.Product;
  * Servlet implementation class MyPurchase
  */
 @WebServlet("/myPurchase")
-public class MyPurchase extends HttpServlet {
+public class MyPurchaseServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	ProductDAO productDAO = new ProductDAO();
 	OrderItemDAO orderItemDAO = new OrderItemDAO();
@@ -32,7 +32,7 @@ public class MyPurchase extends HttpServlet {
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public MyPurchase() {
+	public MyPurchaseServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}

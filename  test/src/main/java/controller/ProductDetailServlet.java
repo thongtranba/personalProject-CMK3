@@ -17,14 +17,14 @@ import model.Product;
  * Servlet implementation class ProductDetail
  */
 @WebServlet("/productDetail")
-public class ProductDetail extends HttpServlet {
+public class ProductDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ProductDAO productDAO = new ProductDAO();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ProductDetail() {
+	public ProductDetailServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}

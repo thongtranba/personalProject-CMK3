@@ -2,7 +2,7 @@ package controller;
 
 import java.io.IOException;
 
-
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -47,7 +47,9 @@ public class LoginServlet extends HttpServlet {
           try {
         	  Customer customer = loginDAO.validate(email, password);
               if (customer == null) {
-            	  response.sendRedirect("rackets.jsp");
+            	  request.setAttribute("loginNotification", "Login fail!!");
+            	  RequestDispatcher dispatcher = request.getRequestDispatcher("notification.jsp");
+      			dispatcher.forward(request, response);
               }else {
             	  HttpSession session = request.getSession(false);
             	  session.setAttribute("customerId", customer.getId());

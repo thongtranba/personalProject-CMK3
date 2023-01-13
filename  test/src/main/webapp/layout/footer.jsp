@@ -113,6 +113,10 @@
 						<input type="address" class="form-control" id="address"
 							name="address" placeholder="Address" required />
 					</div>
+					<div class="form-group">
+						<input type="hidden" class="form-control" id="notification"
+							name="notification" value="${notification}" />
+					</div>
 
 					<div class="text-left">
 						<a href="javascript:void(0)" data-dismiss="modal"
@@ -122,13 +126,15 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">
 						Cancle</button>
-					<button type="submit" class="btn btn-primary">Register</button>
+					<button type="submit" class="btn btn-primary ">Register</button>
 				</div>
 			</form>
 		</div>
 	</div>
 </div>
 <!-- END REGISTER DIALOG -->
+
+
 <!-- LOGIN DIALOG -->
 <div class="modal fade" id="modal-login" role="dialog">
 	<div class="modal-dialog">
@@ -168,8 +174,8 @@
 	</div>
 </div>
 <!-- END LOGIN DIALOG -->
-<!-- LOGOUT DIALOG -->
-<div class="modal fade" id="modal-logout" role="dialog">
+<!-- USER DIALOG -->
+<div class="modal fade" id="modal-user" role="dialog">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header bg-color">
@@ -178,32 +184,35 @@
 				<h3 class="modal-title text-center">Hi,${sessionScope.username}</h3>
 				<br />
 			</div>
+			<form action="logoutServlet" method="GET" role="form">
+				<div class="modal-body">
+					<div class="form-group">
+						<a href="myInformation.jsp">My information</a>
+					</div>
+					<div class="form-group">
+						<a
+							href="myPurchase?command=MY_ORDER&id=${sessionScope.customerId}">My
+							purchase</a>
 
-			<div class="modal-body">
-				<div class="form-group">
-					<a href="myInformation.jsp">My information</a>
+					</div>
+					<div class="form-group">
+						<a href="contact.jsp">Contact us</a>
+
+					</div>
+
 				</div>
-				<div class="form-group">
-					<a href="myPurchase?command=MY_ORDER&id=${sessionScope.customerId}">My
-						purchase</a>
-
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">
+						Cancle</button>
+					<button type="submit" class="btn btn-primary">Logout</button>
+				
 				</div>
-				<div class="form-group">
-					<a href="contact.jsp">Contact us</a>
-
-				</div>
-
-			</div>
-			<div class="modal-footer">
-
-				<a href="logoutServlet">Logout</a>
-
-			</div>
-
+				</form>
 		</div>
+		
 	</div>
 </div>
-<!-- END LOGOUT DIALOG -->
+<!-- END USER DIALOG -->
 <!-- FORTGOT PASSWORD DIALOG -->
 <div class="modal fade" id="modal-forgot-password" role="dialog">
 	<div class="modal-dialog">

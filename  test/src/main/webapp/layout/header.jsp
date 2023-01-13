@@ -83,7 +83,7 @@
 			<c:if test="${sessionScope.username != null}">
 
 				<li><a href="javascript:void(0)"
-					class="fa fa-user-check btn-logout"></a></li>
+					class="fa fa-user-check btn-user"></a></li>
 
 			</c:if>
 
