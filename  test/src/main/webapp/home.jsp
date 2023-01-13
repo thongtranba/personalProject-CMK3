@@ -14,10 +14,8 @@
 	<!-- SLIDESHOW -->
 	<jsp:include page="layout/carousel.jsp" />
 	<!-- END SLIDESHOW -->
-
-
+	
 	<main id="maincontent" class="page-main">
-
 		<div class="container">
 			<div class="row equal">
 				<div class="col-xs-12">
@@ -27,7 +25,8 @@
 					<div class="col-xs-6 col-sm-3">
 						<div class="product-container">
 							<div class="image">
-								<img class="img-responsive" src="${product.image }" alt="${product.name}" />
+								<img class="img-responsive" src="${product.image }"
+									alt="${product.name}" />
 							</div>
 							<div class="product-meta">
 								<h5 class="name">
@@ -62,7 +61,8 @@
 					<div class="col-xs-6 col-sm-3">
 						<div class="product-container">
 							<div class="image">
-								<img class="img-responsive" src="${product.image }" alt="${product.name }" />
+								<img class="img-responsive" src="${product.image }"
+									alt="${product.name }" />
 							</div>
 							<div class="product-meta">
 								<h5 class="name">

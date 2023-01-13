@@ -18,7 +18,7 @@ public class ProductDAO {
 	private static final String SELECT_POPULAR_PRODUCT = "select * from product where price < 90 limit 8";
 	private static final String SELECT_LATEST_PRODUCT = "select * from product where price < 150 limit 4";
 	private static final String SELECT_SERVICE = "select * from product where categoryId = '5' limit 6";
-	private static final String SELECT_RELATED_PRODUCTS ="select * from product where price < 100 limit 8";
+	private static final String SELECT_RELATED_PRODUCTS = "select * from product where price < 100 limit 8";
 	private static final String DELETE_PRODUCT_SQL = "delete from product where id = ?;";
 	private static final String UPDATE_PRODUCT_SQL = "update product set name = ?, inventoryQuantity= ?, price= ?, brandId= ?, categoryId =?, description =? where id = ?";
 	private static final String SELECT_PRODUCT_BY_CATEGORYID = "select * from product where categoryId =?";
@@ -167,7 +167,7 @@ public class ProductDAO {
 		}
 		return products;
 	}
-	
+
 	public List<Product> selectService() {
 		List<Product> products = new ArrayList<>();
 		try (Connection connection = JDBCUtil.getConnection();
@@ -192,7 +192,7 @@ public class ProductDAO {
 		}
 		return products;
 	}
-	
+
 	public List<Product> selectRelatedProducts() {
 		List<Product> products = new ArrayList<>();
 		try (Connection connection = JDBCUtil.getConnection();
@@ -217,6 +217,7 @@ public class ProductDAO {
 		}
 		return products;
 	}
+
 	public List<Product> selectAllProductByCategoryId(int categoryId) {
 		List<Product> products = new ArrayList<>();
 		try (Connection connection = JDBCUtil.getConnection();
@@ -240,7 +241,34 @@ public class ProductDAO {
 		}
 		return products;
 	}
-	
+
+	private static final String SEARCH_PRODUCTS = "select * from product join brand on brand.id = product.brandId where product.name = ? or brand.name = ?";
+
+	public List<Product> searchProducts(String searchString) {
+		List<Product> products = new ArrayList<>();
+		try (Connection connection = JDBCUtil.getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(SEARCH_PRODUCTS);) {
+			preparedStatement.setString(1, searchString);
+			preparedStatement.setString(2, searchString);
+			System.out.println(preparedStatement);
+			ResultSet rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				String name = rs.getString("name");
+				int inventory_quantity = rs.getInt("inventory_quantity");
+				double price = rs.getDouble("price");
+				int brandId = rs.getInt("brandId");
+				int categoryId = rs.getInt("categoryId");
+				String description = rs.getString("description");
+				String image = rs.getString("image");
+				products.add(new Product(id, name, inventory_quantity, price, brandId, categoryId, description, image));
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return products;
+	}
 
 	private static final String SELECT_PRODUCT_BY_ORDER_ID = "select * from product join orderItem on orderItem.productId = product.id join bathongshop.order on bathongshop.order.id = orderItem.orderId where bathongshop.order.id = ?";
 

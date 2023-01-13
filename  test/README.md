@@ -6,7 +6,8 @@ This is a web application that demonstrates an E-commerce website using the MVC 
 
 - Show products by category
 - Customer register and login/logout
-- Select product to show the product detail
+- Show the seleacted product detail
+- Search products by product name or brand name
 - Add to cart
 - Order history by CustomerId
 
@@ -39,6 +40,9 @@ Here are some screenshots that show the E-commerce demo application in use
 
 #### Product detail:
 ![App Screenshot](https://live.staticflickr.com/65535/52586175950_7d24330223_k.jpg)
+
+#### Search products:
+![App Screenshot](https://live.staticflickr.com/65535/52625472739_ac8e4fd981_k.jpg)
 
 #### Shopping cart:
 ![App Screenshot](https://live.staticflickr.com/65535/52586089500_410a011dc9_k.jpg)

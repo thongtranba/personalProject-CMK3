@@ -5,7 +5,8 @@
 	<!-- Top Navbar -->
 	<div class="top-navbar container-fluid">
 		<div class="menu-mb">
-			<li><a href="category?command=rackets&categoryId=1"> Rackets </a></li>
+			<li><a href="category?command=rackets&categoryId=1"> Rackets
+			</a></li>
 			<li><a href="category?command=bags&categoryId=2">Bags</a></li>
 			<li><a href="category?command=clothing&categoryId=3">Clothing</a></li>
 			<li><a href="category?command=shoes&categoryId=4">Shoes</a></li>
@@ -43,7 +44,7 @@
 
 			<!-- SERCH -->
 			<div class="col-lg-6 col-md-6 col-sm-10 hotline-search">
-				<form class="header-form" action="">
+				<form class="header-form" action="searchServlet">
 					<div class="input-group">
 						<input type="search" class="form-control search"
 							placeholder="Search your products" name="search"
@@ -53,8 +54,7 @@
 								<i class="fa fa-search" style="color: #fff"></i>
 							</button>
 						</div>
-						<input type="hidden" name="c" value="product" /> <input
-							type="hidden" name="a" value="list" />
+						
 					</div>
 					<div class="search-result"></div>
 				</form>
@@ -67,7 +67,8 @@
 <nav class="navbar navbar-default desktop-menu">
 	<div class="container">
 		<ul class="nav navbar-nav navbar-left hidden-sm hidden-xs">
-			<li><a href="category?command=rackets&categoryId=1"> Rackets </a></li>
+			<li><a href="category?command=rackets&categoryId=1"> Rackets
+			</a></li>
 			<li><a href="category?command=bags&categoryId=2">Bags</a></li>
 			<li><a href="category?command=clothing&categoryId=3">Clothing</a></li>
 			<li><a href="category?command=shoes&categoryId=4">Shoes</a></li>
