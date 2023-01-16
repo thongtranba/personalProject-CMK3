@@ -5,12 +5,14 @@
 	<!-- Top Navbar -->
 	<div class="top-navbar container-fluid">
 		<div class="menu-mb">
-			<li><a href="category?command=rackets&categoryId=1"> Rackets
-			</a></li>
-			<li><a href="category?command=bags&categoryId=2">Bags</a></li>
-			<li><a href="category?command=clothing&categoryId=3">Clothing</a></li>
-			<li><a href="category?command=shoes&categoryId=4">Shoes</a></li>
-			<li><a href="category?command=strings&categoryId=5">Strings</a></li>
+			<ul>
+				<li><a href="category?command=rackets&pageId=1"> Rackets </a></li>
+				<li><a href="category?command=bags&pageId=1">Bags</a></li>
+				<li><a href="category?command=clothing&pageId=1">Clothing</a></li>
+				<li><a href="category?command=shoes&pageId=1">Shoes</a></li>
+				<li><a href="category?command=strings&pageId=1">Strings</a></li>
+			</ul>
+
 		</div>
 		<div class="row">
 			<div class="hidden-lg hidden-md col-sm-2 col-xs-1">
@@ -26,7 +28,7 @@
 			<div class="col-md-6 col-sm-10 col-xs-11 top-right">
 				<ul class="list-inline pull-right">
 
-					<li><a href="#">>> Happy hour sale upto 60%</a></li>
+					<li><a href="#">>> Outlet products up to 60%</a></li>
 
 				</ul>
 			</div>
@@ -54,7 +56,7 @@
 								<i class="fa fa-search" style="color: #fff"></i>
 							</button>
 						</div>
-						
+
 					</div>
 					<div class="search-result"></div>
 				</form>
@@ -67,12 +69,11 @@
 <nav class="navbar navbar-default desktop-menu">
 	<div class="container">
 		<ul class="nav navbar-nav navbar-left hidden-sm hidden-xs">
-			<li><a href="category?command=rackets&categoryId=1"> Rackets
-			</a></li>
-			<li><a href="category?command=bags&categoryId=2">Bags</a></li>
-			<li><a href="category?command=clothing&categoryId=3">Clothing</a></li>
-			<li><a href="category?command=shoes&categoryId=4">Shoes</a></li>
-			<li><a href="category?command=strings&categoryId=5">Strings</a></li>
+			<li><a href="category?command=rackets&pageId=1"> Rackets </a></li>
+			<li><a href="category?command=bags&pageId=1">Bags</a></li>
+			<li><a href="category?command=clothing&pageId=1">Clothing</a></li>
+			<li><a href="category?command=shoes&pageId=1">Shoes</a></li>
+			<li><a href="category?command=strings&pageId=1">Strings</a></li>
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
 			<c:if test="${sessionScope.username == null}">

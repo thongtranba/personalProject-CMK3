@@ -21,7 +21,7 @@ public class ProductDAO {
 	private static final String SELECT_RELATED_PRODUCTS = "select * from product where price < 100 limit 8";
 	private static final String DELETE_PRODUCT_SQL = "delete from product where id = ?;";
 	private static final String UPDATE_PRODUCT_SQL = "update product set name = ?, inventoryQuantity= ?, price= ?, brandId= ?, categoryId =?, description =? where id = ?";
-	private static final String SELECT_PRODUCT_BY_CATEGORYID = "select * from product where categoryId =?";
+
 	private static final String SELECT_ALL_PRODUCT = "select * from product";
 
 	public List<Product> selectAllProducts() {
@@ -218,11 +218,34 @@ public class ProductDAO {
 		return products;
 	}
 
-	public List<Product> selectAllProductByCategoryId(int categoryId) {
+	private static final String COUNT_CATEGORY_PRODUCTS = "select count(*) from product where categoryId=? ";
+
+	public int totalCategoryProduct(int categoryId) {
+		int totalProducts = 0;
+		try (Connection connection = JDBCUtil.getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(COUNT_CATEGORY_PRODUCTS);) {
+			preparedStatement.setInt(1, categoryId);
+			System.out.println(preparedStatement);
+			ResultSet rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				totalProducts = rs.getInt("count(*)");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return totalProducts;
+	}
+
+	private static final String SELECT_PRODUCT_BY_CATEGORYID = "select * from product where categoryId =? limit ?,?";
+
+	public List<Product> selectAllProductByCategoryId(int categoryId, int pageId, int itemPerPage) {
+		int startItem = (pageId - 1) * itemPerPage;
 		List<Product> products = new ArrayList<>();
 		try (Connection connection = JDBCUtil.getConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(SELECT_PRODUCT_BY_CATEGORYID);) {
 			preparedStatement.setInt(1, categoryId);
+			preparedStatement.setInt(2, startItem);
+			preparedStatement.setInt(3, itemPerPage);
 			System.out.println(preparedStatement);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {

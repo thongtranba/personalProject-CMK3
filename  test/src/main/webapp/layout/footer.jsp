@@ -8,12 +8,12 @@
 						<div class="footerLink">
 							<h4>Shop</h4>
 							<ul class="list-unstyled">
-								<li><a href="category?command=rackets&categoryId=1">
+								<li><a href="category?command=rackets&pageId=1">
 										Rackets </a></li>
-								<li><a href="category?command=bags&categoryId=2">Bags</a></li>
-								<li><a href="category?command=clothing&categoryId=3">Clothing</a></li>
-								<li><a href="category?command=shoes&categoryId=4">Shoes</a></li>
-								<li><a href="category?command=strings&categoryId=5">Strings</a></li>
+								<li><a href="category?command=bags&pageId=1">Bags</a></li>
+								<li><a href="category?command=clothing&pageId=1">Clothing</a></li>
+								<li><a href="category?command=shoes&pageId=1">Shoes</a></li>
+								<li><a href="category?command=strings&pageId=1">Strings</a></li>
 							</ul>
 						</div>
 					</div>
@@ -205,11 +205,11 @@
 					<button type="button" class="btn btn-default" data-dismiss="modal">
 						Cancle</button>
 					<button type="submit" class="btn btn-primary">Logout</button>
-				
+
 				</div>
-				</form>
+			</form>
 		</div>
-		
+
 	</div>
 </div>
 <!-- END USER DIALOG -->

@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.ProductDAO;
 import model.Product;
@@ -20,60 +21,64 @@ import model.Product;
 public class CategoryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ProductDAO productDAO = new ProductDAO();
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CategoryServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
-			String command = request.getParameter("command");
-			int categoryId = Integer.parseInt(request.getParameter("categoryId"));
-			if(command !=null && command.equals("rackets")) {
-				List<Product> listRacket = productDAO.selectAllProductByCategoryId(categoryId);
-				request.setAttribute("listRacket", listRacket);
-				RequestDispatcher dispatcher = request.getRequestDispatcher("rackets.jsp");
-				dispatcher.forward(request, response);
-			}else if(command !=null && command.equals("bags")) {
-				List<Product> listBags = productDAO.selectAllProductByCategoryId(categoryId);
-				request.setAttribute("listBags", listBags);
-				RequestDispatcher dispatcher = request.getRequestDispatcher("bags.jsp");
-				dispatcher.forward(request, response);
-			}else if(command !=null && command.equals("clothing")) {
-				List<Product> listCloth = productDAO.selectAllProductByCategoryId(categoryId);
-				request.setAttribute("listCloth", listCloth);
-				RequestDispatcher dispatcher = request.getRequestDispatcher("clothing.jsp");
-				dispatcher.forward(request, response);
-			}else if(command !=null && command.equals("shoes")) {
-				List<Product> listShoes = productDAO.selectAllProductByCategoryId(categoryId);
-				request.setAttribute("listShoes", listShoes);
-				RequestDispatcher dispatcher = request.getRequestDispatcher("shoes.jsp");
-				dispatcher.forward(request, response);
-			}else if(command !=null && command.equals("strings")) {
-				List<Product> listStrings = productDAO.selectAllProductByCategoryId(categoryId);
-				request.setAttribute("listStrings", listStrings);
-				RequestDispatcher dispatcher = request.getRequestDispatcher("strings.jsp");
-				dispatcher.forward(request, response);
-			}
-			
-			
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		
+	public CategoryServlet() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		try {
+			String command = request.getParameter("command");
+			int pageId = Integer.parseInt(request.getParameter("pageId"));
+			HttpSession session = request.getSession();
+			session.setAttribute("command", command);
+			int categoryId = 0;
+			switch (command) {
+			case "rackets":
+				categoryId = 1;
+				break;
+			case "bags":
+				categoryId = 2;
+				break;
+			case "clothing":
+				categoryId = 3;
+				break;
+			case "shoes":
+				categoryId = 4;
+				break;
+			case "strings":
+				categoryId = 5;
+				break;	
+			}		
+			int itemPerPage = 9;
+			int totalProducts = productDAO.totalCategoryProduct(categoryId);
+			int totalPage = totalProducts / itemPerPage;
+			request.setAttribute("totalPage", totalPage);
+			List<Product> categoryList = productDAO.selectAllProductByCategoryId(categoryId, pageId, itemPerPage);
+			request.setAttribute("categoryList", categoryList);	
+			RequestDispatcher dispatcher = request.getRequestDispatcher("category.jsp");
+			dispatcher.forward(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

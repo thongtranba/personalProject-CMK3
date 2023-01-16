@@ -18,7 +18,8 @@
 					<ol class="breadcrumb">
 						<li><a href="HomeServlet" target="_self">Home</a></li>
 						<li><span>/</span></li>
-						<li><a href="rackets.jsp" target="_self">Rackets</a></li>
+						<li><a href="category?command=${command}&pageId=1"
+							target="_self">${command}</a></li>
 						<li><span>/</span></li>
 						<li class="active"><span><c:out
 									value="${product.name}" /></span></li>
@@ -155,6 +156,7 @@
 					</div>
 				</div>
 			</div>
+		</div>
 	</main>
 	<!-- FOOTER-->
 	<jsp:include page="layout/footer.jsp" />

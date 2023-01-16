@@ -22,6 +22,12 @@ $(function() {
 		}
 	});
 
+	$(".page").click(function() {
+
+		$(".page").removeClass("active");
+
+		$(this).addClass("active");
+	});
 
 	$(".back-to-top").click(function() {
 		$("html").animate({ scrollTop: 0 }, 800);
@@ -32,7 +38,7 @@ $(function() {
 		$("#modal-login").modal("hide");
 		$("#modal-register").modal("show");
 	});
-	
+
 	$(".btn-user").click(function() {
 		$("#modal-user").modal("show");
 	});

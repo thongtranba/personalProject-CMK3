@@ -5,7 +5,6 @@
 <html>
 <!-- HEAD-->
 <jsp:include page="layout/head.jsp" />
-
 <body>
 	<!-- HEADER-->
 	<jsp:include page="layout/header.jsp" />
@@ -18,7 +17,7 @@
 					<ol class="breadcrumb">
 						<li><a href="HomeServlet" target="_self">Home</a></li>
 						<li><span>/</span></li>
-						<li class="active"><span>Clothing</span></li>
+						<li class="active"><span>${command}</span></li>
 					</ol>
 				</div>
 				<div class="col-xs-3 hidden-lg hidden-md">
@@ -35,58 +34,48 @@
 				<div class="col-md-9 products">
 					<div class="row equal">
 						<div class="col-xs-6">
-							<h4 class="home-title">Clothing</h4>
+							<h4 class="home-title">${command}</h4>
 						</div>
 						<div class="col-xs-6 sort-by">
 							<jsp:include page="layout/sort.jsp" />
 						</div>
 						<div class="clearfix"></div>
-						<c:forEach var="cloth" items="${listCloth}">
+						<c:forEach var="product" items="${categoryList}">
 							<div class="col-xs-6 col-sm-4">
 								<div class="product-container">
 									<div class="image">
-										<img class="img-responsive" src="${cloth.image}" alt="" />
+										<img class="img-responsive" src="${product.image}" alt="" />
 									</div>
 									<div class="product-meta">
 										<h5 class="name">
 											<a class="product-name"
-												href="productDetail?id=<c:out value='${cloth.id}' />"
-												title="${cloth.name}">${cloth.name}</a>
+												href="productDetail?id=<c:out value='${product.id}' />"
+												title="${product.name}">${product.name} </a>
 										</h5>
 										<div class="product-item-price">
-											<span class="product-item-regular">${cloth.price} euro</span>
-											<span class="product-item-discount">108 euro</span>
+											<span class="product-item-regular">${product.price}</span> <span
+												class="product-item-discount">108 euro</span>
 										</div>
 									</div>
 									<div class="button-product-action clearfix">
 
 										<div class="quickview icon">
 											<a class="btn btn-outline-inverse"
-												href="productDetail?id=<c:out value='${cloth.id}' />"
-												title="quick view"> detail <i
-												class="fa fa-eye"></i>
+												href="productDetail?id=<c:out value='${product.id}' />"
+												title="quick view"> detail <i class="fa fa-eye"></i>
 											</a>
 										</div>
 									</div>
 								</div>
 							</div>
 						</c:forEach>
-
 						<!-- Paging -->
-						<ul class="pagination pull-right">
-							<li class="active"><a href="javascript:void(0)"
-								onclick="goToPage(1)">1</a></li>
-							<li class=""><a href="javascript:void(0)"
-								onclick="goToPage(2)">2</a></li>
-							<li class=""><a href="javascript:void(0)"
-								onclick="goToPage(3)">3</a></li>
-							<li><a href="javascript:void(0)" onclick="goToPage(2)">&raquo;</a>
-							</li>
-						</ul>
+						<jsp:include page="layout/pagination.jsp" />
 						<!-- End paging -->
 					</div>
 				</div>
 			</div>
+		</div>
 	</main>
 	<!-- FOOTER-->
 	<jsp:include page="layout/footer.jsp" />
