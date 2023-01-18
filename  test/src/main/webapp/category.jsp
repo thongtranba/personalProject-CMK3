@@ -53,8 +53,18 @@
 												title="${product.name}">${product.name} </a>
 										</h5>
 										<div class="product-item-price">
-											<span class="product-item-regular">${product.price}</span> <span
-												class="product-item-discount">108 euro</span>
+											<c:if test="${product.discountPrice == 0.0}">
+												<span>Price: </span>
+												<span class="product-item-price">${product.price}
+													euro</span>
+											</c:if>
+											<c:if test="${product.discountPrice != 0.0}">
+												<span>Price: </span>
+												<span class="product-item-regular">${product.price}
+													euro</span>
+												<span class="product-item-discount">${product.discountPrice}
+													euro</span>
+											</c:if>
 										</div>
 									</div>
 									<div class="button-product-action clearfix">

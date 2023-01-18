@@ -1,4 +1,4 @@
-package controller;
+package bathongshop.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.WebConnection;
 
-import dao.ProductDAO;
-import model.Product;
+import bathongshop.DAO.ProductDAO;
+import bathongshop.entity.Product;
 
 /**
  * Servlet implementation class Home

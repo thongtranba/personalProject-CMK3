@@ -1,58 +1,42 @@
-package model;
+package bathongshop.model;
 
-public class Product {
+public class ProductModel {
 	private int id;
 	private String name;
-	private int inventory_quantity;
+	private int inventoryQuantity;
 	private double price;
+	private double discountPrice;
 	private int brandId;
 	private int categoryId;
 	private String description;
 	private String image;
 	private String brandName;
 
-	public Product(int id, String name, int inventory_quantity, double price, int brandId, int categoryId,
-			String description, String image) {
+	public ProductModel(int id, String name, int inventoryQuantity, double price, double discountPrice, 
+			int categoryId, String description, String image, String brandName) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.inventory_quantity = inventory_quantity;
+		this.inventoryQuantity = inventoryQuantity;
 		this.price = price;
-		this.brandId = brandId;
+		this.discountPrice = discountPrice;
 		this.categoryId = categoryId;
 		this.description = description;
 		this.image = image;
-	}
-
-	public Product(int id, String name, int inventory_quantity, double price, String brandName, int categoryId,
-			String description, String image) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.inventory_quantity = inventory_quantity;
-		this.price = price;
 		this.brandName = brandName;
-		this.categoryId = categoryId;
-		this.description = description;
-		this.image = image;
-
 	}
+	
 
-	public Product(int id, String name, double price, String image) {
+	public ProductModel(int id, String name, double price, double discountPrice, String image) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.price = price;
+		this.discountPrice = discountPrice;
 		this.image = image;
+		
 	}
 
-	public String getBrandName() {
-		return brandName;
-	}
-
-	public void setBrandName(String brandName) {
-		this.brandName = brandName;
-	}
 
 	public int getId() {
 		return id;
@@ -70,12 +54,12 @@ public class Product {
 		this.name = name;
 	}
 
-	public int getInventory_quantity() {
-		return inventory_quantity;
+	public int getInventoryQuantity() {
+		return inventoryQuantity;
 	}
 
-	public void setInventory_quantity(int inventory_quantity) {
-		this.inventory_quantity = inventory_quantity;
+	public void setInventoryQuantity(int inventoryQuantity) {
+		this.inventoryQuantity = inventoryQuantity;
 	}
 
 	public double getPrice() {
@@ -84,6 +68,14 @@ public class Product {
 
 	public void setPrice(double price) {
 		this.price = price;
+	}
+
+	public double getDiscountPrice() {
+		return discountPrice;
+	}
+
+	public void setDiscountPrice(double discountPrice) {
+		this.discountPrice = discountPrice;
 	}
 
 	public int getBrandId() {
@@ -117,5 +109,14 @@ public class Product {
 	public void setImage(String image) {
 		this.image = image;
 	}
+
+	public String getBrandName() {
+		return brandName;
+	}
+
+	public void setBrandName(String brandName) {
+		this.brandName = brandName;
+	}
+	
 
 }

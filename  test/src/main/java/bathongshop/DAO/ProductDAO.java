@@ -1,4 +1,4 @@
-package dao;
+package bathongshop.DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,20 +7,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import JDBCUtil.JDBCUtil;
-import model.Product;
+import bathongshop.JDBCUtil.JDBCUtil;
+import bathongshop.entity.Product;
+import bathongshop.model.ProductModel;
 
 public class ProductDAO {
-
-	private static final String INSERT_PRODUCT_SQL = "INSERT INTO product"
-			+ "  (name, inventoryQuantity, price, brandId, categoryId, description) VALUES " + " (?, ?, ?, ?, ?, ?);";
-	private static final String SELECT_PRODUCT_BY_ID = "select product.*, brand.name as brandName from product join brand on product.brandId = brand.id where product.id =?";
-	private static final String SELECT_POPULAR_PRODUCT = "select * from product where price < 90 limit 8";
-	private static final String SELECT_LATEST_PRODUCT = "select * from product where price < 150 limit 4";
-	private static final String SELECT_SERVICE = "select * from product where categoryId = '5' limit 6";
-	private static final String SELECT_RELATED_PRODUCTS = "select * from product where price < 100 limit 8";
-	private static final String DELETE_PRODUCT_SQL = "delete from product where id = ?;";
-	private static final String UPDATE_PRODUCT_SQL = "update product set name = ?, inventoryQuantity= ?, price= ?, brandId= ?, categoryId =?, description =? where id = ?";
 
 	private static final String SELECT_ALL_PRODUCT = "select * from product";
 
@@ -33,13 +24,14 @@ public class ProductDAO {
 			while (rs.next()) {
 				int id = rs.getInt("id");
 				String name = rs.getString("name");
-				int inventory_quantity = rs.getInt("inventory_quantity");
+				int inventoryQuantity = rs.getInt("inventory_quantity");
 				double price = rs.getDouble("price");
-				int brandId = rs.getInt("brandId");
-				int categoryId = rs.getInt("categoryId");
+				double discountPrice = rs.getDouble("discount_price");
+				int brandId = rs.getInt("brand_id");
+				int categoryId = rs.getInt("category_id");
 				String description = rs.getString("description");
 				String image = rs.getString("image");
-				products.add(new Product(id, name, inventory_quantity, price, brandId, categoryId, description, image));
+				products.add(new Product(id, name, inventoryQuantity, price, discountPrice, brandId, categoryId, description, image));
 			}
 
 		} catch (Exception e) {
@@ -48,12 +40,15 @@ public class ProductDAO {
 		return products;
 	}
 
+	private static final String INSERT_PRODUCT_SQL = "INSERT INTO product"
+			+ "  (name, inventory_quantity, price, brand_id, category_id, description) VALUES " + " (?, ?, ?, ?, ?, ?);";
+
 	public void insertProduct(Product product) throws SQLException {
 		System.out.println(INSERT_PRODUCT_SQL);
 		try (Connection connection = JDBCUtil.getConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(INSERT_PRODUCT_SQL)) {
 			preparedStatement.setString(1, product.getName());
-			preparedStatement.setInt(2, product.getInventory_quantity());
+			preparedStatement.setInt(2, product.getInventoryQuantity());
 			preparedStatement.setDouble(3, product.getPrice());
 			preparedStatement.setInt(4, product.getBrandId());
 			preparedStatement.setInt(5, product.getCategoryId());
@@ -66,13 +61,14 @@ public class ProductDAO {
 		}
 	}
 
-	public boolean updateProduct(Product product) throws SQLException {
+	private static final String UPDATE_PRODUCT_SQL = "update product set name = ?, inventory_quantity= ?, price= ?, brand_id= ?, category_id =?, description =? where id = ?";
 
+	public boolean updateProduct(Product product) throws SQLException {
 		boolean rowUpdated;
 		try (Connection connection = JDBCUtil.getConnection();
 				PreparedStatement statement = connection.prepareStatement(UPDATE_PRODUCT_SQL)) {
 			statement.setString(1, product.getName());
-			statement.setInt(2, product.getInventory_quantity());
+			statement.setInt(2, product.getInventoryQuantity());
 			statement.setDouble(3, product.getPrice());
 			statement.setInt(4, product.getBrandId());
 			statement.setInt(5, product.getCategoryId());
@@ -84,6 +80,8 @@ public class ProductDAO {
 		return rowUpdated;
 	}
 
+	private static final String DELETE_PRODUCT_SQL = "delete from product where id = ?";
+
 	public boolean deleteProduct(int id) throws SQLException {
 		boolean rowDeleted;
 		try (Connection connection = JDBCUtil.getConnection();
@@ -94,8 +92,10 @@ public class ProductDAO {
 		return rowDeleted;
 	}
 
-	public Product selectProduct(int id) {
-		Product product = null;
+	private static final String SELECT_PRODUCT_BY_ID = "select product.*, brand.name as brandName from product join brand on product.brand_id = brand.id where product.id =?";
+
+	public ProductModel selectProduct(int id) {
+		ProductModel product = null;
 		try (Connection connection = JDBCUtil.getConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(SELECT_PRODUCT_BY_ID);) {
 			preparedStatement.setInt(1, id);
@@ -105,11 +105,12 @@ public class ProductDAO {
 				String name = rs.getString("name");
 				int inventory_quantity = rs.getInt("inventory_quantity");
 				double price = rs.getDouble("price");
+				double discountPrice = rs.getDouble("discount_price");
 				String brandName = rs.getString("brandName");
-				int categoryId = rs.getInt("categoryId");
+				int categoryId = rs.getInt("category_id");
 				String description = rs.getString("description");
 				String image = rs.getString("image");
-				product = new Product(id, name, inventory_quantity, price, brandName, categoryId, description, image);
+				product = new ProductModel(id, name, inventory_quantity, price, discountPrice, categoryId, description, image, brandName);
 
 			}
 		} catch (Exception e) {
@@ -117,6 +118,8 @@ public class ProductDAO {
 		}
 		return product;
 	}
+
+	private static final String SELECT_POPULAR_PRODUCT = "select * from product where price < 90 limit 8";
 
 	public List<Product> selectPopularProducts() {
 		List<Product> products = new ArrayList<>();
@@ -130,11 +133,12 @@ public class ProductDAO {
 				String name = rs.getString("name");
 				int inventory_quantity = rs.getInt("inventory_quantity");
 				double price = rs.getDouble("price");
-				int brandId = rs.getInt("brandId");
-				int categoryId = rs.getInt("categoryId");
+				double discountPrice = rs.getDouble("discount_price");
+				int brandId = rs.getInt("brand_id");
+				int categoryId = rs.getInt("category_id");
 				String description = rs.getString("description");
 				String image = rs.getString("image");
-				products.add(new Product(id, name, inventory_quantity, price, brandId, categoryId, description, image));
+				products.add(new Product(id, name, inventory_quantity, price, discountPrice, brandId, categoryId, description, image));
 			}
 
 		} catch (Exception e) {
@@ -142,6 +146,8 @@ public class ProductDAO {
 		}
 		return products;
 	}
+
+	private static final String SELECT_LATEST_PRODUCT = "select * from product where price < 100 and discount_price = 0 limit 4";
 
 	public List<Product> selectLatestProducts() {
 		List<Product> products = new ArrayList<>();
@@ -155,11 +161,12 @@ public class ProductDAO {
 				String name = rs.getString("name");
 				int inventory_quantity = rs.getInt("inventory_quantity");
 				double price = rs.getDouble("price");
-				int brandId = rs.getInt("brandId");
-				int categoryId = rs.getInt("categoryId");
+				double discountPrice = rs.getDouble("discount_price");
+				int brandId = rs.getInt("brand_id");
+				int categoryId = rs.getInt("category_id");
 				String description = rs.getString("description");
 				String image = rs.getString("image");
-				products.add(new Product(id, name, inventory_quantity, price, brandId, categoryId, description, image));
+				products.add(new Product(id, name, inventory_quantity, price, discountPrice, brandId, categoryId, description, image));
 			}
 
 		} catch (Exception e) {
@@ -167,24 +174,26 @@ public class ProductDAO {
 		}
 		return products;
 	}
+
+	private static final String SELECT_SERVICE = "select * from product where category_id = '5' limit 6";
 
 	public List<Product> selectService() {
 		List<Product> products = new ArrayList<>();
 		try (Connection connection = JDBCUtil.getConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(SELECT_SERVICE);) {
-
 			System.out.println(preparedStatement);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				int id = rs.getInt("id");
 				String name = rs.getString("name");
-				int inventory_quantity = rs.getInt("inventory_quantity");
+				int inventoryQuantity = rs.getInt("inventory_quantity");
 				double price = rs.getDouble("price");
-				int brandId = rs.getInt("brandId");
-				int categoryId = rs.getInt("categoryId");
+				double discountPrice = rs.getDouble("discount_price");
+				int brandId = rs.getInt("brand_id");
+				int categoryId = rs.getInt("category_id");
 				String description = rs.getString("description");
 				String image = rs.getString("image");
-				products.add(new Product(id, name, inventory_quantity, price, brandId, categoryId, description, image));
+				products.add(new Product(id, name, inventoryQuantity, price, discountPrice, brandId, categoryId, description, image));
 			}
 
 		} catch (Exception e) {
@@ -192,6 +201,8 @@ public class ProductDAO {
 		}
 		return products;
 	}
+
+	private static final String SELECT_RELATED_PRODUCTS = "select * from product where price < 100 limit 8";
 
 	public List<Product> selectRelatedProducts() {
 		List<Product> products = new ArrayList<>();
@@ -203,13 +214,14 @@ public class ProductDAO {
 			while (rs.next()) {
 				int id = rs.getInt("id");
 				String name = rs.getString("name");
-				int inventory_quantity = rs.getInt("inventory_quantity");
+				int inventoryQuantity = rs.getInt("inventory_quantity");
 				double price = rs.getDouble("price");
-				int brandId = rs.getInt("brandId");
-				int categoryId = rs.getInt("categoryId");
+				double discountPrice = rs.getDouble("discount_price");
+				int brandId = rs.getInt("brand_id");
+				int categoryId = rs.getInt("category_id");
 				String description = rs.getString("description");
 				String image = rs.getString("image");
-				products.add(new Product(id, name, inventory_quantity, price, brandId, categoryId, description, image));
+				products.add(new Product(id, name, inventoryQuantity, price, discountPrice, brandId, categoryId, description, image));
 			}
 
 		} catch (Exception e) {
@@ -218,7 +230,7 @@ public class ProductDAO {
 		return products;
 	}
 
-	private static final String COUNT_CATEGORY_PRODUCTS = "select count(*) from product where categoryId=? ";
+	private static final String COUNT_CATEGORY_PRODUCTS = "select count(*) from product where category_id=? ";
 
 	public int totalCategoryProduct(int categoryId) {
 		int totalProducts = 0;
@@ -236,7 +248,7 @@ public class ProductDAO {
 		return totalProducts;
 	}
 
-	private static final String SELECT_PRODUCT_BY_CATEGORYID = "select * from product where categoryId =? limit ?,?";
+	private static final String SELECT_PRODUCT_BY_CATEGORYID = "select * from product where category_id =? limit ?,?";
 
 	public List<Product> selectAllProductByCategoryId(int categoryId, int pageId, int itemPerPage) {
 		int startItem = (pageId - 1) * itemPerPage;
@@ -251,12 +263,13 @@ public class ProductDAO {
 			while (rs.next()) {
 				int id = rs.getInt("id");
 				String name = rs.getString("name");
-				int inventory_quantity = rs.getInt("inventory_quantity");
+				int inventoryQuantity = rs.getInt("inventory_quantity");
 				double price = rs.getDouble("price");
-				int brandId = rs.getInt("brandId");
+				double discountPrice = rs.getDouble("discount_price");
+				int brandId = rs.getInt("brand_id");
 				String description = rs.getString("description");
 				String image = rs.getString("image");
-				products.add(new Product(id, name, inventory_quantity, price, brandId, categoryId, description, image));
+				products.add(new Product(id, name, inventoryQuantity, price, discountPrice, brandId, categoryId, description, image));
 			}
 
 		} catch (Exception e) {
@@ -265,7 +278,7 @@ public class ProductDAO {
 		return products;
 	}
 
-	private static final String SEARCH_PRODUCTS = "select * from product join brand on brand.id = product.brandId where product.name = ? or brand.name = ?";
+	private static final String SEARCH_PRODUCTS = "select * from product join brand on brand.id = product.brand_id where product.name = ? or brand.name = ?";
 
 	public List<Product> searchProducts(String searchString) {
 		List<Product> products = new ArrayList<>();
@@ -280,11 +293,12 @@ public class ProductDAO {
 				String name = rs.getString("name");
 				int inventory_quantity = rs.getInt("inventory_quantity");
 				double price = rs.getDouble("price");
-				int brandId = rs.getInt("brandId");
-				int categoryId = rs.getInt("categoryId");
+				double discountPrice = rs.getDouble("discount_price");
+				int brandId = rs.getInt("brand_id");
+				int categoryId = rs.getInt("category_id");
 				String description = rs.getString("description");
 				String image = rs.getString("image");
-				products.add(new Product(id, name, inventory_quantity, price, brandId, categoryId, description, image));
+				products.add(new Product(id, name, inventory_quantity, price, discountPrice, brandId, categoryId, description, image));
 			}
 
 		} catch (Exception e) {
@@ -293,10 +307,10 @@ public class ProductDAO {
 		return products;
 	}
 
-	private static final String SELECT_PRODUCT_BY_ORDER_ID = "select * from product join orderItem on orderItem.productId = product.id join bathongshop.order on bathongshop.order.id = orderItem.orderId where bathongshop.order.id = ?";
+	private static final String SELECT_PRODUCT_BY_ORDER_ID = "select * from product join order_item on order_item.product_id = product.id join bathongshop.order on bathongshop.order.id = order_item.order_id where bathongshop.order.id = ?";
 
-	public List<Product> selectAllProductByOrderId(int orderId) {
-		List<Product> products = new ArrayList<>();
+	public List<ProductModel> selectAllProductByOrderId(int orderId) {
+		List<ProductModel> products = new ArrayList<>();
 		try (Connection connection = JDBCUtil.getConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(SELECT_PRODUCT_BY_ORDER_ID);) {
 			preparedStatement.setInt(1, orderId);
@@ -306,8 +320,9 @@ public class ProductDAO {
 				int id = rs.getInt("id");
 				String name = rs.getString("name");
 				double price = rs.getDouble("price");
+				double discountPrice = rs.getDouble("discount_price");
 				String image = rs.getString("image");
-				products.add(new Product(id, name, price, image));
+				products.add(new ProductModel(id, name, price, discountPrice, image));
 			}
 
 		} catch (Exception e) {

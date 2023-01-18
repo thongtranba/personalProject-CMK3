@@ -62,7 +62,7 @@
 				<div class="ship-checkout col-md-6">
 					<h4>Customer Information</h4>				
 					<br>
-					<form action="addToCartServlet?command=SUBMIT_CART" method="POST">
+					<form action="cartServlet?command=SUBMIT_CART" method="POST">
 						<div class="row">
 							<div class="form-group col-sm-6">
 								<input type="text" value="${sessionScope.username}"

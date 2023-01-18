@@ -1,13 +1,11 @@
-package dao;
+package bathongshop.DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-
-
-import JDBCUtil.JDBCUtil;
-import model.OrderItem;
+import bathongshop.JDBCUtil.JDBCUtil;
+import bathongshop.entity.OrderItem;
 
 
 public class OrderItemDAO {

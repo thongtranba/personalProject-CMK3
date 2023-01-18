@@ -1,4 +1,4 @@
-package dao;
+package bathongshop.DAO;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -9,13 +9,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import JDBCUtil.JDBCUtil;
-import model.Order;
-import model.Product;
+import bathongshop.JDBCUtil.JDBCUtil;
+import bathongshop.entity.Order;
+import bathongshop.entity.Product;
 
 
 public class OrderDAO {
-	private static final String INSERT_NEW_ORDER = "INSERT INTO `order` (customerId, createdDate) VALUES (?, ?)";
+	private static final String INSERT_NEW_ORDER = "INSERT INTO `order` (customer_id, created_date) VALUES (?, ?)";
 	
 
 	public int addOrder(Order order) throws SQLException {
@@ -38,7 +38,7 @@ public class OrderDAO {
 		return insertedId;
 	}
 	
-	private static final String SELECT_ORDER_BY_CUTOMER_ID = "select * from bathongshop.order where customerId = ?";
+	private static final String SELECT_ORDER_BY_CUTOMER_ID = "select * from bathongshop.order where customer_id = ?";
 			
 	public List<Order> selectAllOrderByCustomerId(int customerId) {
 		List<Order> orders = new ArrayList<>();
@@ -49,7 +49,7 @@ public class OrderDAO {
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				int id = rs.getInt("id");
-				Date createdDate = rs.getDate("createdDate");
+				Date createdDate = rs.getDate("created_date");
 				orders.add(new Order(id, createdDate));
 			}
 

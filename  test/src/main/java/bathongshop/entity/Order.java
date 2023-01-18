@@ -1,4 +1,4 @@
-package model;
+package bathongshop.entity;
 
 import java.sql.Date;
 

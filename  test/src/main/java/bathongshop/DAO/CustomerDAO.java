@@ -1,4 +1,4 @@
-package dao;
+package bathongshop.DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,8 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import JDBCUtil.JDBCUtil;
-import model.Customer;
+import bathongshop.JDBCUtil.JDBCUtil;
+import bathongshop.entity.Customer;
 
 public class CustomerDAO {
 	private static final String INSERT_CUSTOMER_SQL = "INSERT INTO customer"

@@ -1,4 +1,4 @@
-package controller;
+package bathongshop.controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.ProductDAO;
-import model.Product;
+import bathongshop.DAO.ProductDAO;
+import bathongshop.entity.Product;
 
 /**
  * Servlet implementation class SearchServlet

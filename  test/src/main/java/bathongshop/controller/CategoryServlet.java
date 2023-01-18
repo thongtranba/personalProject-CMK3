@@ -1,4 +1,4 @@
-package controller;
+package bathongshop.controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.ProductDAO;
-import model.Product;
+import bathongshop.DAO.ProductDAO;
+import bathongshop.entity.Product;
 
 /**
  * Servlet implementation class categoryServlet
@@ -39,8 +39,10 @@ public class CategoryServlet extends HttpServlet {
 		try {
 			String command = request.getParameter("command");
 			int pageId = Integer.parseInt(request.getParameter("pageId"));
+			
 			HttpSession session = request.getSession();
 			session.setAttribute("command", command);
+			
 			int categoryId = 0;
 			switch (command) {
 			case "rackets":
@@ -61,10 +63,12 @@ public class CategoryServlet extends HttpServlet {
 			}		
 			int itemPerPage = 9;
 			int totalProducts = productDAO.totalCategoryProduct(categoryId);
-			int totalPage = totalProducts / itemPerPage;
+			int totalPage = totalProducts / itemPerPage;		
 			request.setAttribute("totalPage", totalPage);
+			
 			List<Product> categoryList = productDAO.selectAllProductByCategoryId(categoryId, pageId, itemPerPage);
 			request.setAttribute("categoryList", categoryList);	
+			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("category.jsp");
 			dispatcher.forward(request, response);
 		} catch (Exception e) {

@@ -1,16 +1,16 @@
-package model;
+package bathongshop.entity;
 
-public class Role {
+public class Category {
 	private int id;
 	private String name;
 
-	public Role(int id, String name) {
+	public Category(int id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
 	}
 
-	public Role() {
+	public Category() {
 		super();
 	}
 

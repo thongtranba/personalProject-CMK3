@@ -1,16 +1,16 @@
-package model;
+package bathongshop.entity;
 
-public class Brand {
+public class Role {
 	private int id;
 	private String name;
 
-	public Brand(int id, String name) {
+	public Role(int id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
 	}
 
-	public Brand() {
+	public Role() {
 		super();
 	}
 

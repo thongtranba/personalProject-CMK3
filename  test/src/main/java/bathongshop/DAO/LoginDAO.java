@@ -1,12 +1,12 @@
-package dao;
+package bathongshop.DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import JDBCUtil.JDBCUtil;
-import model.Customer;
+import bathongshop.JDBCUtil.JDBCUtil;
+import bathongshop.entity.Customer;
 
 public class LoginDAO {
 	private static final String LOGIN_BY_USERNAME_PASSWORD = "select * from customer where email = ? and password = ? ";

@@ -1,4 +1,4 @@
-package controller;
+package bathongshop.controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -10,8 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.ProductDAO;
-import model.Product;
+import bathongshop.DAO.ProductDAO;
+import bathongshop.entity.Product;
+import bathongshop.model.ProductModel;
 
 /**
  * Servlet implementation class ProductDetail
@@ -37,7 +38,7 @@ public class ProductDetailServlet extends HttpServlet {
 			throws ServletException, IOException {
 		try {
 			int id = Integer.parseInt(request.getParameter("id"));
-			Product existingProduct = productDAO.selectProduct(id);
+			ProductModel existingProduct = productDAO.selectProduct(id);
 			List<Product> relatedProduct = productDAO.selectRelatedProducts();
 			request.setAttribute("relatedProduct", relatedProduct);
 			request.setAttribute("product", existingProduct);

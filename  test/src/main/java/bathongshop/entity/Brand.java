@@ -1,16 +1,16 @@
-package model;
+package bathongshop.entity;
 
-public class Category {
+public class Brand {
 	private int id;
 	private String name;
 
-	public Category(int id, String name) {
+	public Brand(int id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
 	}
 
-	public Category() {
+	public Brand() {
 		super();
 	}
 

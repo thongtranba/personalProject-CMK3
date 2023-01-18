@@ -1,4 +1,4 @@
-package model;
+package bathongshop.entity;
 
 public class Stock {
 	private int productId;

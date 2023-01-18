@@ -29,7 +29,7 @@
 							<ul>
 								<li><a href="myInformation.jsp"
 									title="my information" target="_self">My information</a></li>
-								<li class="active"><a href="myPurchase?command=MY_ORDER&id=${sessionScope.customerId}" target="_self" title="my purchase">My
+								<li class="active"><a href="cartServlet?command=MY_ORDER&id=${sessionScope.customerId}" target="_self" title="my purchase">My
 										purchase </a></li>
 							</ul>
 						</div>
@@ -46,7 +46,7 @@
 								<div class="row">
 									<div class="col-md-12">
 										<h5 class="date">Date: ${order.createdDate}</h5>
-										<span > <a href="myPurchase?command=MY_ORDER_DETAILS&orderId=${order.id}" >Order number: #${order.id}</a> </span>
+										<span > <a href="cartServlet?command=MY_ORDER_DETAILS&orderId=${order.id}" >Order number: #${order.id}</a> </span>
 										<hr>
 									</div>
 								</div>

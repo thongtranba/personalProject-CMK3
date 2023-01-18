@@ -74,7 +74,7 @@
 					aria-hidden="true">x</button>
 				<h3 class="modal-title text-center">Register</h3>
 			</div>
-			<form action="register" method="POST" role="form">
+			<form action="authenticServlet?command=REGISTER" method="POST" role="form">
 				<div class="modal-body">
 					<div class="form-group">
 						<input type="text" class="form-control" id="username"
@@ -146,7 +146,7 @@
 				<!-- Google login -->
 				<br />
 			</div>
-			<form action="login" method="GET" role="form">
+			<form action="authenticServlet?command=LOGIN" method="POST" role="form">
 				<div class="modal-body">
 					<div class="form-group">
 						<input type="email" name="email" id="email" class="form-control"
@@ -156,7 +156,7 @@
 						<input type="password" name="password" id="password"
 							class="form-control" placeholder="Password" required />
 					</div>
-					<input type="hidden" name="reference" value="" />
+					
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">
@@ -184,14 +184,14 @@
 				<h3 class="modal-title text-center">Hi,${sessionScope.username}</h3>
 				<br />
 			</div>
-			<form action="logoutServlet" method="GET" role="form">
+			<form action="authenticServlet?command=LOGOUT" method="POST" role="form">
 				<div class="modal-body">
 					<div class="form-group">
 						<a href="myInformation.jsp">My information</a>
 					</div>
 					<div class="form-group">
 						<a
-							href="myPurchase?command=MY_ORDER&id=${sessionScope.customerId}">My
+							href="cartServlet?command=MY_ORDER&id=${sessionScope.customerId}">My
 							purchase</a>
 
 					</div>

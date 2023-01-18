@@ -28,7 +28,7 @@
 							<ul>
 								<li class="active"><a href="customerInformation.jsp"
 									title="my information" target="_self">My information</a></li>
-								<li ><a title="my purchase" href="myPurchase?command=MY_ORDER&id=${sessionScope.customerId}" target="_self">My
+								<li ><a title="my purchase" href="cartServlet?command=MY_ORDER&id=${sessionScope.customerId}" target="_self">My
 										purchase </a></li>
 							</ul>
 						</div>

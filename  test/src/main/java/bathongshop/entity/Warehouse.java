@@ -1,4 +1,4 @@
-package model;
+package bathongshop.entity;
 
 public class Warehouse {
 	private int id;

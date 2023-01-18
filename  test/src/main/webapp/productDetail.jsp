@@ -67,19 +67,27 @@
 							</div>
 							<div class="product-status">
 								<span>Status: </span> <span class="label-warning"><c:out
-										value="${product.inventory_quantity}" /></span>
+										value="${product.inventoryQuantity}" /></span>
 							</div>
 							<div class="product-item-price">
-								<span>Price: </span> <span class="product-item-regular"></span>
-								<c:out value="${product.price}" />
-								<span class="product-item-discount">240 eur</span>
+								<c:if test="${product.discountPrice == 0.0}">
+									<span>Price: </span>
+									<span class="product-item-price">${product.price} euro</span>
+
+								</c:if>
+								<c:if test="${product.discountPrice != 0.0}">
+									<span>Price: </span>
+									<span class="product-item-regular">${product.price} euro</span>
+									<span class="product-item-discount">${product.discountPrice}
+										euro</span>
+								</c:if>
 							</div>
-
 							<div>
-								<input type="button" value="Add to cart"
-									onclick="window.location.href='addToCartServlet?command=ADD_TO_CART&productId=<c:out value="${product.id}" />'" />
-								<i class="fa fa-shopping-cart"></i>
-
+								 <a
+									class="btn cart"
+									href="cartServlet?command=ADD_TO_CART&productId=${product.id}" title="quick view">
+									Add to cart <i class="fa fa-shopping-cart"></i>
+								</a>
 							</div>
 
 
