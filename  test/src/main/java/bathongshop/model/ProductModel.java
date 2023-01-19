@@ -11,22 +11,24 @@ public class ProductModel {
 	private String description;
 	private String image;
 	private String brandName;
+	private String categoryName;
 
-	public ProductModel(int id, String name, int inventoryQuantity, double price, double discountPrice, 
-			int categoryId, String description, String image, String brandName) {
+//for product detail
+	public ProductModel(int id, String name, int inventoryQuantity, double price, double discountPrice,
+			String description, String image, String brandName, String categoryName) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.inventoryQuantity = inventoryQuantity;
 		this.price = price;
 		this.discountPrice = discountPrice;
-		this.categoryId = categoryId;
 		this.description = description;
 		this.image = image;
 		this.brandName = brandName;
+		this.categoryName = categoryName;
 	}
-	
 
+//for order
 	public ProductModel(int id, String name, double price, double discountPrice, String image) {
 		super();
 		this.id = id;
@@ -34,9 +36,8 @@ public class ProductModel {
 		this.price = price;
 		this.discountPrice = discountPrice;
 		this.image = image;
-		
-	}
 
+	}
 
 	public int getId() {
 		return id;
@@ -117,6 +118,13 @@ public class ProductModel {
 	public void setBrandName(String brandName) {
 		this.brandName = brandName;
 	}
-	
+
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
 
 }

@@ -56,10 +56,13 @@ public class ShoppingCartServlet extends HttpServlet {
 				if (cart == null) {
 					cart = new HashMap<Integer, ProductModel>();
 				}
+				String notification = "you added to cart! check your cart.";
 				cart.put(product.getId(), product);
 				session.setAttribute("cart", cart);
 				request.setAttribute("product", product);
-				response.sendRedirect("productDetail?id=" + productId);
+				request.setAttribute("notification", notification);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("productDetail?id=" + productId);
+				dispatcher.forward(request, response);
 
 //			} else if (command != null && command.equals("VIEW_CART")) {
 //				response.sendRedirect("HomeServlet");

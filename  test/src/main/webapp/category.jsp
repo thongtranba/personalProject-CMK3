@@ -17,7 +17,7 @@
 					<ol class="breadcrumb">
 						<li><a href="HomeServlet" target="_self">Home</a></li>
 						<li><span>/</span></li>
-						<li class="active"><span>${command}</span></li>
+						<li class="active"><span>${categoryPage}</span></li>
 					</ol>
 				</div>
 				<div class="col-xs-3 hidden-lg hidden-md">
@@ -34,7 +34,7 @@
 				<div class="col-md-9 products">
 					<div class="row equal">
 						<div class="col-xs-6">
-							<h4 class="home-title">${command}</h4>
+							<h4 class="home-title">${categoryPage}</h4>
 						</div>
 						<div class="col-xs-6 sort-by">
 							<jsp:include page="layout/sort.jsp" />

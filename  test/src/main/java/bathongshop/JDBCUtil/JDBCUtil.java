@@ -6,14 +6,14 @@ import java.sql.SQLException;
 
 public class JDBCUtil {
 	//localhost
-//	private static String jdbcURL = "jdbc:mysql://localhost:3306/bathongshop?useSSL=false";
-//	private static String jdbcUsername = "bathong";
-//	private static String jdbcPassword = "123123";
+	private static String jdbcURL = "jdbc:mysql://localhost:3306/bathongshop?useSSL=false";
+	private static String jdbcUsername = "bathong";
+	private static String jdbcPassword = "123123";
 	
 	//digitalOcean 
-	private static String jdbcURL = "jdbc:mysql://db-mysql-bathongshop-do-user-13241251-0.b.db.ondigitalocean.com:25060/bathongshop?useSSL=false";
-	private static String jdbcUsername = "doadmin";
-	private static String jdbcPassword = "AVNS_uDp9UhuFWJQLdR-OqdU";
+//	private static String jdbcURL = "jdbc:mysql://db-mysql-bathongshop-do-user-13241251-0.b.db.ondigitalocean.com:25060/bathongshop?useSSL=false";
+//	private static String jdbcUsername = "doadmin";
+//	private static String jdbcPassword = "AVNS_uDp9UhuFWJQLdR-OqdU";
 
 	
 	public static void main(String[] args) {

@@ -29,7 +29,7 @@
 						href="HomeServlet">Here</a>
 						<br>
 						<h5>Check your purchase, click</h5> <a
-						href="myPurchase?command=MY_ORDER&id=${sessionScope.customerId}">Here</a>
+						href="cartServlet?command=MY_ORDER&id=${sessionScope.customerId}">Here</a>
 				</div>
 			</div>
 		</div>

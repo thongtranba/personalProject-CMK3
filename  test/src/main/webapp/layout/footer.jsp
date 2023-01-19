@@ -8,12 +8,17 @@
 						<div class="footerLink">
 							<h4>Shop</h4>
 							<ul class="list-unstyled">
-								<li><a href="category?command=rackets&pageId=1">
+								<li><a
+									href="category?command=CATEGORY&category=rackets&pageId=1">
 										Rackets </a></li>
-								<li><a href="category?command=bags&pageId=1">Bags</a></li>
-								<li><a href="category?command=clothing&pageId=1">Clothing</a></li>
-								<li><a href="category?command=shoes&pageId=1">Shoes</a></li>
-								<li><a href="category?command=strings&pageId=1">Strings</a></li>
+								<li><a
+									href="category?command=CATEGORY&category=bags&pageId=1">Bags</a></li>
+								<li><a
+									href="category?command=CATEGORY&category=clothing&pageId=1">Clothing</a></li>
+								<li><a
+									href="category?command=CATEGORY&category=shoes&pageId=1">Shoes</a></li>
+								<li><a
+									href="category?command=CATEGORY&category=strings&pageId=1">Strings</a></li>
 							</ul>
 						</div>
 					</div>
@@ -74,7 +79,8 @@
 					aria-hidden="true">x</button>
 				<h3 class="modal-title text-center">Register</h3>
 			</div>
-			<form action="authenticServlet?command=REGISTER" method="POST" role="form">
+			<form action="authenticServlet?command=REGISTER" method="POST"
+				role="form">
 				<div class="modal-body">
 					<div class="form-group">
 						<input type="text" class="form-control" id="username"
@@ -146,7 +152,8 @@
 				<!-- Google login -->
 				<br />
 			</div>
-			<form action="authenticServlet?command=LOGIN" method="POST" role="form">
+			<form action="authenticServlet?command=LOGIN" method="POST"
+				role="form">
 				<div class="modal-body">
 					<div class="form-group">
 						<input type="email" name="email" id="email" class="form-control"
@@ -156,7 +163,7 @@
 						<input type="password" name="password" id="password"
 							class="form-control" placeholder="Password" required />
 					</div>
-					
+
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">
@@ -184,7 +191,8 @@
 				<h3 class="modal-title text-center">Hi,${sessionScope.username}</h3>
 				<br />
 			</div>
-			<form action="authenticServlet?command=LOGOUT" method="POST" role="form">
+			<form action="authenticServlet?command=LOGOUT" method="POST"
+				role="form">
 				<div class="modal-body">
 					<div class="form-group">
 						<a href="myInformation.jsp">My information</a>
@@ -276,7 +284,7 @@
 								<div class="clearfix text-left">
 									<div class="row">
 										<div class="col-sm-6 col-md-1">
-											<div>${ status.count}.</div>
+											<div>${status.count}.</div>
 										</div>
 										<div class="col-sm-6 col-md-2">
 											<div>
@@ -289,19 +297,36 @@
 												href="productDetail?id=${item.value.id}">${item.value.name }</a>
 										</div>
 										<div class="col-sm-6 col-md-2">
-											<span class="product-item-discount">${item.value.price }</span>
+											<c:if test="${item.value.discountPrice == 0.0}">
+
+												<span class="item-price">${item.value.price} euro</span>
+
+											</c:if>
+											<c:if test="${item.value.discountPrice != 0.0}">
+
+
+												<span class="item-discount-price">${item.value.discountPrice}
+													euro</span>
+											</c:if>
 										</div>
 										<div class="col-sm-6 col-md-2">
-											<input type="hidden" value="1" /><input type="number"
-												onchange="updateProductInCart(this,2)" min="1" value="1" />
+											<c:set var="quantity"
+												value="1" />
+												<input type="number" onchange="updateQuantity(this.value)"
+											 min="1" value="1" />
+
 										</div>
 										<div class="col-sm-6 col-md-2">
-											<span>230 euro</span>
+											<c:set var="subTotal" value="0" />
+											<c:set var="total"
+												value="${quantity * item.value.discountPrice}" />
+											<c:set var="subTotal" value="${subTotal + total}" />
+											<span><c:out value="${total}" /> euro</span>
 										</div>
 										<div class="col-sm-6 col-md-1">
 
 											<a class="remove-product"
-												href="addToCartServlet?command=REMOVE&productId=${item.key }"><span
+												href="cartServlet?command=REMOVE&productId=${item.key}"><span
 												class="glyphicon glyphicon-trash"></span></a>
 										</div>
 									</div>
@@ -319,7 +344,7 @@
 				<div class="clearfix">
 					<div class="col-xs-12 text-right">
 						<p>
-							<span>Total</span> <span class="price-total">420 euro</span>
+							<span>Total</span> <span class="price-total">$${total}</span>
 						</p>
 						<input type="button" data-dismiss="modal" class="btn btn-default"
 							value="Continue shopping" />

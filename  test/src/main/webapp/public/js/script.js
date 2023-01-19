@@ -7,6 +7,9 @@ function closeMenuMobile() {
 	$(".menu-mb").width(0);
 	$(".btn-menu-mb").show("slow");
 }
+function updateQuantity(value){
+	$('input[type=number]').val('value');
+}
 
 $(function() {
 	$(".product-container").hover(function() {

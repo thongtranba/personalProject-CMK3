@@ -38,39 +38,46 @@ public class CategoryServlet extends HttpServlet {
 			throws ServletException, IOException {
 		try {
 			String command = request.getParameter("command");
-			int pageId = Integer.parseInt(request.getParameter("pageId"));
-			
-			HttpSession session = request.getSession();
-			session.setAttribute("command", command);
-			
-			int categoryId = 0;
-			switch (command) {
-			case "rackets":
-				categoryId = 1;
-				break;
-			case "bags":
-				categoryId = 2;
-				break;
-			case "clothing":
-				categoryId = 3;
-				break;
-			case "shoes":
-				categoryId = 4;
-				break;
-			case "strings":
-				categoryId = 5;
-				break;	
-			}		
-			int itemPerPage = 9;
-			int totalProducts = productDAO.totalCategoryProduct(categoryId);
-			int totalPage = totalProducts / itemPerPage;		
-			request.setAttribute("totalPage", totalPage);
-			
-			List<Product> categoryList = productDAO.selectAllProductByCategoryId(categoryId, pageId, itemPerPage);
-			request.setAttribute("categoryList", categoryList);	
-			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("category.jsp");
-			dispatcher.forward(request, response);
+			if (command != null && command.equals("CATEGORY")) {
+				String categoryPage = request.getParameter("category");
+				int pageId = Integer.parseInt(request.getParameter("pageId"));
+				HttpSession session = request.getSession();
+				session.setAttribute("categoryPage", categoryPage);
+				int categoryId = 0;
+				switch (categoryPage) {
+				case "rackets":
+					categoryId = 1;
+					break;
+				case "bags":
+					categoryId = 2;
+					break;
+				case "clothing":
+					categoryId = 3;
+					break;
+				case "shoes":
+					categoryId = 4;
+					break;
+				case "strings":
+					categoryId = 5;
+					break;
+				}
+				int itemPerPage = 9;
+				int totalProducts = productDAO.totalCategoryProduct(categoryId);
+				int totalPage = totalProducts / itemPerPage;
+				request.setAttribute("totalPage", totalPage);
+
+				List<Product> categoryList = productDAO.selectAllProductByCategoryId(categoryId, pageId, itemPerPage);
+				request.setAttribute("categoryList", categoryList);
+
+				RequestDispatcher dispatcher = request.getRequestDispatcher("category.jsp");
+				dispatcher.forward(request, response);
+			} else if (command != null && command.equals("SALEOFF")) {
+				List<Product> saleOffProduct = productDAO.selectSaleOffProduct();
+				request.setAttribute("saleOffProduct", saleOffProduct);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("saleOffProduct.jsp");
+				dispatcher.forward(request, response);
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

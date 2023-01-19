@@ -18,8 +18,9 @@
 					<ol class="breadcrumb">
 						<li><a href="HomeServlet" target="_self">Home</a></li>
 						<li><span>/</span></li>
-						<li><a href="category?command=${command}&pageId=1"
-							target="_self">${command}</a></li>
+						<li><a
+							href="category?command=CATEGORY&category=${product.categoryName}&pageId=1"
+							target="_self">${product.categoryName}</a></li>
 						<li><span>/</span></li>
 						<li class="active"><span><c:out
 									value="${product.name}" /></span></li>
@@ -66,7 +67,7 @@
 								<span></span>
 							</div>
 							<div class="product-status">
-								<span>Status: </span> <span class="label-warning"><c:out
+								<span>Stock: </span> <span class="label-warning"><c:out
 										value="${product.inventoryQuantity}" /></span>
 							</div>
 							<div class="product-item-price">
@@ -83,11 +84,11 @@
 								</c:if>
 							</div>
 							<div>
-								 <a
-									class="btn cart"
-									href="cartServlet?command=ADD_TO_CART&productId=${product.id}" title="quick view">
-									Add to cart <i class="fa fa-shopping-cart"></i>
-								</a>
+								<input type="button" style="background-color: #f0ad4e; border-style: none; border-radius:5px; color: #ffffff; "
+									value="Add to cart"
+									onclick="window.location.href='cartServlet?command=ADD_TO_CART&productId=${product.id}'">
+								<i class="fa fa-shopping-cart"></i> <br>
+								<h5 style="background-color: #eea97e; color: #010111; border-radius:5px; text-align: center">${notification}</h5>
 							</div>
 
 

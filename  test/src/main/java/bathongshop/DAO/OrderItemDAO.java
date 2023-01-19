@@ -9,7 +9,7 @@ import bathongshop.entity.OrderItem;
 
 
 public class OrderItemDAO {
-	private static final String INSERT_ORDER_ITEM = "INSERT orderItem (orderId, productId) VALUES (?, ?)";
+	private static final String INSERT_ORDER_ITEM = "INSERT order_item (order_id, product_id) VALUES (?, ?)";
 
 	public void addOrderItem(OrderItem orderItem) throws SQLException {
 

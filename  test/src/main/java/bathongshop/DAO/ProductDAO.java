@@ -31,7 +31,8 @@ public class ProductDAO {
 				int categoryId = rs.getInt("category_id");
 				String description = rs.getString("description");
 				String image = rs.getString("image");
-				products.add(new Product(id, name, inventoryQuantity, price, discountPrice, brandId, categoryId, description, image));
+				products.add(new Product(id, name, inventoryQuantity, price, discountPrice, brandId, categoryId,
+						description, image));
 			}
 
 		} catch (Exception e) {
@@ -41,7 +42,8 @@ public class ProductDAO {
 	}
 
 	private static final String INSERT_PRODUCT_SQL = "INSERT INTO product"
-			+ "  (name, inventory_quantity, price, brand_id, category_id, description) VALUES " + " (?, ?, ?, ?, ?, ?);";
+			+ "  (name, inventory_quantity, price, brand_id, category_id, description) VALUES "
+			+ " (?, ?, ?, ?, ?, ?);";
 
 	public void insertProduct(Product product) throws SQLException {
 		System.out.println(INSERT_PRODUCT_SQL);
@@ -92,7 +94,11 @@ public class ProductDAO {
 		return rowDeleted;
 	}
 
-	private static final String SELECT_PRODUCT_BY_ID = "select product.*, brand.name as brandName from product join brand on product.brand_id = brand.id where product.id =?";
+	private static final String SELECT_PRODUCT_BY_ID = 
+			"select product.*, brand.name as brandName, category.name as categoryName from product"
+			+ " join brand on product.brand_id = brand.id"
+			+ " join category on product.category_id = category.id"
+			+ " where product.id =?";
 
 	public ProductModel selectProduct(int id) {
 		ProductModel product = null;
@@ -107,10 +113,11 @@ public class ProductDAO {
 				double price = rs.getDouble("price");
 				double discountPrice = rs.getDouble("discount_price");
 				String brandName = rs.getString("brandName");
-				int categoryId = rs.getInt("category_id");
+				String categoryName = rs.getString("categoryName");
 				String description = rs.getString("description");
 				String image = rs.getString("image");
-				product = new ProductModel(id, name, inventory_quantity, price, discountPrice, categoryId, description, image, brandName);
+				product = new ProductModel(id, name, inventory_quantity, price, discountPrice, description,
+						image, brandName, categoryName);
 
 			}
 		} catch (Exception e) {
@@ -138,7 +145,8 @@ public class ProductDAO {
 				int categoryId = rs.getInt("category_id");
 				String description = rs.getString("description");
 				String image = rs.getString("image");
-				products.add(new Product(id, name, inventory_quantity, price, discountPrice, brandId, categoryId, description, image));
+				products.add(new Product(id, name, inventory_quantity, price, discountPrice, brandId, categoryId,
+						description, image));
 			}
 
 		} catch (Exception e) {
@@ -166,7 +174,8 @@ public class ProductDAO {
 				int categoryId = rs.getInt("category_id");
 				String description = rs.getString("description");
 				String image = rs.getString("image");
-				products.add(new Product(id, name, inventory_quantity, price, discountPrice, brandId, categoryId, description, image));
+				products.add(new Product(id, name, inventory_quantity, price, discountPrice, brandId, categoryId,
+						description, image));
 			}
 
 		} catch (Exception e) {
@@ -193,7 +202,8 @@ public class ProductDAO {
 				int categoryId = rs.getInt("category_id");
 				String description = rs.getString("description");
 				String image = rs.getString("image");
-				products.add(new Product(id, name, inventoryQuantity, price, discountPrice, brandId, categoryId, description, image));
+				products.add(new Product(id, name, inventoryQuantity, price, discountPrice, brandId, categoryId,
+						description, image));
 			}
 
 		} catch (Exception e) {
@@ -221,7 +231,8 @@ public class ProductDAO {
 				int categoryId = rs.getInt("category_id");
 				String description = rs.getString("description");
 				String image = rs.getString("image");
-				products.add(new Product(id, name, inventoryQuantity, price, discountPrice, brandId, categoryId, description, image));
+				products.add(new Product(id, name, inventoryQuantity, price, discountPrice, brandId, categoryId,
+						description, image));
 			}
 
 		} catch (Exception e) {
@@ -269,7 +280,8 @@ public class ProductDAO {
 				int brandId = rs.getInt("brand_id");
 				String description = rs.getString("description");
 				String image = rs.getString("image");
-				products.add(new Product(id, name, inventoryQuantity, price, discountPrice, brandId, categoryId, description, image));
+				products.add(new Product(id, name, inventoryQuantity, price, discountPrice, brandId, categoryId,
+						description, image));
 			}
 
 		} catch (Exception e) {
@@ -298,7 +310,8 @@ public class ProductDAO {
 				int categoryId = rs.getInt("category_id");
 				String description = rs.getString("description");
 				String image = rs.getString("image");
-				products.add(new Product(id, name, inventory_quantity, price, discountPrice, brandId, categoryId, description, image));
+				products.add(new Product(id, name, inventory_quantity, price, discountPrice, brandId, categoryId,
+						description, image));
 			}
 
 		} catch (Exception e) {
@@ -323,6 +336,34 @@ public class ProductDAO {
 				double discountPrice = rs.getDouble("discount_price");
 				String image = rs.getString("image");
 				products.add(new ProductModel(id, name, price, discountPrice, image));
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return products;
+	}
+
+	private static final String SELECT_SALE_OFF_PRODDUCTS = "select * from product where discount_price > '0' ";
+
+	public List<Product> selectSaleOffProduct() {
+		List<Product> products = new ArrayList<>();
+		try (Connection connection = JDBCUtil.getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(SELECT_SALE_OFF_PRODDUCTS);) {
+			System.out.println(preparedStatement);
+			ResultSet rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				String name = rs.getString("name");
+				int inventoryQuantity = rs.getInt("inventory_quantity");
+				double price = rs.getDouble("price");
+				double discountPrice = rs.getDouble("discount_price");
+				int brandId = rs.getInt("brand_id");
+				int categoryId = rs.getInt("category_id");
+				String description = rs.getString("description");
+				String image = rs.getString("image");
+				products.add(new Product(id, name, inventoryQuantity, price, discountPrice, brandId, categoryId,
+						description, image));
 			}
 
 		} catch (Exception e) {

@@ -441,6 +441,22 @@ form .alert.alert-danger, form .alert.alert-danger {
 	color: #ec0000;
 	font-weight: bold;
 }
+#modal-cart-detail span .item-regular-price{
+	text-decoration: line-through;
+	color: #898989;
+}
+
+#modal-cart-detail span .item-discount-price {
+	font-size: 14px;
+	color: #e28732;
+	font-family: Arial;
+	line-height: normal;
+	font-weight: bold;
+	line-height: 16px;
+}
+#modal-cart-detail span .item-price {
+	margin: 20px 0;
+}
 /*breadcrumb*/
 main .breadcrumb {
 	background: none;

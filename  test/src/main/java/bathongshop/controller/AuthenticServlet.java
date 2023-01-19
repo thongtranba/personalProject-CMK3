@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import bathongshop.DAO.CustomerDAO;
-import bathongshop.DAO.LoginDAO;
 import bathongshop.entity.Customer;
 
 /**
@@ -20,7 +19,6 @@ import bathongshop.entity.Customer;
 @WebServlet("/authenticServlet")
 public class AuthenticServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private LoginDAO loginDAO = new LoginDAO();
 	private CustomerDAO customerDAO = new CustomerDAO();
 
 	/**
@@ -42,7 +40,7 @@ public class AuthenticServlet extends HttpServlet {
 			if (command != null && command.equals("LOGIN")) {
 				String email = request.getParameter("email");
 				String password = request.getParameter("password");
-				Customer customer = loginDAO.validate(email, password);
+				Customer customer = customerDAO.validate(email, password);
 				if (customer == null) {
 					request.setAttribute("loginNotification", "Login fail!!");
 					RequestDispatcher dispatcher = request.getRequestDispatcher("notification.jsp");

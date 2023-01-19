@@ -6,11 +6,11 @@
 	<div class="top-navbar container-fluid">
 		<div class="menu-mb">
 			<ul>
-				<li><a href="category?command=rackets&pageId=1"> Rackets </a></li>
-				<li><a href="category?command=bags&pageId=1">Bags</a></li>
-				<li><a href="category?command=clothing&pageId=1">Clothing</a></li>
-				<li><a href="category?command=shoes&pageId=1">Shoes</a></li>
-				<li><a href="category?command=strings&pageId=1">Strings</a></li>
+				<li><a href="category?command=CATEGORY&category=rackets&pageId=1"> Rackets </a></li>
+				<li><a href="category?command=CATEGORY&category=bags&pageId=1">Bags</a></li>
+				<li><a href="category?command=CATEGORY&category=clothing&pageId=1">Clothing</a></li>
+				<li><a href="category?command=CATEGORY&category=shoes&pageId=1">Shoes</a></li>
+				<li><a href="category?command=CATEGORY&category=strings&pageId=1">Strings</a></li>
 			</ul>
 
 		</div>
@@ -28,7 +28,7 @@
 			<div class="col-md-6 col-sm-10 col-xs-11 top-right">
 				<ul class="list-inline pull-right">
 
-					<li><a href="#">>> Outlet products up to 60%</a></li>
+					<li><a href="category?command=SALEOFF">>> Outlet products up to 60%</a></li>
 
 				</ul>
 			</div>
@@ -69,11 +69,11 @@
 <nav class="navbar navbar-default desktop-menu">
 	<div class="container">
 		<ul class="nav navbar-nav navbar-left hidden-sm hidden-xs">
-			<li><a href="category?command=rackets&pageId=1"> Rackets </a></li>
-			<li><a href="category?command=bags&pageId=1">Bags</a></li>
-			<li><a href="category?command=clothing&pageId=1">Clothing</a></li>
-			<li><a href="category?command=shoes&pageId=1">Shoes</a></li>
-			<li><a href="category?command=strings&pageId=1">Strings</a></li>
+			<li><a href="category?command=CATEGORY&category=rackets&pageId=1"> Rackets </a></li>
+				<li><a href="category?command=CATEGORY&category=bags&pageId=1">Bags</a></li>
+				<li><a href="category?command=CATEGORY&category=clothing&pageId=1">Clothing</a></li>
+				<li><a href="category?command=CATEGORY&category=shoes&pageId=1">Shoes</a></li>
+				<li><a href="category?command=CATEGORY&category=strings&pageId=1">Strings</a></li>
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
 			<c:if test="${sessionScope.username == null}">
