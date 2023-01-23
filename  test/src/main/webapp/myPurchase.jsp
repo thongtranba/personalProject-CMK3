@@ -17,7 +17,7 @@
 			<div class="row">
 				<div class="col-xs-9">
 					<ol class="breadcrumb">
-						<li><a href="HomeServlet" target="_self">Home</a></li>
+						<jsp:include page="layout/home-navigation.jsp" />
 						<li><span>/</span></li>
 						<li class="active"><span>Customer Information</span></li>
 					</ol>
@@ -27,32 +27,17 @@
 					<div class="inner-aside">
 						<div class="category">
 							<ul>
-								<li><a href="myInformation.jsp"
-									title="my information" target="_self">My information</a></li>
-								<li class="active"><a href="cartServlet?command=MY_ORDER&id=${sessionScope.customerId}" target="_self" title="my purchase">My
-										purchase </a></li>
+								<li><a href="myInformation.jsp" title="my information"
+									target="_self">My information</a></li>
+								<li class="active"><a
+									href="cart?command=MY_ORDER&id=${sessionScope.customerId}"
+									target="_self" title="my purchase">My purchase </a></li>
 							</ul>
 						</div>
 					</div>
 				</aside>
 				<div class="col-md-9 order">
-					<div class="row">
-						<div class="col-xs-6">
-							<h4 class="home-title">My Purchase</h4>
-						</div>
-						<div class="clearfix"></div>
-						<div class="col-md-12">
-							<c:forEach var="order" items="${orderList}">
-								<div class="row">
-									<div class="col-md-12">
-										<h5 class="date">Date: ${order.createdDate}</h5>
-										<span > <a href="cartServlet?command=MY_ORDER_DETAILS&orderId=${order.id}" >Order number: #${order.id}</a> </span>
-										<hr>
-									</div>
-								</div>
-							</c:forEach>
-						</div>
-					</div>
+					<jsp:include page="layout/view-my-purchase.jsp" />
 				</div>
 			</div>
 		</div>

@@ -6,13 +6,8 @@
 	<div class="top-navbar container-fluid">
 		<div class="menu-mb">
 			<ul>
-				<li><a href="category?command=CATEGORY&category=rackets&pageId=1"> Rackets </a></li>
-				<li><a href="category?command=CATEGORY&category=bags&pageId=1">Bags</a></li>
-				<li><a href="category?command=CATEGORY&category=clothing&pageId=1">Clothing</a></li>
-				<li><a href="category?command=CATEGORY&category=shoes&pageId=1">Shoes</a></li>
-				<li><a href="category?command=CATEGORY&category=strings&pageId=1">Strings</a></li>
+				<jsp:include page="menu-bar-navigation.jsp" />
 			</ul>
-
 		</div>
 		<div class="row">
 			<div class="hidden-lg hidden-md col-sm-2 col-xs-1">
@@ -28,7 +23,8 @@
 			<div class="col-md-6 col-sm-10 col-xs-11 top-right">
 				<ul class="list-inline pull-right">
 
-					<li><a href="category?command=SALEOFF">>> Outlet products up to 60%</a></li>
+					<li><a href="category?command=SALEOFF">>> Outlet products
+							up to 60%</a></li>
 
 				</ul>
 			</div>
@@ -40,13 +36,13 @@
 		<div class="row">
 			<!-- LOGO -->
 			<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 logo">
-				<a href="HomeServlet"><img src="public/images/bathongLogo.png"
+				<a href="home"><img src="public/images/bathongLogo.png"
 					height="100px" width="120px" class="img-responsive" /></a>
 			</div>
 
 			<!-- SERCH -->
 			<div class="col-lg-6 col-md-6 col-sm-10 hotline-search">
-				<form class="header-form" action="searchServlet">
+				<form class="header-form" action="search">
 					<div class="input-group">
 						<input type="search" class="form-control search"
 							placeholder="Search your products" name="search"
@@ -69,11 +65,7 @@
 <nav class="navbar navbar-default desktop-menu">
 	<div class="container">
 		<ul class="nav navbar-nav navbar-left hidden-sm hidden-xs">
-			<li><a href="category?command=CATEGORY&category=rackets&pageId=1"> Rackets </a></li>
-				<li><a href="category?command=CATEGORY&category=bags&pageId=1">Bags</a></li>
-				<li><a href="category?command=CATEGORY&category=clothing&pageId=1">Clothing</a></li>
-				<li><a href="category?command=CATEGORY&category=shoes&pageId=1">Shoes</a></li>
-				<li><a href="category?command=CATEGORY&category=strings&pageId=1">Strings</a></li>
+				<jsp:include page="menu-bar-navigation.jsp" />
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
 			<c:if test="${sessionScope.username == null}">

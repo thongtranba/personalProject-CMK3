@@ -15,7 +15,7 @@
 			<div class="row">
 				<div class="col-xs-9">
 					<ol class="breadcrumb">
-						<li><a href="HomeServlet" target="_self">Home</a></li>
+						<li><a href="home" target="_self">Home</a></li>
 						<li><span>/</span></li>
 						<li class="active"><span>${categoryPage}</span></li>
 					</ol>
@@ -40,49 +40,11 @@
 							<jsp:include page="layout/sort.jsp" />
 						</div>
 						<div class="clearfix"></div>
-						<c:forEach var="product" items="${categoryList}">
-							<div class="col-xs-6 col-sm-4">
-								<div class="product-container">
-									<div class="image">
-										<img class="img-responsive" src="${product.image}" alt="" />
-									</div>
-									<div class="product-meta">
-										<h5 class="name">
-											<a class="product-name"
-												href="productDetail?id=<c:out value='${product.id}' />"
-												title="${product.name}">${product.name} </a>
-										</h5>
-										<div class="product-item-price">
-											<c:if test="${product.discountPrice == 0.0}">
-												<span>Price: </span>
-												<span class="product-item-price">${product.price}
-													euro</span>
-											</c:if>
-											<c:if test="${product.discountPrice != 0.0}">
-												<span>Price: </span>
-												<span class="product-item-regular">${product.price}
-													euro</span>
-												<span class="product-item-discount">${product.discountPrice}
-													euro</span>
-											</c:if>
-										</div>
-									</div>
-									<div class="button-product-action clearfix">
-
-										<div class="quickview icon">
-											<a class="btn btn-outline-inverse"
-												href="productDetail?id=<c:out value='${product.id}' />"
-												title="quick view"> detail <i class="fa fa-eye"></i>
-											</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</c:forEach>
-						<!-- Paging -->
-						<jsp:include page="layout/pagination.jsp" />
-						<!-- End paging -->
+						<jsp:include page="layout/view-product-by-category.jsp" />
 					</div>
+					<!-- Paging -->
+					<jsp:include page="layout/pagination.jsp" />
+					<!-- End paging -->
 				</div>
 			</div>
 		</div>

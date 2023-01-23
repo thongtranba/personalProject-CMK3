@@ -94,10 +94,8 @@ public class ProductDAO {
 		return rowDeleted;
 	}
 
-	private static final String SELECT_PRODUCT_BY_ID = 
-			"select product.*, brand.name as brandName, category.name as categoryName from product"
-			+ " join brand on product.brand_id = brand.id"
-			+ " join category on product.category_id = category.id"
+	private static final String SELECT_PRODUCT_BY_ID = "select product.*, brand.name as brandName, category.name as categoryName from product"
+			+ " join brand on product.brand_id = brand.id" + " join category on product.category_id = category.id"
 			+ " where product.id =?";
 
 	public ProductModel selectProduct(int id) {
@@ -116,8 +114,8 @@ public class ProductDAO {
 				String categoryName = rs.getString("categoryName");
 				String description = rs.getString("description");
 				String image = rs.getString("image");
-				product = new ProductModel(id, name, inventory_quantity, price, discountPrice, description,
-						image, brandName, categoryName);
+				product = new ProductModel(id, name, inventory_quantity, price, discountPrice, description, image,
+						brandName, categoryName);
 
 			}
 		} catch (Exception e) {
@@ -290,14 +288,14 @@ public class ProductDAO {
 		return products;
 	}
 
-	private static final String SEARCH_PRODUCTS = "select * from product join brand on brand.id = product.brand_id where product.name = ? or brand.name = ?";
+	private static final String SEARCH_PRODUCTS = "select * from product join brand on brand.id = product.brand_id where product.name like ? or brand.name like ? ";
 
 	public List<Product> searchProducts(String searchString) {
 		List<Product> products = new ArrayList<>();
 		try (Connection connection = JDBCUtil.getConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(SEARCH_PRODUCTS);) {
-			preparedStatement.setString(1, searchString);
-			preparedStatement.setString(2, searchString);
+			preparedStatement.setString(1, "%" +searchString + "%");
+			preparedStatement.setString(2, "%" +searchString + "%");
 			System.out.println(preparedStatement);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {

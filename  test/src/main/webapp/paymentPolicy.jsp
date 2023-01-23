@@ -17,7 +17,7 @@
 			<div class="row">
 				<div class="col-xs-12">
 					<ol class="breadcrumb">
-						<li><a href="HomeServlet" target="_self">Home</a></li>
+						<jsp:include page="layout/home-navigation.jsp" />
 						<li><span>/</span></li>
 						<li class="active"><span>Payment</span></li>
 					</ol>
@@ -47,15 +47,13 @@
 						</p>
 						<p>The following may be the reason why you cannot complete
 							your order and sign with 3Dsecure/BankID:</p>
-						<p>- Signing with 3D Secure/BankID usually
-							requires Java to work on the device. If you do not have Java
-							installed, you will get a white page without being able to
-							complete your purchase.</p>
-						<p>- You are using a device that does not
-							support Java. Please try to complete your purchase from another
-							device.</p>
-						<p>- Also check that you have activated
-							the option for online purchases with your card before paying.</p>
+						<p>- Signing with 3D Secure/BankID usually requires Java to
+							work on the device. If you do not have Java installed, you will
+							get a white page without being able to complete your purchase.</p>
+						<p>- You are using a device that does not support Java. Please
+							try to complete your purchase from another device.</p>
+						<p>- Also check that you have activated the option for online
+							purchases with your card before paying.</p>
 						</p>
 					</div>
 				</div>

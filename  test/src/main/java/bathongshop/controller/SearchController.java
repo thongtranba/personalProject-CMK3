@@ -12,48 +12,36 @@ import javax.servlet.http.HttpServletResponse;
 
 import bathongshop.DAO.ProductDAO;
 import bathongshop.entity.Product;
-import bathongshop.model.ProductModel;
 
 /**
- * Servlet implementation class ProductDetail
+ * Servlet implementation class SearchServlet
  */
-@WebServlet("/productDetail")
-public class ProductDetailServlet extends HttpServlet {
+@WebServlet("/search")
+public class SearchController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ProductDAO productDAO = new ProductDAO();
+	ProductDAO productDAO = new ProductDAO();
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public ProductDetailServlet() {
+	public SearchController() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-			int id = Integer.parseInt(request.getParameter("id"));
-			ProductModel existingProduct = productDAO.selectProduct(id);
-			List<Product> relatedProduct = productDAO.selectRelatedProducts();
-			request.setAttribute("relatedProduct", relatedProduct);
-			request.setAttribute("product", existingProduct);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("productDetail.jsp");
+			String search = request.getParameter("search");
+			List<Product> searchProducts = productDAO.searchProducts(search);
+			request.setAttribute("searchString", search);
+			request.setAttribute("searchProducts", searchProducts);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("searchProduct.jsp");
 			dispatcher.forward(request, response);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub

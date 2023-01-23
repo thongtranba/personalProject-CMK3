@@ -17,7 +17,7 @@
 			<div class="row">
 				<div class="col-xs-12">
 					<ol class="breadcrumb">
-						<li><a href="HomeServlet" target="_self">Home</a></li>
+						<jsp:include page="layout/home-navigation.jsp" />
 						<li><span>/</span></li>
 						<li class="active"><span>Notification</span></li>
 					</ol>
@@ -43,9 +43,9 @@
 						${loginNotification}. Try again,
 						<button class="btn btn-primary btn-login">Login</button>
 					</div>
-					
+
 				</c:if>
-				
+
 			</div>
 		</div>
 	</main>

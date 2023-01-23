@@ -16,7 +16,7 @@
 			<div class="row">
 				<div class="col-xs-9">
 					<ol class="breadcrumb">
-						<li><a href="HomeServlet" target="_self">Home</a></li>
+						<jsp:include page="layout/home-navigation.jsp" />
 						<li><span>/</span></li>
 						<li class="active"><span>Customer Information</span></li>
 					</ol>
@@ -28,8 +28,9 @@
 							<ul>
 								<li class="active"><a href="customerInformation.jsp"
 									title="my information" target="_self">My information</a></li>
-								<li ><a title="my purchase" href="cartServlet?command=MY_ORDER&id=${sessionScope.customerId}" target="_self">My
-										purchase </a></li>
+								<li><a title="my purchase"
+									href="cart?command=MY_ORDER&id=${sessionScope.customerId}"
+									target="_self">My purchase </a></li>
 							</ul>
 						</div>
 					</div>

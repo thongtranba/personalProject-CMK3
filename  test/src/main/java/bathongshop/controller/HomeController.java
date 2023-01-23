@@ -20,16 +20,16 @@ import bathongshop.entity.Product;
 /**
  * Servlet implementation class Home
  */
-@WebServlet(urlPatterns = {"/HomeServlet"})
+@WebServlet(urlPatterns = {"/home"})
 
-public class HomeServlet extends HttpServlet {
+public class HomeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ProductDAO productDAO = new ProductDAO();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public HomeServlet() {
+	public HomeController() {
 		super();
 		
 	}

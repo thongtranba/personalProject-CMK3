@@ -32,7 +32,7 @@
 						<div class="button-product-action clearfix">
 							<div class="quickview icon">
 								<a class="btn btn-outline-inverse"
-									href="productDetail?id=<c:out value="${product.id}" />"
+									href="product?id=<c:out value="${product.id}" />"
 									title="quick view"> details <i class="fa fa-eye"></i>
 								</a>
 							</div>

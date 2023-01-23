@@ -16,7 +16,7 @@
 			<div class="row">
 				<div class="col-xs-9">
 					<ol class="breadcrumb">
-						<li><a href="HomeServlet" target="_self">Home</a></li>
+						<jsp:include page="layout/home-navigation.jsp" />
 						<li><span>/</span></li>
 						<li class="active"><span>Customer Information</span></li>
 					</ol>
@@ -29,58 +29,18 @@
 								<li><a href="myInformation.jsp" title="my information"
 									target="_self">My information</a></li>
 								<li class="active"><a title="my purchase"
-									href="cartServlet?command=MY_ORDER&id=${sessionScope.customerId}"
+									href="cart?command=MY_ORDER&id=${sessionScope.customerId}"
 									target="_self">My purchase </a></li>
 							</ul>
 						</div>
 					</div>
 				</aside>
 				<div class="col-md-9 order-info">
-					<div class="row">
-						<div class="col-xs-6">
-							<h4 class="home-title">Order number: #${orderId}</h4>
-						</div>
-						
-						<aside class="col-md-12 cart-checkout">
-							<c:forEach var="product" items="${productList}">
-								<div class="row">
-									<div class="col-md-4 col-xs-2">
-										<img class="img-responsive" src="${product.image}"
-											alt="${product.name}" />
-									</div>
-									<div class="col-md-6 col-xs-7">
-										<a class="product-name" href="productDetail?id=${product.id}">${product.name}</a>
-										<br> <span>2</span> x <span>${product.price} euro</span>
-									</div>
-									<div class="col-md-2 col-xs-3 text-right">
-										<span>subprice</span>
-									</div>
-								</div>
-								<hr>
-							</c:forEach>
-
-							<div class="row">
-								<div class="col-xs-6">good</div>
-								<div class="col-xs-6 text-right">500 euro</div>
-							</div>
-							<div class="row">
-								<div class="col-xs-6">delivery</div>
-								<div class="col-xs-6 text-right">3.9 euro</div>
-							</div>
-							<hr>
-							<div class="row">
-								<div class="col-xs-6">Total</div>
-								<div class="col-xs-6 text-right">600 euro</div>
-							</div>
-						</aside>
-
-					</div>
+					<jsp:include page="layout/view-my-order-detail.jsp" />
 				</div>
 			</div>
 		</div>
 	</main>
-
-
 	<!-- FOOTER-->
 	<jsp:include page="layout/footer.jsp" />
 	<!-- END FOOTER-->
