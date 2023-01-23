@@ -76,17 +76,9 @@
 					<c:out value="${product.description}" />
 				</div>
 				<div role="tabpanel" class="tab-pane" id="product-technology">
-					<img src="https://www.yonex.com/media/yonex/technology/B_Namd.jpg" />
-					<p>Namd</p>
-					<p>A world-first, new dimension graphite material, Namd,
-						greatly improves the adhesion of the graphite fibers and resin by
-						attaching nanomaterial directly to the graphite fiber.In high
-						performance racquets, it is common to combine nanomaterials with
-						resin that connects graphite fibers, but in Namd, nanomaterials
-						are directly adhered to the graphite fibers and resin is greatly
-						increased. This major improvement produces a shaft that flexes and
-						stores energy, delivering explosive force on impact with the
-						shuttle.</p>
+				
+					<p>updating</p>
+					
 				</div>
 				<div role="tabpanel" class="tab-pane" id="product-comment">
 					<form class="form-comment" action="" method="POST" role="form">
@@ -107,7 +99,7 @@
 						<hr />
 						<span class="date pull-right">2022-11-25 16:11:07</span> <input
 							class="answered-rating-input" name="rating" type="text" title=""
-							value="4" readonly /> <span class="by">Ba Thong</span>
+							value="4" readonly /> <span class="by">sofia</span>
 						<p>Good</p>
 					</div>
 				</div>

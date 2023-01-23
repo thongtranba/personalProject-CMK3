@@ -259,8 +259,7 @@ public class ProductDAO {
 
 	private static final String SELECT_PRODUCT_BY_CATEGORYID = "select * from product where category_id =? limit ?,?";
 
-	public List<Product> selectAllProductByCategoryId(int categoryId, int pageId, int itemPerPage) {
-		int startItem = (pageId - 1) * itemPerPage;
+	public List<Product> selectAllProductByCategoryId(int categoryId, int startItem, int itemPerPage) {
 		List<Product> products = new ArrayList<>();
 		try (Connection connection = JDBCUtil.getConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(SELECT_PRODUCT_BY_CATEGORYID);) {

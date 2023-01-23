@@ -42,9 +42,11 @@
 						<div class="clearfix"></div>
 						<jsp:include page="layout/view-product-by-category.jsp" />
 					</div>
+				
 					<!-- Paging -->
 					<jsp:include page="layout/pagination.jsp" />
 					<!-- End paging -->
+				
 				</div>
 			</div>
 		</div>

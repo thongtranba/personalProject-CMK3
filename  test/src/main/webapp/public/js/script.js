@@ -7,7 +7,7 @@ function closeMenuMobile() {
 	$(".menu-mb").width(0);
 	$(".btn-menu-mb").show("slow");
 }
-function updateQuantity(value){
+function updateQuantity(value) {
 	$('input[type=number]').val('value');
 }
 
@@ -23,13 +23,6 @@ $(function() {
 		} else {
 			$(".back-to-top").fadeOut();
 		}
-	});
-
-	$(".page").click(function() {
-
-		$(".page").removeClass("active");
-
-		$(this).addClass("active");
 	});
 
 	$(".back-to-top").click(function() {

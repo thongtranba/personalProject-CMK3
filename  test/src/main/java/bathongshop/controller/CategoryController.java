@@ -85,10 +85,12 @@ public class CategoryController extends HttpServlet {
 			}
 			int itemPerPage = 9;
 			int totalProducts = productDAO.totalCategoryProduct(categoryId);
-			int totalPage = totalProducts / itemPerPage;
-			request.setAttribute("totalPage", totalPage);
-			List<Product> categoryList = productDAO.selectAllProductByCategoryId(categoryId, pageId, itemPerPage);
+			int startItem = (pageId - 1) * itemPerPage;
+			int totalPage = (int) Math.ceil(totalProducts * 1.0 / itemPerPage);
+			List<Product> categoryList = productDAO.selectAllProductByCategoryId(categoryId, startItem, itemPerPage);
 			request.setAttribute("categoryList", categoryList);
+			request.setAttribute("totalPage", totalPage);
+			request.setAttribute("currentPage", pageId);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("category.jsp");
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
