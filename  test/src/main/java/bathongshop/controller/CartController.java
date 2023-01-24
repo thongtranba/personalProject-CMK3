@@ -144,7 +144,7 @@ public class CartController extends HttpServlet {
 			List<Order> orderList = orderDAO.selectAllOrderByCustomerId(customerId);
 			request.setAttribute("orderList", orderList);
 
-			RequestDispatcher dispatcher = request.getRequestDispatcher("myPurchase.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("my-purchase.jsp");
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -158,7 +158,7 @@ public class CartController extends HttpServlet {
 			List<ProductModel> products = productDAO.selectAllProductByOrderId(id);
 			request.setAttribute("orderId", id);
 			request.setAttribute("productList", products);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("myOrderDetail.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("my-order-detail.jsp");
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();

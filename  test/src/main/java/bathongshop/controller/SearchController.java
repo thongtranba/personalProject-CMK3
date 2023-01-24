@@ -33,7 +33,7 @@ public class SearchController extends HttpServlet {
 			List<Product> searchProducts = productDAO.searchProducts(search);
 			request.setAttribute("searchString", search);
 			request.setAttribute("searchProducts", searchProducts);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("searchProduct.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("search-product.jsp");
 			dispatcher.forward(request, response);
 
 		} catch (Exception e) {

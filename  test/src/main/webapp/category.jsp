@@ -28,7 +28,7 @@
 				<div class="clearfix"></div>
 				<aside class="col-md-3">
 					<div class="inner-aside">
-						<jsp:include page="layout/asideMenu.jsp" />
+						<jsp:include page="layout/category-aside-menu.jsp" />
 					</div>
 				</aside>
 				<div class="col-md-9 products">
@@ -37,14 +37,14 @@
 							<h4 class="home-title">${categoryPage}</h4>
 						</div>
 						<div class="col-xs-6 sort-by">
-							<jsp:include page="layout/sort.jsp" />
+							<jsp:include page="layout/category-sort.jsp" />
 						</div>
 						<div class="clearfix"></div>
 						<jsp:include page="layout/view-product-by-category.jsp" />
 					</div>
 				
 					<!-- Paging -->
-					<jsp:include page="layout/pagination.jsp" />
+					<jsp:include page="layout/category-pagination.jsp" />
 					<!-- End paging -->
 				
 				</div>

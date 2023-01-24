@@ -102,7 +102,7 @@ public class CategoryController extends HttpServlet {
 		try {
 			List<Product> saleOffProduct = productDAO.selectSaleOffProduct();
 			request.setAttribute("saleOffProduct", saleOffProduct);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("saleOffProduct.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("sale-off-product.jsp");
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();

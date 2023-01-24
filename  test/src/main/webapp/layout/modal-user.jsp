@@ -12,7 +12,7 @@
 				role="form">
 				<div class="modal-body">
 					<div class="form-group">
-						<a href="myInformation.jsp">My information</a>
+						<a href="my-information.jsp">My information</a>
 					</div>
 					<div class="form-group">
 						<a href="cart?command=MY_ORDER&id=${sessionScope.customerId}">My

@@ -45,7 +45,7 @@
 										</div>
 										<div class="col-sm-6 col-md-2">
 											<a class="product-name"
-												href="productDetail?id=${item.value.id}">${item.value.name }</a>
+												href="product?id=${item.value.id}">${item.value.name }</a>
 										</div>
 										<div class="col-sm-6 col-md-2">
 											<c:if test="${item.value.discountPrice == 0.0}">
@@ -55,22 +55,18 @@
 											</c:if>
 											<c:if test="${item.value.discountPrice != 0.0}">
 
-
 												<span class="item-discount-price">${item.value.discountPrice}
 													euro</span>
 											</c:if>
 										</div>
 										<div class="col-sm-6 col-md-2">
-											<c:set var="quantity" value="1" />
-											<input type="number" onchange="updateQuantity(this.value)"
+											
+											<input type="number" onchange="updateQuantity()"
 												min="1" value="1" />
 
 										</div>
 										<div class="col-sm-6 col-md-2">
-											<c:set var="subTotal" value="0" />
-											<c:set var="total"
-												value="${quantity * item.value.discountPrice}" />
-											<c:set var="subTotal" value="${subTotal + total}" />
+											
 											<span><c:out value="${total}" /> euro</span>
 										</div>
 										<div class="col-sm-6 col-md-1">

@@ -26,7 +26,7 @@
 					<div class="inner-aside">
 						<div class="category">
 							<ul>
-								<li class="active"><a href="customerInformation.jsp"
+								<li class="active"><a href="my-information.jsp"
 									title="my information" target="_self">My information</a></li>
 								<li><a title="my purchase"
 									href="cart?command=MY_ORDER&id=${sessionScope.customerId}"

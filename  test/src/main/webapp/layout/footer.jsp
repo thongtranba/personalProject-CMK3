@@ -16,9 +16,9 @@
 						<div class="footerLink">
 							<h4>Policy</h4>
 							<ul class="list-unstyled">
-								<li><a href="returnExchangePolicy.jsp">Return/Exchange</a></li>
-								<li><a href="deliveryPolicy.jsp">Delivery</a></li>
-								<li><a href="paymentPolicy.jsp">Payment </a></li>
+								<li><a href="return-exchange-policy.jsp">Return/Exchange</a></li>
+								<li><a href="delivery-policy.jsp">Delivery</a></li>
+								<li><a href="payment-policy.jsp">Payment </a></li>
 								<li><a href="contact.jsp">Contact </a></li>
 							</ul>
 						</div>
@@ -62,21 +62,21 @@
 <!-- END BACK TO TOP -->
 
 <!-- REGISTER DIALOG -->
-<jsp:include page="register-modal.jsp" />
+<jsp:include page="modal-register.jsp" />
 <!-- END REGISTER DIALOG -->
 
 <!-- LOGIN DIALOG -->
-<jsp:include page="login-modal.jsp" />
+<jsp:include page="modal-login.jsp" />
 <!-- END LOGIN DIALOG -->
 
 <!-- USER DIALOG -->
-<jsp:include page="user-modal.jsp" />
+<jsp:include page="modal-user.jsp" />
 <!-- END USER DIALOG -->
 
 <!-- FORTGOT PASSWORD DIALOG -->
-<jsp:include page="forgot-password-modal.jsp" />
+<jsp:include page="modal-forgot-password.jsp" />
 <!-- END FORTGOT PASSWORD DIALOG -->
 
 <!-- CART DIALOG -->
-<jsp:include page="cart-modal.jsp" />
+<jsp:include page="modal-cart.jsp" />
 <!-- END CART DIALOG -->

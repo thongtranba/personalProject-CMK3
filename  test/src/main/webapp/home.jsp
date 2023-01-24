@@ -12,7 +12,7 @@
 	<jsp:include page="layout/header.jsp" />
 	<!-- END HEADER-->
 	<!-- SLIDESHOW -->
-	<jsp:include page="layout/carousel.jsp" />
+	<jsp:include page="layout/home-carousel.jsp" />
 	<!-- END SLIDESHOW -->
 
 	<main id="maincontent" class="page-main">

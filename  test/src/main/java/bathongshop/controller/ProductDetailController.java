@@ -42,7 +42,7 @@ public class ProductDetailController extends HttpServlet {
 			List<Product> relatedProduct = productDAO.selectRelatedProducts();
 			request.setAttribute("relatedProduct", relatedProduct);
 			request.setAttribute("product", existingProduct);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("productDetail.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("product-detail.jsp");
 			dispatcher.forward(request, response);
 
 		} catch (Exception e) {

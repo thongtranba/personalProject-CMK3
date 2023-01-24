@@ -67,7 +67,9 @@ public class AuthenticationController extends HttpServlet {
 				session.setAttribute("username", customer.getUsername());
 				session.setAttribute("mobile", customer.getMobile());
 				session.setAttribute("address", customer.getAddress());
-				response.sendRedirect("home");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("home");
+				dispatcher.forward(request, response);
+			
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
