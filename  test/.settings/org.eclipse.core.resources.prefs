@@ -1,5 +1,6 @@
 eclipse.preferences.version=1
 encoding//src/main/webapp/layout/footer.jsp=UTF-8
+encoding//src/main/webapp/layout/modal-cart.jsp=UTF-8
 encoding//src/main/webapp/my-information.jsp=UTF-8
 encoding//src/main/webapp/my-order-detail.jsp=UTF-8
 encoding//src/main/webapp/my-purchase.jsp=UTF-8

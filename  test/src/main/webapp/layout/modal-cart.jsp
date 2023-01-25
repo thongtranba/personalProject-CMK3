@@ -10,7 +10,9 @@
 			<div class="modal-body">
 				<div class="page-content">
 					<div class="clearfix hidden-sm hidden-xs">
-						<div class="col-xs-1"></div>
+						<div class="col-xs-1">
+							<div class="header">No</div>
+						</div>
 						<div class="col-xs-2">
 							<div class="header">Image</div>
 						</div>
@@ -28,68 +30,70 @@
 						</div>
 						<div class="lcol-xs-1"></div>
 					</div>
-					<div class="cart-product">
-						<hr />
-						<c:if test="${not empty cart }">
-							<c:forEach var="item" items="${cart}" varStatus="status">
-								<div class="clearfix text-left">
-									<div class="row">
-										<div class="col-sm-6 col-md-1">
-											<div>${status.count}.</div>
-										</div>
-										<div class="col-sm-6 col-md-2">
-											<div>
-												<img class="img-responsive" src="${item.value.image}"
-													alt="${item.value.name }" />
-											</div>
-										</div>
-										<div class="col-sm-6 col-md-2">
-											<a class="product-name"
-												href="product?id=${item.value.id}">${item.value.name }</a>
-										</div>
-										<div class="col-sm-6 col-md-2">
-											<c:if test="${item.value.discountPrice == 0.0}">
-
-												<span class="item-price">${item.value.price} euro</span>
-
-											</c:if>
-											<c:if test="${item.value.discountPrice != 0.0}">
-
-												<span class="item-discount-price">${item.value.discountPrice}
-													euro</span>
-											</c:if>
-										</div>
-										<div class="col-sm-6 col-md-2">
-											
-											<input type="number" onchange="updateQuantity()"
-												min="1" value="1" />
-
-										</div>
-										<div class="col-sm-6 col-md-2">
-											
-											<span><c:out value="${total}" /> euro</span>
-										</div>
-										<div class="col-sm-6 col-md-1">
-											<a class="remove-product"
-												href="cart?command=REMOVE&productId=${item.key}"><span
-												class="glyphicon glyphicon-trash"></span></a>
+				</div>
+				<div class="cart-product  ">
+					<hr />
+					<input class="totalItem" type="hidden"
+						value="${sessionScope.cart.size()}">
+					<c:if test="${not empty cart }">
+						<c:forEach var="item" items="${cart}" varStatus="status">
+							<div class="clearfix text-left">
+								<div class="row-cart ">
+									<div class="col-sm-6 col-md-1">
+										<span class="no">${status.count}</span>
+									</div>
+									<div class="col-sm-6 col-md-2">
+										<div>
+											<img class="img-responsive" src="${item.value.image}"
+												alt="${item.value.name }" />
 										</div>
 									</div>
+									<div class="col-sm-6 col-md-2">
+										<a class="product-name" href="product?id=${item.value.id}">${item.value.name }</a>
+									</div>
+									<div class="col-sm-6 col-md-2">
+										<c:if test="${item.value.discountPrice == 0.0}">
+
+											<span class="cart-price">${item.value.price} </span>
+											<span>euro</span>
+										</c:if>
+										<c:if test="${item.value.discountPrice != 0.0}">
+
+											<span class="cart-price">${item.value.discountPrice} </span>
+											<span>euro</span>
+										</c:if>
+									</div>
+									<div class="col-sm-6 col-md-2">
+										<input name="inputQty" class="cartQtyInput" type="number"
+											value="1" min="1" max="${item.value.inventoryQuantity}">
+
+									</div>
+									<div class="col-sm-6 col-md-2">
+
+
+										<span class="subTotal"></span>
+
+									</div>
+									<div class="col-sm-6 col-md-1">
+										<a class="remove-product"
+											href="cart?command=REMOVE&productId=${item.key}"><span
+											class="glyphicon glyphicon-trash"></span></a>
+									</div>
 								</div>
-								<hr />
-							</c:forEach>
-						</c:if>
-						<c:if test="${ empty cart }">
-							<h4 style="text-align: center; color: gray">Empty</h4>
-						</c:if>
-					</div>
+							</div>
+							<hr />
+						</c:forEach>
+					</c:if>
+					<c:if test="${ empty cart }">
+						<h4 style="text-align: center; color: gray">Empty</h4>
+					</c:if>
 				</div>
 			</div>
 			<div class="modal-footer">
 				<div class="clearfix">
 					<div class="col-xs-12 text-right">
 						<p>
-							<span>Total</span> <span class="price-total">$${total}</span>
+							<span>Total</span> <span class="price-total"></span>
 						</p>
 						<input type="button" data-dismiss="modal" class="btn btn-default"
 							value="Continue shopping" />

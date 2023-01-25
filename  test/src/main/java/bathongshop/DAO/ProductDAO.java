@@ -107,14 +107,14 @@ public class ProductDAO {
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				String name = rs.getString("name");
-				int inventory_quantity = rs.getInt("inventory_quantity");
+				int inventoryQuantity = rs.getInt("inventory_quantity");
 				double price = rs.getDouble("price");
 				double discountPrice = rs.getDouble("discount_price");
 				String brandName = rs.getString("brandName");
 				String categoryName = rs.getString("categoryName");
 				String description = rs.getString("description");
 				String image = rs.getString("image");
-				product = new ProductModel(id, name, inventory_quantity, price, discountPrice, description, image,
+				product = new ProductModel(id, name, inventoryQuantity, price, discountPrice, description, image,
 						brandName, categoryName);
 
 			}
@@ -136,14 +136,14 @@ public class ProductDAO {
 			while (rs.next()) {
 				int id = rs.getInt("id");
 				String name = rs.getString("name");
-				int inventory_quantity = rs.getInt("inventory_quantity");
+				int inventoryQuantity = rs.getInt("inventory_quantity");
 				double price = rs.getDouble("price");
 				double discountPrice = rs.getDouble("discount_price");
 				int brandId = rs.getInt("brand_id");
 				int categoryId = rs.getInt("category_id");
 				String description = rs.getString("description");
 				String image = rs.getString("image");
-				products.add(new Product(id, name, inventory_quantity, price, discountPrice, brandId, categoryId,
+				products.add(new Product(id, name, inventoryQuantity, price, discountPrice, brandId, categoryId,
 						description, image));
 			}
 
@@ -165,14 +165,14 @@ public class ProductDAO {
 			while (rs.next()) {
 				int id = rs.getInt("id");
 				String name = rs.getString("name");
-				int inventory_quantity = rs.getInt("inventory_quantity");
+				int inventoryQuantity = rs.getInt("inventory_quantity");
 				double price = rs.getDouble("price");
 				double discountPrice = rs.getDouble("discount_price");
 				int brandId = rs.getInt("brand_id");
 				int categoryId = rs.getInt("category_id");
 				String description = rs.getString("description");
 				String image = rs.getString("image");
-				products.add(new Product(id, name, inventory_quantity, price, discountPrice, brandId, categoryId,
+				products.add(new Product(id, name, inventoryQuantity, price, discountPrice, brandId, categoryId,
 						description, image));
 			}
 
@@ -293,21 +293,21 @@ public class ProductDAO {
 		List<Product> products = new ArrayList<>();
 		try (Connection connection = JDBCUtil.getConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(SEARCH_PRODUCTS);) {
-			preparedStatement.setString(1, "%" +searchString + "%");
-			preparedStatement.setString(2, "%" +searchString + "%");
+			preparedStatement.setString(1, "%" + searchString + "%");
+			preparedStatement.setString(2, "%" + searchString + "%");
 			System.out.println(preparedStatement);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				int id = rs.getInt("id");
 				String name = rs.getString("name");
-				int inventory_quantity = rs.getInt("inventory_quantity");
+				int inventoryQuantity = rs.getInt("inventory_quantity");
 				double price = rs.getDouble("price");
 				double discountPrice = rs.getDouble("discount_price");
 				int brandId = rs.getInt("brand_id");
 				int categoryId = rs.getInt("category_id");
 				String description = rs.getString("description");
 				String image = rs.getString("image");
-				products.add(new Product(id, name, inventory_quantity, price, discountPrice, brandId, categoryId,
+				products.add(new Product(id, name, inventoryQuantity, price, discountPrice, brandId, categoryId,
 						description, image));
 			}
 
@@ -329,10 +329,11 @@ public class ProductDAO {
 			while (rs.next()) {
 				int id = rs.getInt("id");
 				String name = rs.getString("name");
+				int inventoryQuantity = rs.getInt("inventory_quantity");
 				double price = rs.getDouble("price");
 				double discountPrice = rs.getDouble("discount_price");
 				String image = rs.getString("image");
-				products.add(new ProductModel(id, name, price, discountPrice, image));
+				products.add(new ProductModel(id, name, inventoryQuantity, price, discountPrice, image));
 			}
 
 		} catch (Exception e) {

@@ -7,9 +7,7 @@ function closeMenuMobile() {
 	$(".menu-mb").width(0);
 	$(".btn-menu-mb").show("slow");
 }
-function updateQuantity(value) {
-	$('input[type=number]').val('value');
-}
+
 
 $(function() {
 	$(".product-container").hover(function() {
@@ -64,6 +62,7 @@ $(function() {
 
 	$(".btn-cart-detail").click(function() {
 		$("#modal-cart-detail").modal("show");
+
 	});
 
 	$(".btn-aside-mobile").click(function() {
@@ -126,9 +125,17 @@ $(function() {
 
 	$("input[name=back-shopping]").click(function(event) {
 		/* Act on the event */
-		window.location.href = "HomeServlet";
+		window.location.href = "home";
 	});
 
+
+	$('main .product-detail .product-detail-carousel-slider img').click(function(event) {
+		/* Act on the event */
+		$('main .product-detail .main-image-thumbnail').attr("src", $(this).attr("src"));
+		var image_path = $('main .product-detail .main-image-thumbnail').attr("src");
+		$(".zoomWindow").css("background-image", "url('" + image_path + "')");
+
+	});
 
 	$("main .product-detail .product-related .owl-carousel").owlCarousel({
 		loop: true,
@@ -147,4 +154,42 @@ $(function() {
 			},
 		},
 	});
+
 });
+
+
+$(document).ready(function() {
+	var cartItems = $(".totalItem").val();
+	console.log(cartItems);
+
+	var total = 0;
+
+	for (var i = 0; i < cartItems; i++) {
+		var inputQty = $(".cartQtyInput").eq(i).val();
+		var price = $(".cart-price").eq(i).text();
+		var subtotal = inputQty * price;
+		console.log(subtotal);
+		
+		
+		$(".qty").eq(i).html(inputQty);
+		$(".subTotal").eq(i).html(subtotal + " euro");
+
+		total = total + (price * inputQty);
+	}
+	total = Math.round(total * 100) / 100;
+	
+	$(".price-total").html(total + " euro");
+	var deliveryFee = 39;
+	$(".delivery-fee").html(deliveryFee+ " euro");
+	
+	var paymentTotal = total + 39;
+	$(".payment-total").html(paymentTotal+ " euro");
+})
+
+
+
+
+
+
+
+

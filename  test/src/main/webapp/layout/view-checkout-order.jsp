@@ -8,29 +8,31 @@
 			</div>
 			<div class="col-xs-7">
 				<a class="product-name" href="product?id=${item.value.id}">${item.value.name }
-					euro</a> <br> <span>2</span> x <span>${item.value.price }</span>
+					euro</a> <br> <span class="qty"></span> x <span>${item.value.price }</span>
 			</div>
 			<div class="col-xs-3 text-right">
-				<span>subprice</span>
+				<span class="subTotal"></span>
 			</div>
 		</div>
 		<hr>
 	</c:forEach>
 	<div class="row">
-		<div class="col-xs-6">product price</div>
-		<div class="col-xs-6 text-right">1000 euro</div>
+		<div class="col-xs-6">Goods</div>
+		<div class="col-xs-6 text-right">
+			<span class="price-total"></span>
+		</div>
 	</div>
 	<div class="row">
 		<div class="col-xs-6">Delivery</div>
 		<div class="col-xs-6 text-right">
-			<span class="shipping-fee" data="">3.9 euro</span>
+			<span class="delivery-fee"></span>
 		</div>
 	</div>
 	<hr>
 	<div class="row">
 		<div class="col-xs-6">Total</div>
 		<div class="col-xs-6 text-right">
-			<span class="payment-total" data="1230000">500 euro</span>
+			<span class="payment-total"></span>
 		</div>
 	</div>
 </aside>

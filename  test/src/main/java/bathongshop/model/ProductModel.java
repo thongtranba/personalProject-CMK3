@@ -29,10 +29,11 @@ public class ProductModel {
 	}
 
 //for order
-	public ProductModel(int id, String name, double price, double discountPrice, String image) {
+	public ProductModel(int id, String name,int inventoryQuantity, double price, double discountPrice, String image) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.inventoryQuantity = inventoryQuantity;
 		this.price = price;
 		this.discountPrice = discountPrice;
 		this.image = image;

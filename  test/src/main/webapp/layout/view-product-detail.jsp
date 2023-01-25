@@ -27,14 +27,21 @@
 		<span></span>
 	</div>
 	<div class="product-status">
-		<span>Stock: </span> <span class="label-warning"><c:out
-				value="${product.inventoryQuantity}" /></span>
+		<c:if test="${product.inventoryQuantity != 0}">
+			<span>Stock: </span>
+			<span ><c:out
+					value="${product.inventoryQuantity}" /> pcs</span>
+		</c:if>
+		<c:if test="${product.inventoryQuantity == 0}">
+			<span>Stock: </span>
+			<span class="label-warning">Out of stock</span>
+		</c:if>
+
 	</div>
 	<div class="product-item-price">
 		<c:if test="${product.discountPrice == 0.0}">
 			<span>Price: </span>
 			<span class="product-item-price">${product.price} euro</span>
-
 		</c:if>
 		<c:if test="${product.discountPrice != 0.0}">
 			<span>Price: </span>
@@ -44,16 +51,24 @@
 		</c:if>
 	</div>
 	<div>
-		<input type="button"
-			style="background-color: #f0ad4e; border-style: none; border-radius: 5px; color: #ffffff;"
-			value="Add to cart"
-			onclick="window.location.href='cart?command=ADD_TO_CART&productId=${product.id}'">
-		<i class="fa fa-shopping-cart"></i> <br>
-		<h5
-			style="background-color: #eea97e; color: #010111; border-radius: 5px; text-align: center">${notification}</h5>
+		<c:if test="${product.inventoryQuantity != 0}">
+			<input type="button"
+				style="background-color: #f0ad4e; border-style: none; border-radius: 5px; color: #ffffff;"
+				value="Add to cart"
+				onclick="window.location.href='cart?command=ADD_TO_CART&productId=${product.id}'">
+			<i class="fa fa-shopping-cart"></i>
+			<br>
+			<h5
+				style="background-color: #eea97e; color: #010111; border-radius: 5px; text-align: center">${notification}</h5>
+		</c:if>
+
+		<c:if test="${product.inventoryQuantity == 0}">
+			<input class="addToCart" type="button"
+				style="background-color: #b3b1af; border-style: none; border-radius: 5px; color: #ffffff;"
+				value="Add to cart">
+			<i class="fa fa-exclamation-triangle"></i>
+		</c:if>
 	</div>
-
-
 </div>
 <div class="row product-description">
 	<div class="col-xs-12">
@@ -76,9 +91,9 @@
 					<c:out value="${product.description}" />
 				</div>
 				<div role="tabpanel" class="tab-pane" id="product-technology">
-				
+
 					<p>updating</p>
-					
+
 				</div>
 				<div role="tabpanel" class="tab-pane" id="product-comment">
 					<form class="form-comment" action="" method="POST" role="form">
