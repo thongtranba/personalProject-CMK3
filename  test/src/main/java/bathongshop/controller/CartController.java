@@ -1,6 +1,7 @@
 package bathongshop.controller;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,11 +14,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+
 import bathongshop.DAO.OrderDAO;
 import bathongshop.DAO.OrderItemDAO;
 import bathongshop.DAO.ProductDAO;
 import bathongshop.entity.Order;
 import bathongshop.entity.OrderItem;
+import bathongshop.model.OrderedProduct;
 import bathongshop.model.ProductModel;
 
 /**
@@ -46,6 +54,7 @@ public class CartController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String command = request.getParameter("command");
+
 		int productId = 0;
 		switch (command) {
 		case "ADD_TO_CART":
@@ -57,7 +66,8 @@ public class CartController extends HttpServlet {
 			removeCart(request, response, productId);
 			break;
 		case "SUBMIT_CART":
-			submitCart(request, response);
+			String JSONString = request.getParameter("JSONString");
+			submitCart(request, response, JSONString);
 			break;
 		case "MY_ORDER":
 			myOrder(request, response);
@@ -67,9 +77,6 @@ public class CartController extends HttpServlet {
 			break;
 
 		}
-
-////			} else if (command != null && command.equals("VIEW_CART")) {
-////				response.sendRedirect("HomeServlet");
 
 	}
 
@@ -116,19 +123,26 @@ public class CartController extends HttpServlet {
 		}
 	}
 
-	private void submitCart(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	private void submitCart(HttpServletRequest request, HttpServletResponse response, String JSONString)
+			throws JsonParseException, JsonMappingException, ServletException, IOException {
+	
 		try {
+
+			ObjectMapper mapper = new ObjectMapper();
+			List<OrderedProduct> orderProducts = Arrays.asList(mapper.readValue(JSONString, OrderedProduct[].class));
+			
+			Map<Integer, Integer> orderList = new HashMap<Integer, Integer>();
+			for (OrderedProduct orderedProduct : orderProducts) {
+				orderList.put(orderedProduct.getProductId(), orderedProduct.getQuantity());
+			}
+
 			HttpSession session = request.getSession();
-			Map<Integer, ProductModel> cart = (Map<Integer, ProductModel>) session.getAttribute("cart");
 			int customerId = (int) session.getAttribute("customerId");
 			order = new Order(customerId);
 			int orderId = orderDAO.addOrder(order);
-
-			for (int key : cart.keySet()) {
-				OrderItem orderItem = new OrderItem(key, orderId);
+			for (int key : orderList.keySet()) {
+				OrderItem orderItem = new OrderItem(key, orderList.get(key), orderId);
 				orderItemDAO.addOrderItem(orderItem);
-
 			}
 			session.removeAttribute("cart");
 			response.sendRedirect("payment.jsp");
@@ -143,7 +157,6 @@ public class CartController extends HttpServlet {
 			int customerId = Integer.parseInt(request.getParameter("id"));
 			List<Order> orderList = orderDAO.selectAllOrderByCustomerId(customerId);
 			request.setAttribute("orderList", orderList);
-
 			RequestDispatcher dispatcher = request.getRequestDispatcher("my-purchase.jsp");
 			dispatcher.forward(request, response);
 		} catch (Exception e) {

@@ -5,6 +5,7 @@
 	</div>
 
 	<aside class="col-md-12 cart-checkout">
+		<c:set var="total" value="0" />
 		<c:forEach var="product" items="${productList}">
 			<div class="row">
 				<div class="col-md-4 col-xs-2">
@@ -13,26 +14,43 @@
 				</div>
 				<div class="col-md-6 col-xs-7">
 					<a class="product-name" href="product?id=${product.id}">${product.name}</a>
-					<br> <span>2</span> x <span>${product.price} euro</span>
+					<br>
+					<c:set var="inputQuantity" value="${product.inputQuantity}" />
+					<span>${product.inputQuantity}</span> x
+					<c:if test="${product.discountPrice == 0.0}">
+						<c:set var="price" value="${product.price}" />
+						<span class="cart-price">${product.price} </span>
+						<span>euro</span>
+					</c:if>
+					<c:if test="${product.discountPrice != 0.0}">
+						<c:set var="price" value="${product.discountPrice}" />
+						<span class="cart-price">${product.discountPrice} </span>
+						<span>euro</span>
+					</c:if>
 				</div>
 				<div class="col-md-2 col-xs-3 text-right">
-					<span>subprice</span>
+					<c:set var="subtotal" value="${inputQuantity * price}" />
+					<span> <c:out value="${subtotal}" /> euro</span>
 				</div>
 			</div>
 			<hr>
+			<c:set var="total" value="${subtotal + total}" />
 		</c:forEach>
 		<div class="row">
-			<div class="col-xs-6">good</div>
-			<div class="col-xs-6 text-right">500 euro</div>
+			<div class="col-xs-6">Goods</div>
+			<div class="col-xs-6 text-right">${total} euro</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-6">delivery</div>
-			<div class="col-xs-6 text-right">3.9 euro</div>
+			<div class="col-xs-6">Delivery</div>
+			<div class="col-xs-6 text-right">39 euro</div>
 		</div>
 		<hr>
 		<div class="row">
 			<div class="col-xs-6">Total</div>
-			<div class="col-xs-6 text-right">600 euro</div>
+			<div class="col-xs-6 text-right">
+				<c:set var="paymentTotal" value="${total + 39}" />
+				<c:out value="${paymentTotal}" /> euro
+			</div>
 		</div>
 	</aside>
 

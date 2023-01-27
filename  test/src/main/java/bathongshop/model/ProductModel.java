@@ -4,6 +4,7 @@ public class ProductModel {
 	private int id;
 	private String name;
 	private int inventoryQuantity;
+	private int inputQuantity;
 	private double price;
 	private double discountPrice;
 	private int brandId;
@@ -29,15 +30,22 @@ public class ProductModel {
 	}
 
 //for order
-	public ProductModel(int id, String name,int inventoryQuantity, double price, double discountPrice, String image) {
+	public ProductModel(int id, String name, int inputQuantity, double price, double discountPrice, String image) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.inventoryQuantity = inventoryQuantity;
+		this.inputQuantity = inputQuantity;
 		this.price = price;
 		this.discountPrice = discountPrice;
 		this.image = image;
+	}
 
+	public int getInputQuantity() {
+		return inputQuantity;
+	}
+
+	public void setInputQuantity(int inputQuantity) {
+		this.inputQuantity = inputQuantity;
 	}
 
 	public int getId() {

@@ -9,7 +9,7 @@ import bathongshop.entity.OrderItem;
 
 
 public class OrderItemDAO {
-	private static final String INSERT_ORDER_ITEM = "INSERT order_item (order_id, product_id) VALUES (?, ?)";
+	private static final String INSERT_ORDER_ITEM = "INSERT order_item (order_id, product_id, quantity) VALUES (?, ?, ?)";
 
 	public void addOrderItem(OrderItem orderItem) throws SQLException {
 
@@ -18,6 +18,7 @@ public class OrderItemDAO {
 			System.out.println(preparedStatement);
 			preparedStatement.setInt(1, orderItem.getOrderId());
 			preparedStatement.setInt(2, orderItem.getProductId());
+			preparedStatement.setInt(3, orderItem.getQuantity());
 			preparedStatement.execute();
 
 		} catch (Exception e) {

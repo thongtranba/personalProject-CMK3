@@ -317,7 +317,10 @@ public class ProductDAO {
 		return products;
 	}
 
-	private static final String SELECT_PRODUCT_BY_ORDER_ID = "select * from product join order_item on order_item.product_id = product.id join bathongshop.order on bathongshop.order.id = order_item.order_id where bathongshop.order.id = ?";
+	private static final String SELECT_PRODUCT_BY_ORDER_ID = "select product.id, product.name, product.price, product.discount_price,product.image, order_item.quantity from product "
+			+ " join order_item on order_item.product_id = product.id "
+			+ " join bathongshop.order on bathongshop.order.id = order_item.order_id"
+			+ " where bathongshop.order.id = ?";
 
 	public List<ProductModel> selectAllProductByOrderId(int orderId) {
 		List<ProductModel> products = new ArrayList<>();
@@ -329,11 +332,11 @@ public class ProductDAO {
 			while (rs.next()) {
 				int id = rs.getInt("id");
 				String name = rs.getString("name");
-				int inventoryQuantity = rs.getInt("inventory_quantity");
+				int inputQuantity = rs.getInt("quantity");
 				double price = rs.getDouble("price");
 				double discountPrice = rs.getDouble("discount_price");
 				String image = rs.getString("image");
-				products.add(new ProductModel(id, name, inventoryQuantity, price, discountPrice, image));
+				products.add(new ProductModel(id, name, inputQuantity, price, discountPrice, image));
 			}
 
 		} catch (Exception e) {

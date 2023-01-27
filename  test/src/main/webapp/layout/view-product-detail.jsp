@@ -18,19 +18,14 @@
 	</div>
 </div>
 <div class="col-md-4">
-	<h5 class="product-name">
-		<c:out value="${product.name}" />
-	</h5>
+	<h5 class="product-name" style="color: #e3a54d;">${product.name}</h5>
 	<div class="brand">
-		<span>Brand: </span>
-		<c:out value="${product.brandName}" />
-		<span></span>
+		<span>Brand: </span> <span>${product.brandName}</span>
 	</div>
 	<div class="product-status">
 		<c:if test="${product.inventoryQuantity != 0}">
 			<span>Stock: </span>
-			<span ><c:out
-					value="${product.inventoryQuantity}" /> pcs</span>
+			<span>${product.inventoryQuantity} pcs</span>
 		</c:if>
 		<c:if test="${product.inventoryQuantity == 0}">
 			<span>Stock: </span>
