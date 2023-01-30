@@ -29,7 +29,7 @@
 					</c:if>
 				</div>
 				<div class="col-md-2 col-xs-3 text-right">
-					<c:set var="subtotal" value="${inputQuantity * price}" />
+					<c:set var="subtotal" value="${Math.round((inputQuantity * price)*100)/100}" />
 					<span> <c:out value="${subtotal}" /> euro</span>
 				</div>
 			</div>
@@ -48,7 +48,7 @@
 		<div class="row">
 			<div class="col-xs-6">Total</div>
 			<div class="col-xs-6 text-right">
-				<c:set var="paymentTotal" value="${total + 39}" />
+				<c:set var="paymentTotal" value="${Math.round((total + 39)*100)/100}" />
 				<c:out value="${paymentTotal}" /> euro
 			</div>
 		</div>

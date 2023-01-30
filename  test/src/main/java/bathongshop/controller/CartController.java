@@ -16,9 +16,8 @@ import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 
 import bathongshop.DAO.OrderDAO;
 import bathongshop.DAO.OrderItemDAO;
@@ -124,14 +123,13 @@ public class CartController extends HttpServlet {
 	}
 
 	private void submitCart(HttpServletRequest request, HttpServletResponse response, String JSONString)
-			throws JsonParseException, JsonMappingException, ServletException, IOException {
-	
-		try {
+			throws ServletException, IOException {
+		System.out.println(JSONString);
 
-			ObjectMapper mapper = new ObjectMapper();
-			List<OrderedProduct> orderProducts = Arrays.asList(mapper.readValue(JSONString, OrderedProduct[].class));
-			
+		try {
+			List<OrderedProduct> orderProducts = jsonData(JSONString);
 			Map<Integer, Integer> orderList = new HashMap<Integer, Integer>();
+
 			for (OrderedProduct orderedProduct : orderProducts) {
 				orderList.put(orderedProduct.getProductId(), orderedProduct.getQuantity());
 			}
@@ -144,11 +142,31 @@ public class CartController extends HttpServlet {
 				OrderItem orderItem = new OrderItem(key, orderList.get(key), orderId);
 				orderItemDAO.addOrderItem(orderItem);
 			}
+			System.out.println(orderList.size());
 			session.removeAttribute("cart");
 			response.sendRedirect("payment.jsp");
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public List<OrderedProduct> jsonData(String JSONString) throws JsonProcessingException {
+		try {
+
+			ObjectMapper mapper = new ObjectMapper();
+			mapper.setSerializationInclusion(Include.NON_NULL);
+			List<OrderedProduct> list = Arrays.asList(mapper.readValue(JSONString, OrderedProduct[].class));
+			return list;
+
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	private void myOrder(HttpServletRequest request, HttpServletResponse response)

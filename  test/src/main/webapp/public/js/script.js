@@ -185,7 +185,6 @@ $(document).ready(function() {
 
 		total = Math.round(total * 100) / 100;
 		$(".price-total").html(total + " euro");
-
 	}
 
 	$("input[name=checkout]").on('click', function(event) {
@@ -197,8 +196,7 @@ $(document).ready(function() {
 
 			var cartItem = {
 				productId: productId,
-				quantity: quantity,
-
+				quantity: quantity
 			};
 			cartList[i] = cartItem;
 		}
@@ -238,8 +236,9 @@ $(document).ready(function() {
 	var paymentTotal = total + 39;
 	$(".payment-total").html(paymentTotal + " euro");
 
+	console.log(localStorage.getItem('cartList'));
 
-	$(".send-products").click(function() {
+	$("#send-products").click(function() {
 		$.ajax({
 			type: "POST",
 
@@ -247,18 +246,15 @@ $(document).ready(function() {
 
 			data: { JSONString: localStorage.getItem('cartList') },
 
-			success: function(response) { },
+			success: function(response) {
+				localStorage.clear();
+				window.location.href = "payment.jsp";
+			},
 			error: function(response) {
 				alear("error: try again!")
 			},
-
 		});
-		localStorage.clear();
-		window.location.href = "payment.jsp";
-
 	});
-
-
 })
 
 
