@@ -20,6 +20,8 @@ This is a web application that demonstrates an E-commerce website using the MVC 
 - HTML
 - CSS
 - Javascript
+- Local storage (save cart list)
+- Ajax ("post", (cart list) JSON string  to servlet)
 
 #### Back-end: 
 - Java fundamental (OOP + data structure + algorithm) with Eclipse
