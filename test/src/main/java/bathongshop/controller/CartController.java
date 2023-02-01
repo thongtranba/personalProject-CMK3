@@ -18,7 +18,6 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-
 import bathongshop.DAO.OrderDAO;
 import bathongshop.DAO.OrderItemDAO;
 import bathongshop.DAO.ProductDAO;
@@ -26,7 +25,6 @@ import bathongshop.entity.Order;
 import bathongshop.entity.OrderItem;
 import bathongshop.model.OrderedModel;
 import bathongshop.model.ProductModel;
-
 
 /**
  * Servlet implementation class addToCartServlet
@@ -142,12 +140,15 @@ public class CartController extends HttpServlet {
 			for (int key : orderList.keySet()) {
 				OrderItem orderItem = new OrderItem(key, orderList.get(key), orderId);
 				orderItemDAO.addOrderItem(orderItem);
+				int inventoryQuantity = productDAO.takeInventoryQuantity(key);
+				int newQuantity = inventoryQuantity - orderList.get(key);
+				productDAO.updateQuantityByProductId(key, newQuantity);
 			}
-			System.out.println(orderList.size());
+
 			session.removeAttribute("cart");
-			response.sendRedirect("payment.jsp");
-		} catch (NullPointerException e) {
-			e.printStackTrace();
+			request.setAttribute("orderId", orderId);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("payment.jsp");
+			dispatcher.forward(request, response);
 
 		} catch (Exception e) {
 			e.printStackTrace();

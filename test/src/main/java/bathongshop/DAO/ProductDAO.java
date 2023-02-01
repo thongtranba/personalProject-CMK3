@@ -63,21 +63,36 @@ public class ProductDAO {
 		}
 	}
 
-	private static final String UPDATE_PRODUCT_SQL = "update product set name = ?, inventory_quantity= ?, price= ?, brand_id= ?, category_id =?, description =? where id = ?";
+	private static final String TAKE_INVENTORY_QUANTITY = "select product.inventory_quantity from product"
+			+ " where id = ?";
 
-	public boolean updateProduct(Product product) throws SQLException {
+	public int takeInventoryQuantity(int productId) {
+		int inventoryQuantity = 0;
+		try (Connection connection = JDBCUtil.getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(TAKE_INVENTORY_QUANTITY)) {
+			preparedStatement.setInt(1, productId);
+			System.out.println(preparedStatement);
+			ResultSet rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				inventoryQuantity = rs.getInt("inventory_quantity");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return inventoryQuantity;
+	}
+
+	private static final String UPDATE_QUANTITY_BY_PRODUCTID = "update product set  inventory_quantity= ? where id =?";
+
+	public boolean updateQuantityByProductId(int productId, int quantity) throws SQLException {
 		boolean rowUpdated;
 		try (Connection connection = JDBCUtil.getConnection();
-				PreparedStatement statement = connection.prepareStatement(UPDATE_PRODUCT_SQL)) {
-			statement.setString(1, product.getName());
-			statement.setInt(2, product.getInventoryQuantity());
-			statement.setDouble(3, product.getPrice());
-			statement.setInt(4, product.getBrandId());
-			statement.setInt(5, product.getCategoryId());
-			statement.setString(6, product.getDescription());
-			statement.setInt(7, product.getId());
-			statement.setString(8, product.getImage());
-			rowUpdated = statement.executeUpdate() > 0;
+				PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUANTITY_BY_PRODUCTID)) {
+			preparedStatement.setInt(1, quantity);
+			preparedStatement.setInt(2, productId);
+			System.out.println(preparedStatement);
+			rowUpdated = preparedStatement.executeUpdate() > 0;
 		}
 		return rowUpdated;
 	}
