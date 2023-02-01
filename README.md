@@ -11,6 +11,7 @@ This is a web application that demonstrates an E-commerce website using the MVC 
 - Show the seleacted product detail
 - Search products 
 - Add to cart
+- Update product inventory quantity after purchasing
 - Order history by CustomerId
 
 ## Road map
