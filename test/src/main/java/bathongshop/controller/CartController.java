@@ -42,7 +42,7 @@ public class CartController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String command = request.getParameter(PublicConstant.COMMAND);
-		int productId = 0;
+		int productId = Integer.parseInt(PublicConstant.CONSTANT_0);
 		switch (command) {
 		case PublicConstant.ADD_TO_CART:
 			productId = Integer.parseInt(request.getParameter(PublicConstant.PRODUCTID));

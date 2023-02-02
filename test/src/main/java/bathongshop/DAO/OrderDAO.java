@@ -43,8 +43,8 @@ public class OrderDAO {
 			System.out.println(preparedStatement);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
-				int id = rs.getInt("id");
-				Date createdDate = rs.getDate("created_date");
+				int id = rs.getInt(PublicConstant.ID);
+				Date createdDate = rs.getDate(PublicConstant.CREATED_DATE_COLUMN);
 				orders.add(new Order(id, createdDate));
 			}
 		} catch (Exception e) {

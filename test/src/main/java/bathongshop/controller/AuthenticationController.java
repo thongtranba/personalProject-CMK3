@@ -77,7 +77,7 @@ public class AuthenticationController extends HttpServlet {
 			String address = request.getParameter(PublicConstant.ADDRESS);
 			Customer newCustomer = new Customer(username, password, mobile, email, address);
 			int result = customerDAO.insertCustomer(newCustomer);
-			if (result == 1) {
+			if (result == Integer.parseInt(PublicConstant.CONSTANT_1)) {
 				request.setAttribute(PublicConstant.REGISTER_NOTIFICATION,
 						PublicConstant.REGISTER_NOTIFICATION_MESSAGE);
 			}

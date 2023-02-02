@@ -25,6 +25,7 @@ public class PublicConstant {
 	// OrderDAO
 	public static final String INSERT_NEW_ORDER = "INSERT INTO `order` (customer_id, created_date) VALUES (?, ?)";
 	public static final String SELECT_ORDER_BY_CUTOMER_ID = "select * from bathongshop.order where customer_id = ?";
+	public static final String CREATED_DATE_COLUMN = "created_date";
 
 	// OrderItemDAO
 	public static final String INSERT_ORDER_ITEM = "INSERT order_item (order_id, product_id, quantity) VALUES (?, ?, ?)";
@@ -52,6 +53,17 @@ public class PublicConstant {
 			+ " join bathongshop.order on bathongshop.order.id = order_item.order_id"
 			+ " where bathongshop.order.id = ?";
 	public static final String SELECT_SALE_OFF_PRODDUCTS = "select * from product where discount_price > '0' ";
+	public static final String INVENTORY_QUANTITY_COLUMN = "inventory_quantity";
+	public static final String DISCOUNT_PRICE_COLUMN = "discount_price";
+	public static final String BRAND_ID_COLUMN = "brand_id";
+	public static final String CATEGORY_ID_COLUMN = "category_id";
+	public static final String DESCRIPTION_COLUMN = "description";
+	public static final String IMAGE_COLUMN = "image";
+	public static final String ORDER_QUANTITY = "quantity";
+	public static final String SEARCH_SYMBOL = "%";
+	public static final String COUNT_ALL = "count(*)";
+	public static final String BRAND_NAME_COLUMN = "brandName";
+	public static final String CATEGORY_NAME_COLUMN = "categoryName";
 
 	// Authentication controller
 	public static final String AUTH_URL = "/authentication";
@@ -128,11 +140,26 @@ public class PublicConstant {
 
 	// Home controller
 	public static final String HOME_URL = "/home";
+	public static final String POPULAR_PRODUCT = "popularProduct";
+	public static final String LATEST_PRODUCT = "latestProduct";
+	public static final String SERVICE_PRODUCT = "service";
+
+	// Product detail controller
+	public static final String PRODUCT_DETAIL_URL = "/product";
+	public static final String RELATED_PRODUCT = "relatedProduct";
+
+	// Search controller
+	public static final String SEARCH_URL = "/search";
+	public static final String SEARCH = "search";
+	public static final String SEARCH_STRING = "searchString";
+	public static final String SEARCH_PRODUCT = "searchProducts";
 
 	// shared variables
 	public static final String COMMAND = "command";
 	public static final String ID = "id";
 	public static final String EMPTY_STRING = "";
+	public static final String ALL_PRODUCT = "products:: ";
+	public static final String CONSTANT_0 = "0";
 
 	// JSP
 	public static final String NOTIFICATION_JSP = "notification.jsp";
@@ -141,5 +168,8 @@ public class PublicConstant {
 	public static final String MY_ORDER_DETAIL_JSP = "my-order-detail.jsp";
 	public static final String CATEGORY_JSP = "category.jsp";
 	public static final String SALEOFF_JSP = "sale-off-product.jsp";
+	public static final String HOME_JSP = "home.jsp";
+	public static final String PRODUCT_DETAIL_JSP = "product-detail.jsp";
+	public static final String SEARCH_JSP = "search-product.jsp";
 
 }

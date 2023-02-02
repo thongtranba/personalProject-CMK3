@@ -21,15 +21,15 @@ public class ProductDAO {
 			System.out.println(preparedStatement);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
-				int id = rs.getInt("id");
-				String name = rs.getString("name");
-				int inventoryQuantity = rs.getInt("inventory_quantity");
-				double price = rs.getDouble("price");
-				double discountPrice = rs.getDouble("discount_price");
-				int brandId = rs.getInt("brand_id");
-				int categoryId = rs.getInt("category_id");
-				String description = rs.getString("description");
-				String image = rs.getString("image");
+				int id = rs.getInt(PublicConstant.ID);
+				String name = rs.getString(PublicConstant.NAME_COLUMN);
+				int inventoryQuantity = rs.getInt(PublicConstant.INVENTORY_QUANTITY_COLUMN);
+				double price = rs.getDouble(PublicConstant.PRICE_COLUMN);
+				double discountPrice = rs.getDouble(PublicConstant.DISCOUNT_PRICE_COLUMN);
+				int brandId = rs.getInt(PublicConstant.BRAND_ID_COLUMN);
+				int categoryId = rs.getInt(PublicConstant.CATEGORY_ID_COLUMN);
+				String description = rs.getString(PublicConstant.DESCRIPTION_COLUMN);
+				String image = rs.getString(PublicConstant.IMAGE_COLUMN);
 				products.add(new Product(id, name, inventoryQuantity, price, discountPrice, brandId, categoryId,
 						description, image));
 			}
@@ -58,7 +58,7 @@ public class ProductDAO {
 	}
 
 	public int takeInventoryQuantity(int productId) {
-		int inventoryQuantity = 0;
+		int inventoryQuantity = Integer.parseInt(PublicConstant.CONSTANT_0);
 		try (Connection connection = JDBCUtil.getConnection();
 				PreparedStatement preparedStatement = connection
 						.prepareStatement(PublicConstant.TAKE_INVENTORY_QUANTITY)) {
@@ -66,7 +66,7 @@ public class ProductDAO {
 			System.out.println(preparedStatement);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
-				inventoryQuantity = rs.getInt("inventory_quantity");
+				inventoryQuantity = rs.getInt(PublicConstant.INVENTORY_QUANTITY_COLUMN);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -82,7 +82,7 @@ public class ProductDAO {
 			preparedStatement.setInt(1, quantity);
 			preparedStatement.setInt(2, productId);
 			System.out.println(preparedStatement);
-			rowUpdated = preparedStatement.executeUpdate() > 0;
+			rowUpdated = preparedStatement.executeUpdate() > Integer.parseInt(PublicConstant.CONSTANT_0);
 		}
 		return rowUpdated;
 	}
@@ -92,7 +92,7 @@ public class ProductDAO {
 		try (Connection connection = JDBCUtil.getConnection();
 				PreparedStatement statement = connection.prepareStatement(PublicConstant.DELETE_PRODUCT_SQL);) {
 			statement.setInt(1, id);
-			rowDeleted = statement.executeUpdate() > 0;
+			rowDeleted = statement.executeUpdate() > Integer.parseInt(PublicConstant.CONSTANT_0);
 		}
 		return rowDeleted;
 	}
@@ -106,14 +106,14 @@ public class ProductDAO {
 			System.out.println(preparedStatement);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
-				String name = rs.getString("name");
-				int inventoryQuantity = rs.getInt("inventory_quantity");
-				double price = rs.getDouble("price");
-				double discountPrice = rs.getDouble("discount_price");
-				String brandName = rs.getString("brandName");
-				String categoryName = rs.getString("categoryName");
-				String description = rs.getString("description");
-				String image = rs.getString("image");
+				String name = rs.getString(PublicConstant.NAME_COLUMN);
+				int inventoryQuantity = rs.getInt(PublicConstant.INVENTORY_QUANTITY_COLUMN);
+				double price = rs.getDouble(PublicConstant.PRICE_COLUMN);
+				double discountPrice = rs.getDouble(PublicConstant.DISCOUNT_PRICE_COLUMN);
+				String brandName = rs.getString(PublicConstant.BRAND_NAME_COLUMN);
+				String categoryName = rs.getString(PublicConstant.CATEGORY_NAME_COLUMN);
+				String description = rs.getString(PublicConstant.DESCRIPTION_COLUMN);
+				String image = rs.getString(PublicConstant.IMAGE_COLUMN);
 				product = new ProductModel(id, name, inventoryQuantity, price, discountPrice, description, image,
 						brandName, categoryName);
 			}
@@ -131,15 +131,15 @@ public class ProductDAO {
 			System.out.println(preparedStatement);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
-				int id = rs.getInt("id");
-				String name = rs.getString("name");
-				int inventoryQuantity = rs.getInt("inventory_quantity");
-				double price = rs.getDouble("price");
-				double discountPrice = rs.getDouble("discount_price");
-				int brandId = rs.getInt("brand_id");
-				int categoryId = rs.getInt("category_id");
-				String description = rs.getString("description");
-				String image = rs.getString("image");
+				int id = rs.getInt(PublicConstant.ID);
+				String name = rs.getString(PublicConstant.NAME_COLUMN);
+				int inventoryQuantity = rs.getInt(PublicConstant.INVENTORY_QUANTITY_COLUMN);
+				double price = rs.getDouble(PublicConstant.PRICE_COLUMN);
+				double discountPrice = rs.getDouble(PublicConstant.DISCOUNT_PRICE_COLUMN);
+				int brandId = rs.getInt(PublicConstant.BRAND_ID_COLUMN);
+				int categoryId = rs.getInt(PublicConstant.CATEGORY_ID_COLUMN);
+				String description = rs.getString(PublicConstant.DESCRIPTION_COLUMN);
+				String image = rs.getString(PublicConstant.IMAGE_COLUMN);
 				products.add(new Product(id, name, inventoryQuantity, price, discountPrice, brandId, categoryId,
 						description, image));
 			}
@@ -157,15 +157,15 @@ public class ProductDAO {
 			System.out.println(preparedStatement);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
-				int id = rs.getInt("id");
-				String name = rs.getString("name");
-				int inventoryQuantity = rs.getInt("inventory_quantity");
-				double price = rs.getDouble("price");
-				double discountPrice = rs.getDouble("discount_price");
-				int brandId = rs.getInt("brand_id");
-				int categoryId = rs.getInt("category_id");
-				String description = rs.getString("description");
-				String image = rs.getString("image");
+				int id = rs.getInt(PublicConstant.ID);
+				String name = rs.getString(PublicConstant.NAME_COLUMN);
+				int inventoryQuantity = rs.getInt(PublicConstant.INVENTORY_QUANTITY_COLUMN);
+				double price = rs.getDouble(PublicConstant.PRICE_COLUMN);
+				double discountPrice = rs.getDouble(PublicConstant.DISCOUNT_PRICE_COLUMN);
+				int brandId = rs.getInt(PublicConstant.BRAND_ID_COLUMN);
+				int categoryId = rs.getInt(PublicConstant.CATEGORY_ID_COLUMN);
+				String description = rs.getString(PublicConstant.DESCRIPTION_COLUMN);
+				String image = rs.getString(PublicConstant.IMAGE_COLUMN);
 				products.add(new Product(id, name, inventoryQuantity, price, discountPrice, brandId, categoryId,
 						description, image));
 			}
@@ -182,15 +182,15 @@ public class ProductDAO {
 			System.out.println(preparedStatement);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
-				int id = rs.getInt("id");
-				String name = rs.getString("name");
-				int inventoryQuantity = rs.getInt("inventory_quantity");
-				double price = rs.getDouble("price");
-				double discountPrice = rs.getDouble("discount_price");
-				int brandId = rs.getInt("brand_id");
-				int categoryId = rs.getInt("category_id");
-				String description = rs.getString("description");
-				String image = rs.getString("image");
+				int id = rs.getInt(PublicConstant.ID);
+				String name = rs.getString(PublicConstant.NAME_COLUMN);
+				int inventoryQuantity = rs.getInt(PublicConstant.INVENTORY_QUANTITY_COLUMN);
+				double price = rs.getDouble(PublicConstant.PRICE_COLUMN);
+				double discountPrice = rs.getDouble(PublicConstant.DISCOUNT_PRICE_COLUMN);
+				int brandId = rs.getInt(PublicConstant.BRAND_ID_COLUMN);
+				int categoryId = rs.getInt(PublicConstant.CATEGORY_ID_COLUMN);
+				String description = rs.getString(PublicConstant.DESCRIPTION_COLUMN);
+				String image = rs.getString(PublicConstant.IMAGE_COLUMN);
 				products.add(new Product(id, name, inventoryQuantity, price, discountPrice, brandId, categoryId,
 						description, image));
 			}
@@ -209,15 +209,15 @@ public class ProductDAO {
 			System.out.println(preparedStatement);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
-				int id = rs.getInt("id");
-				String name = rs.getString("name");
-				int inventoryQuantity = rs.getInt("inventory_quantity");
-				double price = rs.getDouble("price");
-				double discountPrice = rs.getDouble("discount_price");
-				int brandId = rs.getInt("brand_id");
-				int categoryId = rs.getInt("category_id");
-				String description = rs.getString("description");
-				String image = rs.getString("image");
+				int id = rs.getInt(PublicConstant.ID);
+				String name = rs.getString(PublicConstant.NAME_COLUMN);
+				int inventoryQuantity = rs.getInt(PublicConstant.INVENTORY_QUANTITY_COLUMN);
+				double price = rs.getDouble(PublicConstant.PRICE_COLUMN);
+				double discountPrice = rs.getDouble(PublicConstant.DISCOUNT_PRICE_COLUMN);
+				int brandId = rs.getInt(PublicConstant.BRAND_ID_COLUMN);
+				int categoryId = rs.getInt(PublicConstant.CATEGORY_ID_COLUMN);
+				String description = rs.getString(PublicConstant.DESCRIPTION_COLUMN);
+				String image = rs.getString(PublicConstant.IMAGE_COLUMN);
 				products.add(new Product(id, name, inventoryQuantity, price, discountPrice, brandId, categoryId,
 						description, image));
 			}
@@ -228,7 +228,7 @@ public class ProductDAO {
 	}
 
 	public int totalCategoryProduct(int categoryId) {
-		int totalProducts = 0;
+		int totalProducts = Integer.parseInt(PublicConstant.CONSTANT_0);
 		try (Connection connection = JDBCUtil.getConnection();
 				PreparedStatement preparedStatement = connection
 						.prepareStatement(PublicConstant.COUNT_CATEGORY_PRODUCTS);) {
@@ -236,7 +236,7 @@ public class ProductDAO {
 			System.out.println(preparedStatement);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
-				totalProducts = rs.getInt("count(*)");
+				totalProducts = rs.getInt(PublicConstant.COUNT_ALL);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -247,7 +247,7 @@ public class ProductDAO {
 	public List<Product> selectAllProductByCategoryId(int categoryId, int startItem, int itemPerPage, String sortColumn,
 			String sortType, int brandId) {
 		List<Product> products = new ArrayList<>();
-		if (brandId == 0) {
+		if (brandId == Integer.parseInt(PublicConstant.CONSTANT_0)) {
 			try (Connection connection = JDBCUtil.getConnection();
 					PreparedStatement preparedStatement = connection
 							.prepareStatement("select * from product where category_id =?" + "  ORDER by " + sortColumn
@@ -258,14 +258,13 @@ public class ProductDAO {
 				System.out.println(preparedStatement);
 				ResultSet rs = preparedStatement.executeQuery();
 				while (rs.next()) {
-					int id = rs.getInt("id");
-					String name = rs.getString("name");
-					int inventoryQuantity = rs.getInt("inventory_quantity");
-					double price = rs.getDouble("price");
-					double discountPrice = rs.getDouble("discount_price");
-					brandId = rs.getInt("brand_id");
-					String description = rs.getString("description");
-					String image = rs.getString("image");
+					int id = rs.getInt(PublicConstant.ID);
+					String name = rs.getString(PublicConstant.NAME_COLUMN);
+					int inventoryQuantity = rs.getInt(PublicConstant.INVENTORY_QUANTITY_COLUMN);
+					double price = rs.getDouble(PublicConstant.PRICE_COLUMN);
+					double discountPrice = rs.getDouble(PublicConstant.DISCOUNT_PRICE_COLUMN);
+					String description = rs.getString(PublicConstant.DESCRIPTION_COLUMN);
+					String image = rs.getString(PublicConstant.IMAGE_COLUMN);
 					products.add(new Product(id, name, inventoryQuantity, price, discountPrice, brandId, categoryId,
 							description, image));
 				}
@@ -286,12 +285,12 @@ public class ProductDAO {
 				System.out.println(preparedStatement);
 				ResultSet rs = preparedStatement.executeQuery();
 				while (rs.next()) {
-					int id = rs.getInt("id");
-					String name = rs.getString("name");
-					int inventoryQuantity = rs.getInt("inventory_quantity");
-					double price = rs.getDouble("price");
-					double discountPrice = rs.getDouble("discount_price");
-					String image = rs.getString("image");
+					int id = rs.getInt(PublicConstant.ID);
+					String name = rs.getString(PublicConstant.NAME_COLUMN);
+					int inventoryQuantity = rs.getInt(PublicConstant.INVENTORY_QUANTITY_COLUMN);
+					double price = rs.getDouble(PublicConstant.PRICE_COLUMN);
+					double discountPrice = rs.getDouble(PublicConstant.DISCOUNT_PRICE_COLUMN);
+					String image = rs.getString(PublicConstant.IMAGE_COLUMN);
 					products.add(new Product(id, name, inventoryQuantity, price, discountPrice, categoryId, image));
 				}
 
@@ -306,20 +305,20 @@ public class ProductDAO {
 		List<Product> products = new ArrayList<>();
 		try (Connection connection = JDBCUtil.getConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(PublicConstant.SEARCH_PRODUCTS);) {
-			preparedStatement.setString(1, "%" + searchString + "%");
-			preparedStatement.setString(2, "%" + searchString + "%");
+			preparedStatement.setString(1, PublicConstant.SEARCH_SYMBOL + searchString + PublicConstant.SEARCH_SYMBOL);
+			preparedStatement.setString(2, PublicConstant.SEARCH_SYMBOL + searchString + PublicConstant.SEARCH_SYMBOL);
 			System.out.println(preparedStatement);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
-				int id = rs.getInt("id");
-				String name = rs.getString("name");
-				int inventoryQuantity = rs.getInt("inventory_quantity");
-				double price = rs.getDouble("price");
-				double discountPrice = rs.getDouble("discount_price");
-				int brandId = rs.getInt("brand_id");
-				int categoryId = rs.getInt("category_id");
-				String description = rs.getString("description");
-				String image = rs.getString("image");
+				int id = rs.getInt(PublicConstant.ID);
+				String name = rs.getString(PublicConstant.NAME_COLUMN);
+				int inventoryQuantity = rs.getInt(PublicConstant.INVENTORY_QUANTITY_COLUMN);
+				double price = rs.getDouble(PublicConstant.PRICE_COLUMN);
+				double discountPrice = rs.getDouble(PublicConstant.DISCOUNT_PRICE_COLUMN);
+				int brandId = rs.getInt(PublicConstant.BRAND_ID_COLUMN);
+				int categoryId = rs.getInt(PublicConstant.CATEGORY_ID_COLUMN);
+				String description = rs.getString(PublicConstant.DESCRIPTION_COLUMN);
+				String image = rs.getString(PublicConstant.IMAGE_COLUMN);
 				products.add(new Product(id, name, inventoryQuantity, price, discountPrice, brandId, categoryId,
 						description, image));
 			}
@@ -339,12 +338,12 @@ public class ProductDAO {
 			System.out.println(preparedStatement);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
-				int id = rs.getInt("id");
-				String name = rs.getString("name");
-				int inputQuantity = rs.getInt("quantity");
-				double price = rs.getDouble("price");
-				double discountPrice = rs.getDouble("discount_price");
-				String image = rs.getString("image");
+				int id = rs.getInt(PublicConstant.ID);
+				String name = rs.getString(PublicConstant.NAME_COLUMN);
+				int inputQuantity = rs.getInt(PublicConstant.ORDER_QUANTITY);
+				double price = rs.getDouble(PublicConstant.PRICE_COLUMN);
+				double discountPrice = rs.getDouble(PublicConstant.DISCOUNT_PRICE_COLUMN);
+				String image = rs.getString(PublicConstant.IMAGE_COLUMN);
 				products.add(new ProductModel(id, name, inputQuantity, price, discountPrice, image));
 			}
 		} catch (Exception e) {
@@ -361,15 +360,15 @@ public class ProductDAO {
 			System.out.println(preparedStatement);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
-				int id = rs.getInt("id");
-				String name = rs.getString("name");
-				int inventoryQuantity = rs.getInt("inventory_quantity");
-				double price = rs.getDouble("price");
-				double discountPrice = rs.getDouble("discount_price");
-				int brandId = rs.getInt("brand_id");
-				int categoryId = rs.getInt("category_id");
-				String description = rs.getString("description");
-				String image = rs.getString("image");
+				int id = rs.getInt(PublicConstant.ID);
+				String name = rs.getString(PublicConstant.NAME_COLUMN);
+				int inventoryQuantity = rs.getInt(PublicConstant.INVENTORY_QUANTITY_COLUMN);
+				double price = rs.getDouble(PublicConstant.PRICE_COLUMN);
+				double discountPrice = rs.getDouble(PublicConstant.DISCOUNT_PRICE_COLUMN);
+				int brandId = rs.getInt(PublicConstant.BRAND_ID_COLUMN);
+				int categoryId = rs.getInt(PublicConstant.CATEGORY_ID_COLUMN);
+				String description = rs.getString(PublicConstant.DESCRIPTION_COLUMN);
+				String image = rs.getString(PublicConstant.IMAGE_COLUMN);
 				products.add(new Product(id, name, inventoryQuantity, price, discountPrice, brandId, categoryId,
 						description, image));
 			}

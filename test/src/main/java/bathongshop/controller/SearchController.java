@@ -11,40 +11,34 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bathongshop.DAO.ProductDAO;
+import bathongshop.constant.PublicConstant;
 import bathongshop.entity.Product;
 
-/**
- * Servlet implementation class SearchServlet
- */
-@WebServlet("/search")
+@WebServlet(PublicConstant.SEARCH_URL)
 public class SearchController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	ProductDAO productDAO = new ProductDAO();
 
 	public SearchController() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-			String search = request.getParameter("search");
+			String search = request.getParameter(PublicConstant.SEARCH);
 			List<Product> searchProducts = productDAO.searchProducts(search);
-			request.setAttribute("searchString", search);
-			request.setAttribute("searchProducts", searchProducts);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("search-product.jsp");
+			request.setAttribute(PublicConstant.SEARCH_STRING, search);
+			request.setAttribute(PublicConstant.SEARCH_PRODUCT, searchProducts);
+			RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.SEARCH_JSP);
 			dispatcher.forward(request, response);
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

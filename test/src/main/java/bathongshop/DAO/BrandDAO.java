@@ -18,8 +18,8 @@ public class BrandDAO {
 			System.out.println(preparedStatement);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
-				int id = rs.getInt("id");
-				String name = rs.getString("name");
+				int id = rs.getInt(PublicConstant.ID);
+				String name = rs.getString(PublicConstant.NAME_COLUMN);
 				brands.add(new Brand(id, name));
 			}
 		} catch (Exception e) {

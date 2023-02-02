@@ -14,7 +14,7 @@ import bathongshop.entity.Customer;
 public class CustomerDAO {
 
 	public int insertCustomer(Customer customer) throws SQLException {
-		int result = 0;
+		int result = Integer.parseInt(PublicConstant.CONSTANT_0);
 		try (Connection connection = JDBCUtil.getConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(PublicConstant.INSERT_CUSTOMER_SQL)) {
 			preparedStatement.setString(1, customer.getUsername());
@@ -40,7 +40,7 @@ public class CustomerDAO {
 			statement.setString(4, customer.getEmail());
 			statement.setString(5, customer.getAddress());
 			statement.setInt(6, customer.getId());
-			rowUpdated = statement.executeUpdate() > 0;
+			rowUpdated = statement.executeUpdate() > Integer.parseInt(PublicConstant.CONSTANT_0);
 		}
 		return rowUpdated;
 	}
@@ -50,7 +50,7 @@ public class CustomerDAO {
 		try (Connection connection = JDBCUtil.getConnection();
 				PreparedStatement statement = connection.prepareStatement(PublicConstant.DELETE_CUSTOMER_SQL);) {
 			statement.setInt(1, id);
-			rowDeleted = statement.executeUpdate() > 0;
+			rowDeleted = statement.executeUpdate() > Integer.parseInt(PublicConstant.CONSTANT_0);
 		}
 		return rowDeleted;
 	}
@@ -64,11 +64,11 @@ public class CustomerDAO {
 			System.out.println(preparedStatement);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
-				String username = rs.getString("username");
-				String password = rs.getString("password");
-				String mobile = rs.getString("mobile");
-				String email = rs.getString("email");
-				String address = rs.getString("address");
+				String username = rs.getString(PublicConstant.USERNAME);
+				String password = rs.getString(PublicConstant.PASSWORD);
+				String mobile = rs.getString(PublicConstant.MOBILE);
+				String email = rs.getString(PublicConstant.EMAIL);
+				String address = rs.getString(PublicConstant.ADDRESS);
 				customer = new Customer(id, username, password, mobile, email, address);
 			}
 
@@ -86,12 +86,12 @@ public class CustomerDAO {
 			System.out.println(preparedStatement);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
-				int id = rs.getInt("id");
-				String username = rs.getString("username");
-				String password = rs.getString("password");
-				String mobile = rs.getString("mobile");
-				String email = rs.getString("email");
-				String address = rs.getString("address");
+				int id = rs.getInt(PublicConstant.ID);
+				String username = rs.getString(PublicConstant.USERNAME);
+				String password = rs.getString(PublicConstant.PASSWORD);
+				String mobile = rs.getString(PublicConstant.MOBILE);
+				String email = rs.getString(PublicConstant.EMAIL);
+				String address = rs.getString(PublicConstant.ADDRESS);
 				customers.add(new Customer(id, username, password, mobile, email, address));
 			}
 
@@ -106,7 +106,6 @@ public class CustomerDAO {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet rs = null;
-
 		try {
 			connection = JDBCUtil.getConnection();
 			preparedStatement = connection.prepareStatement(PublicConstant.LOGIN_BY_USERNAME_PASSWORD);
@@ -115,10 +114,10 @@ public class CustomerDAO {
 			System.out.println(preparedStatement);
 			rs = preparedStatement.executeQuery();
 			if (rs.next()) {
-				int id = rs.getInt("id");
-				String username = rs.getString("username");
-				String mobile = rs.getString("mobile");
-				String address = rs.getString("address");
+				int id = rs.getInt(PublicConstant.ID);
+				String username = rs.getString(PublicConstant.USERNAME);
+				String mobile = rs.getString(PublicConstant.MOBILE);
+				String address = rs.getString(PublicConstant.ADDRESS);
 				customer = new Customer(id, username, mobile, address);
 			} else {
 

@@ -11,38 +11,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bathongshop.DAO.ProductDAO;
+import bathongshop.constant.PublicConstant;
 import bathongshop.entity.Product;
 import bathongshop.model.ProductModel;
 
-/**
- * Servlet implementation class ProductDetail
- */
-@WebServlet("/product")
+@WebServlet(PublicConstant.PRODUCT_DETAIL_URL)
 public class ProductDetailController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ProductDAO productDAO = new ProductDAO();
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public ProductDetailController() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-			int id = Integer.parseInt(request.getParameter("id"));
+			int id = Integer.parseInt(request.getParameter(PublicConstant.ID));
 			ProductModel existingProduct = productDAO.selectProduct(id);
 			List<Product> relatedProduct = productDAO.selectRelatedProducts();
-			request.setAttribute("relatedProduct", relatedProduct);
-			request.setAttribute("product", existingProduct);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("product-detail.jsp");
+			request.setAttribute(PublicConstant.RELATED_PRODUCT, relatedProduct);
+			request.setAttribute(PublicConstant.PRODUCT, existingProduct);
+			RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.PRODUCT_DETAIL_JSP);
 			dispatcher.forward(request, response);
 
 		} catch (Exception e) {
@@ -50,13 +40,8 @@ public class ProductDetailController extends HttpServlet {
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
