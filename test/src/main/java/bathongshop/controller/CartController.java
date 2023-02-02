@@ -21,15 +21,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import bathongshop.DAO.OrderDAO;
 import bathongshop.DAO.OrderItemDAO;
 import bathongshop.DAO.ProductDAO;
+import bathongshop.constant.PublicConstant;
 import bathongshop.entity.Order;
 import bathongshop.entity.OrderItem;
 import bathongshop.model.OrderedModel;
 import bathongshop.model.ProductModel;
 
-/**
- * Servlet implementation class addToCartServlet
- */
-@WebServlet("/cart")
+@WebServlet(PublicConstant.CART_URL)
 public class CartController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ProductDAO productDAO = new ProductDAO();
@@ -37,54 +35,38 @@ public class CartController extends HttpServlet {
 	private OrderItemDAO orderItemDAO = new OrderItemDAO();
 	private Order order = new Order();
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public CartController() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String command = request.getParameter("command");
-
+		String command = request.getParameter(PublicConstant.COMMAND);
 		int productId = 0;
 		switch (command) {
-		case "ADD_TO_CART":
-			productId = Integer.parseInt(request.getParameter("productId"));
+		case PublicConstant.ADD_TO_CART:
+			productId = Integer.parseInt(request.getParameter(PublicConstant.PRODUCTID));
 			addToCart(request, response, productId);
 			break;
-		case "REMOVE":
-			productId = Integer.parseInt(request.getParameter("productId"));
+		case PublicConstant.REMOVE:
+			productId = Integer.parseInt(request.getParameter(PublicConstant.PRODUCTID));
 			removeCart(request, response, productId);
 			break;
-		case "SUBMIT_CART":
-			String JSONString = request.getParameter("JSONString");
+		case PublicConstant.SUBMIT_CART:
+			String JSONString = request.getParameter(PublicConstant.JSON_STRING);
 			submitCart(request, response, JSONString);
 			break;
-		case "MY_ORDER":
+		case PublicConstant.MY_ORDER:
 			myOrder(request, response);
 			break;
-		case "MY_ORDER_DETAILS":
+		case PublicConstant.MY_ORDER_DETAILS:
 			myOrderDetails(request, response);
 			break;
-
 		}
-
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		doGet(request, response);
 	}
 
@@ -93,16 +75,17 @@ public class CartController extends HttpServlet {
 		try {
 			ProductModel product = productDAO.selectProduct(productId);
 			HttpSession session = request.getSession();
-			Map<Integer, ProductModel> cart = (Map<Integer, ProductModel>) session.getAttribute("cart");
+			Map<Integer, ProductModel> cart = (Map<Integer, ProductModel>) session.getAttribute(PublicConstant.CART);
 			if (cart == null) {
 				cart = new HashMap<Integer, ProductModel>();
 			}
-			String notification = "you added to cart! check your cart.";
+			String notification = PublicConstant.ADD_TO_CART_NOTIFICATION_MESSAGE;
 			cart.put(product.getId(), product);
-			session.setAttribute("cart", cart);
-			request.setAttribute("product", product);
-			request.setAttribute("notification", notification);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("product?id=" + productId);
+			session.setAttribute(PublicConstant.CART, cart);
+			request.setAttribute(PublicConstant.PRODUCT, product);
+			request.setAttribute(PublicConstant.ADD_TO_CART_NOTIFICATION, notification);
+			RequestDispatcher dispatcher = request
+					.getRequestDispatcher(PublicConstant.PRODUCT_DETAIL_PAGE_BY_ID + productId);
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -113,9 +96,9 @@ public class CartController extends HttpServlet {
 			throws ServletException, IOException {
 		try {
 			HttpSession session = request.getSession();
-			Map<Integer, ProductModel> cart = (Map<Integer, ProductModel>) session.getAttribute("cart");
+			Map<Integer, ProductModel> cart = (Map<Integer, ProductModel>) session.getAttribute(PublicConstant.CART);
 			cart.remove(productId);
-			response.sendRedirect("home");
+			response.sendRedirect(PublicConstant.HOME_URL);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -124,17 +107,15 @@ public class CartController extends HttpServlet {
 	private void submitCart(HttpServletRequest request, HttpServletResponse response, String JSONString)
 			throws ServletException, IOException {
 		System.out.println(JSONString);
-
 		try {
 			List<OrderedModel> orderProducts = jsonData(JSONString);
 			Map<Integer, Integer> orderList = new HashMap<Integer, Integer>();
-
 			for (OrderedModel orderedModel : orderProducts) {
 				orderList.put(orderedModel.getProductId(), orderedModel.getQuantity());
 			}
 
 			HttpSession session = request.getSession();
-			int customerId = (int) session.getAttribute("customerId");
+			int customerId = (int) session.getAttribute(PublicConstant.CUSTOMERID);
 			order = new Order(customerId);
 			int orderId = orderDAO.addOrder(order);
 			for (int key : orderList.keySet()) {
@@ -144,12 +125,9 @@ public class CartController extends HttpServlet {
 				int newQuantity = inventoryQuantity - orderList.get(key);
 				productDAO.updateQuantityByProductId(key, newQuantity);
 			}
-
-			session.removeAttribute("cart");
-			request.setAttribute("orderId", orderId);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("payment.jsp");
+			session.removeAttribute(PublicConstant.CART);
+			RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.PAYMENT_JSP);
 			dispatcher.forward(request, response);
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -172,10 +150,10 @@ public class CartController extends HttpServlet {
 	private void myOrder(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-			int customerId = Integer.parseInt(request.getParameter("id"));
+			int customerId = Integer.parseInt(request.getParameter(PublicConstant.ID));
 			List<Order> orderList = orderDAO.selectAllOrderByCustomerId(customerId);
-			request.setAttribute("orderList", orderList);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("my-purchase.jsp");
+			request.setAttribute(PublicConstant.ORDER_LIST, orderList);
+			RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.MY_PURCHASE_JSP);
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -185,15 +163,14 @@ public class CartController extends HttpServlet {
 	private void myOrderDetails(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-			int id = Integer.parseInt(request.getParameter("orderId"));
+			int id = Integer.parseInt(request.getParameter(PublicConstant.ORDER_ID));
 			List<ProductModel> products = productDAO.selectAllProductByOrderId(id);
-			request.setAttribute("orderId", id);
+			request.setAttribute(PublicConstant.ORDER_ID, id);
 			request.setAttribute("productList", products);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("my-order-detail.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.MY_ORDER_DETAIL_JSP);
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-
 }

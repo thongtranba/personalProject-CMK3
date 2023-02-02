@@ -11,95 +11,90 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import bathongshop.DAO.CustomerDAO;
+import bathongshop.constant.PublicConstant;
 import bathongshop.entity.Customer;
 
-/**
- * Servlet implementation class AuthenticServlet
- */
-@WebServlet("/authentication")
+@WebServlet(PublicConstant.AUTH_URL)
 public class AuthenticationController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private CustomerDAO customerDAO = new CustomerDAO();
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public AuthenticationController() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-			String command = request.getParameter("command");
-			switch (command) {
-			case "LOGIN":
-				logIn(request, response);
-				break;
-			case "REGISTER":
-				register(request, response);
-				break;
-			case "LOGOUT":
-				logOut(request, response);
-				break;
-			}
-
+		String command = request.getParameter(PublicConstant.COMMAND);
+		switch (command) {
+		case PublicConstant.LOGIN:
+			logIn(request, response);
+			break;
+		case PublicConstant.REGISTER:
+			register(request, response);
+			break;
+		case PublicConstant.LOGOUT:
+			logOut(request, response);
+			break;
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
 		doGet(request, response);
 	}
 
 	private void logIn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			String email = request.getParameter("email");
-			String password = request.getParameter("password");
+			String email = request.getParameter(PublicConstant.EMAIL);
+			String password = request.getParameter(PublicConstant.PASSWORD);
 			Customer customer = customerDAO.validate(email, password);
 			if (customer == null) {
-				request.setAttribute("loginNotification", "Login fail!!");
-				RequestDispatcher dispatcher = request.getRequestDispatcher("notification.jsp");
+				request.setAttribute(PublicConstant.LOGIN_NOTIFICATION, PublicConstant.LOGIN_NOTIFICATION_MESSAGE);
+				RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.NOTIFICATION_JSP);
 				dispatcher.forward(request, response);
 			} else {
 				HttpSession session = request.getSession(false);
-				session.setAttribute("customerId", customer.getId());
-				session.setAttribute("username", customer.getUsername());
-				session.setAttribute("mobile", customer.getMobile());
-				session.setAttribute("address", customer.getAddress());
-				RequestDispatcher dispatcher = request.getRequestDispatcher("home");
+				session.setAttribute(PublicConstant.CUSTOMERID, customer.getId());
+				session.setAttribute(PublicConstant.USERNAME, customer.getUsername());
+				session.setAttribute(PublicConstant.MOBILE, customer.getMobile());
+				session.setAttribute(PublicConstant.ADDRESS, customer.getAddress());
+				RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.HOME_URL);
 				dispatcher.forward(request, response);
-			
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	private void register(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	private void register(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		try {
-			String username = request.getParameter("username");
-			String password = request.getParameter("password");
-			String mobile = request.getParameter("mobile");
-			String email = request.getParameter("email");
-			String address = request.getParameter("address");
+			String username = request.getParameter(PublicConstant.USERNAME);
+			String password = request.getParameter(PublicConstant.PASSWORD);
+			String mobile = request.getParameter(PublicConstant.MOBILE);
+			String email = request.getParameter(PublicConstant.EMAIL);
+			String address = request.getParameter(PublicConstant.ADDRESS);
 			Customer newCustomer = new Customer(username, password, mobile, email, address);
 			int result = customerDAO.insertCustomer(newCustomer);
 			if (result == 1) {
-				request.setAttribute("registerNotification", "Registered Successfully!");
+				request.setAttribute(PublicConstant.REGISTER_NOTIFICATION,
+						PublicConstant.REGISTER_NOTIFICATION_MESSAGE);
 			}
-			RequestDispatcher dispatcher = request.getRequestDispatcher("notification.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.NOTIFICATION_JSP);
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+
 	private void logOut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			HttpSession session = request.getSession(false);
-			session.removeAttribute("username");
-			session.removeAttribute("mobile");
-			session.removeAttribute("address");
-			response.sendRedirect("home");
+			session.removeAttribute(PublicConstant.USERNAME);
+			session.removeAttribute(PublicConstant.MOBILE);
+			session.removeAttribute(PublicConstant.ADDRESS);
+			response.sendRedirect(PublicConstant.HOME_URL);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

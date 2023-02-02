@@ -13,131 +13,112 @@ import javax.servlet.http.HttpSession;
 
 import bathongshop.DAO.BrandDAO;
 import bathongshop.DAO.ProductDAO;
+import bathongshop.constant.PublicConstant;
 import bathongshop.entity.Brand;
 import bathongshop.entity.Product;
 
-/**
- * Servlet implementation class categoryServlet
- */
-@WebServlet("/category")
+@WebServlet(PublicConstant.CATEGORY_URL)
 public class CategoryController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ProductDAO productDAO = new ProductDAO();
 	private BrandDAO brandDAO = new BrandDAO();
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public CategoryController() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String command = request.getParameter("command");
-
+		String command = request.getParameter(PublicConstant.COMMAND);
 		switch (command) {
-		case "CATEGORY":
+		case PublicConstant.CATEGORY_COMMAND:
 			category(request, response);
 			break;
-		case "SALEOFF":
+		case PublicConstant.SALEOFF_COMMAND:
 			saleOff(request, response);
 			break;
-		case "SORT":
-			sortCategory(request, response);
-			break;
-
 		}
-
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
 	public void category(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
+			String categoryPage = request.getParameter(PublicConstant.CATEGORY_PARAMETER);
+			int pageId = Integer.parseInt(request.getParameter(PublicConstant.PAGEID_PARAMETER));
+			String sort = request.getParameter(PublicConstant.SORT_PARAMETER) != null
+					? request.getParameter(PublicConstant.SORT_PARAMETER)
+					: PublicConstant.DEFAULT_COMMAND;
+			int brandId = request.getParameter(PublicConstant.BRAND_ID) != null
+					? Integer.parseInt(request.getParameter(PublicConstant.BRAND_ID))
+					: Integer.parseInt(PublicConstant.CATEGORYID_DEFAULT);
 
-			String categoryPage = request.getParameter("category");
-			int pageId = Integer.parseInt(request.getParameter("pageId"));
-			String sort = request.getParameter("sort") != null ? request.getParameter("sort") : "Default";
-			int brandId = request.getParameter("brandId") != null
-					? Integer.parseInt(request.getParameter("brandId"))
-					: 0;
-			HttpSession session = request.getSession();
-			session.setAttribute("categoryPage", categoryPage);
-			int categoryId = 0;
+			int categoryId = Integer.parseInt(PublicConstant.CATEGORYID_DEFAULT);
 			switch (categoryPage) {
-			case "rackets":
-				categoryId = 1;
+			case PublicConstant.RACKETS_PAGE_COMMAND:
+				categoryId = Integer.parseInt(PublicConstant.RACKETS_CATEGORYID);
 				break;
-			case "bags":
-				categoryId = 2;
+			case PublicConstant.BAGS_PAGE_COMMAND:
+				categoryId = Integer.parseInt(PublicConstant.BAGS_CATEGORYID);
 				break;
-			case "clothing":
-				categoryId = 3;
+			case PublicConstant.CLOTHING_PAGE_COMMAND:
+				categoryId = Integer.parseInt(PublicConstant.CLOTHING_CATEGORYID);
 				break;
-			case "shoes":
-				categoryId = 4;
+			case PublicConstant.SHOES_PAGE_COMMAND:
+				categoryId = Integer.parseInt(PublicConstant.SHOES_CATEGORYID);
 				break;
-			case "strings":
-				categoryId = 5;
+			case PublicConstant.STRING_PAGE_COMMAND:
+				categoryId = Integer.parseInt(PublicConstant.STRING_CATEGORYID);
 				break;
 			}
-			String[] sortSelect = { "Default", "Price ASC", "Price DESC", "AZ", "ZA" };
-			String sortColumn = "";
-			String sortType = "";
+			String[] sortSelect = { PublicConstant.DEFAULT_COMMAND, PublicConstant.PRICE_ASC_COMMAND,
+					PublicConstant.PRICE_DESC_COMMAND, PublicConstant.AZ_COMMAND, PublicConstant.ZA_COMMAND };
+			String sortColumn = PublicConstant.EMPTY_STRING;
+			String sortType = PublicConstant.EMPTY_STRING;
 			switch (sort) {
-			case "Default":
-				sortColumn = "id";
-				sortType = " ASC";
+			case PublicConstant.DEFAULT_COMMAND:
+				sortColumn = PublicConstant.ID;
+				sortType = PublicConstant.ASC;
 				break;
-			case "Price ASC":
-				sortColumn = "price";
-				sortType = " ASC";
+			case PublicConstant.PRICE_ASC_COMMAND:
+				sortColumn = PublicConstant.PRICE_COLUMN;
+				sortType = PublicConstant.ASC;
 				break;
-			case "Price DESC":
-				sortColumn = "price";
-				sortType = " DESC";
+			case PublicConstant.PRICE_DESC_COMMAND:
+				sortColumn = PublicConstant.PRICE_COLUMN;
+				sortType = PublicConstant.DESC;
 				break;
-			case "AZ":
-				sortColumn = "name";
-				sortType = " ASC";
+			case PublicConstant.AZ_COMMAND:
+				sortColumn = PublicConstant.NAME_COLUMN;
+				sortType = PublicConstant.ASC;
 				break;
-			case "ZA":
-				sortColumn = "name";
-				sortType = " DESC";
+			case PublicConstant.ZA_COMMAND:
+				sortColumn = PublicConstant.NAME_COLUMN;
+				sortType = PublicConstant.DESC;
 				break;
 			}
-			int itemPerPage = 9;
+			int itemPerPage = Integer.parseInt(PublicConstant.ITEM_PER_PAGE);
 			int totalProducts = productDAO.totalCategoryProduct(categoryId);
-			int startItem = (pageId - 1) * itemPerPage;
-			int totalPage = (int) Math.ceil(totalProducts * 1.0 / itemPerPage);
+			int startItem = (pageId - Integer.parseInt(PublicConstant.CONSTANT_1)) * itemPerPage;
+			int totalPage = (int) Math
+					.ceil(totalProducts * Double.parseDouble(PublicConstant.CONSTANT_DOUBLE_1) / itemPerPage);
 			List<Brand> brandList = brandDAO.selectAllBrands();
 			List<Product> categoryList = productDAO.selectAllProductByCategoryId(categoryId, startItem, itemPerPage,
 					sortColumn, sortType, brandId);
-			
-			request.setAttribute("brandList", brandList);
-			request.setAttribute("brandId", brandId);
-			request.setAttribute("sortSelect", sortSelect);
-			session.setAttribute("sortSelected", sort);
-			request.setAttribute("categoryPage", categoryPage);
-			request.setAttribute("categoryList", categoryList);
-			request.setAttribute("totalPage", totalPage);
-			request.setAttribute("currentPage", pageId);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("category.jsp");
+			HttpSession session = request.getSession();
+			session.setAttribute(PublicConstant.CATEGORY_PAGE, categoryPage);
+			request.setAttribute(PublicConstant.BRAND_LIST, brandList);
+			request.setAttribute(PublicConstant.BRAND_ID, brandId);
+			request.setAttribute(PublicConstant.SORT_SELECT, sortSelect);
+			session.setAttribute(PublicConstant.SORT_SELECTED, sort);
+			request.setAttribute(PublicConstant.CATEGORY_LIST, categoryList);
+			request.setAttribute(PublicConstant.TOTAL_PAGE, totalPage);
+			request.setAttribute(PublicConstant.CURRENT_PAGE, pageId);
+			RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.CATEGORY_JSP);
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -147,21 +128,11 @@ public class CategoryController extends HttpServlet {
 	public void saleOff(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			List<Product> saleOffProduct = productDAO.selectSaleOffProduct();
-			request.setAttribute("saleOffProduct", saleOffProduct);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("sale-off-product.jsp");
+			request.setAttribute(PublicConstant.SALE_OFF_PRODUCT, saleOffProduct);
+			RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.SALEOFF_JSP);
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-
-	public void sortCategory(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		try {
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
 }

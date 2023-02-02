@@ -8,23 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bathongshop.JDBCUtil.JDBCUtil;
+import bathongshop.constant.PublicConstant;
 import bathongshop.entity.Customer;
 
 public class CustomerDAO {
-	private static final String INSERT_CUSTOMER_SQL = "INSERT INTO customer"
-			+ "  (username, password, mobile, email, address) VALUES " + " (?, ?, ?, ?, ?);";
-
-	private static final String SELECT_CUSTOMER_BY_ID = "select id, username, password, mobile, email, address from customer where id =?";
-	private static final String SELECT_ALL_CUSTOMER = "select * from customer";
-	private static final String DELETE_CUSTOMER_SQL = "delete from customer where id =?;";
-	private static final String UPDATE_CUSTOMER_SQL = "update customer set username =?, password=?, mobile=?, email=?, address =? where id =?;";
-
 
 	public int insertCustomer(Customer customer) throws SQLException {
-		System.out.println(INSERT_CUSTOMER_SQL);
 		int result = 0;
 		try (Connection connection = JDBCUtil.getConnection();
-				PreparedStatement preparedStatement = connection.prepareStatement(INSERT_CUSTOMER_SQL)) {
+				PreparedStatement preparedStatement = connection.prepareStatement(PublicConstant.INSERT_CUSTOMER_SQL)) {
 			preparedStatement.setString(1, customer.getUsername());
 			preparedStatement.setString(2, customer.getPassword());
 			preparedStatement.setString(3, customer.getMobile());
@@ -41,14 +33,13 @@ public class CustomerDAO {
 	public boolean updateCustomer(Customer customer) throws SQLException {
 		boolean rowUpdated;
 		try (Connection connection = JDBCUtil.getConnection();
-				PreparedStatement statement = connection.prepareStatement(UPDATE_CUSTOMER_SQL)) {
+				PreparedStatement statement = connection.prepareStatement(PublicConstant.UPDATE_CUSTOMER_SQL)) {
 			statement.setString(1, customer.getUsername());
 			statement.setString(2, customer.getPassword());
 			statement.setString(3, customer.getMobile());
 			statement.setString(4, customer.getEmail());
 			statement.setString(5, customer.getAddress());
 			statement.setInt(6, customer.getId());
-
 			rowUpdated = statement.executeUpdate() > 0;
 		}
 		return rowUpdated;
@@ -57,7 +48,7 @@ public class CustomerDAO {
 	public boolean deleteCustomer(int id) throws SQLException {
 		boolean rowDeleted;
 		try (Connection connection = JDBCUtil.getConnection();
-				PreparedStatement statement = connection.prepareStatement(DELETE_CUSTOMER_SQL);) {
+				PreparedStatement statement = connection.prepareStatement(PublicConstant.DELETE_CUSTOMER_SQL);) {
 			statement.setInt(1, id);
 			rowDeleted = statement.executeUpdate() > 0;
 		}
@@ -67,7 +58,8 @@ public class CustomerDAO {
 	public Customer selectCustomer(int id) {
 		Customer customer = null;
 		try (Connection connection = JDBCUtil.getConnection();
-				PreparedStatement preparedStatement = connection.prepareStatement(SELECT_CUSTOMER_BY_ID);) {
+				PreparedStatement preparedStatement = connection
+						.prepareStatement(PublicConstant.SELECT_CUSTOMER_BY_ID);) {
 			preparedStatement.setInt(1, id);
 			System.out.println(preparedStatement);
 			ResultSet rs = preparedStatement.executeQuery();
@@ -89,8 +81,8 @@ public class CustomerDAO {
 	public List<Customer> selectAllCustomers() {
 		List<Customer> customers = new ArrayList<>();
 		try (Connection connection = JDBCUtil.getConnection();
-				PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_CUSTOMER);) {
-
+				PreparedStatement preparedStatement = connection
+						.prepareStatement(PublicConstant.SELECT_ALL_CUSTOMER);) {
 			System.out.println(preparedStatement);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
@@ -108,7 +100,6 @@ public class CustomerDAO {
 		}
 		return customers;
 	}
-	private static final String LOGIN_BY_USERNAME_PASSWORD = "select * from customer where email = ? and password = ? ";
 
 	public Customer validate(String email, String password) throws SQLException {
 		Customer customer = null;
@@ -118,32 +109,27 @@ public class CustomerDAO {
 
 		try {
 			connection = JDBCUtil.getConnection();
-
-			preparedStatement = connection.prepareStatement(LOGIN_BY_USERNAME_PASSWORD);
+			preparedStatement = connection.prepareStatement(PublicConstant.LOGIN_BY_USERNAME_PASSWORD);
 			preparedStatement.setString(1, email);
 			preparedStatement.setString(2, password);
 			System.out.println(preparedStatement);
-
 			rs = preparedStatement.executeQuery();
-
 			if (rs.next()) {
 				int id = rs.getInt("id");
 				String username = rs.getString("username");
 				String mobile = rs.getString("mobile");
 				String address = rs.getString("address");
 				customer = new Customer(id, username, mobile, address);
-				
 			} else {
-				
+
 				return null;
 			}
 			return customer;
 
 		} finally {
 			close(connection, preparedStatement, rs);
-			
-		}
 
+		}
 	}
 
 	private void close(Connection connection, PreparedStatement preparedStatement, ResultSet rs) throws SQLException {

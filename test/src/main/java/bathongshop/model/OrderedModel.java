@@ -21,6 +21,4 @@ public class OrderedModel {
 		this.quantity = quantity;
 	}
 
-	
-
 }
