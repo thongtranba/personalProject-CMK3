@@ -53,6 +53,11 @@ public class PublicConstant {
 			+ " join bathongshop.order on bathongshop.order.id = order_item.order_id"
 			+ " where bathongshop.order.id = ?";
 	public static final String SELECT_SALE_OFF_PRODDUCTS = "select * from product where discount_price > '0' ";
+	public static final String SELECT_PRODUCT_ORDER_BY = "select * from product where category_id =?"+ "  ORDER by ";
+	public static final String SELECT_PRODUCT_ORDER_BY_WITH_BRANDID = "select product.id, product.name, product.inventory_quantity, product.discount_price, product.price, product.image, brand.name from product "
+			+ " join brand on brand.id = product.brand_id" + " where category_id =? and brand.id = ?" + "  ORDER by "
+			+ "product.";
+	public static final String SELECT_PRODUCT_LIMIT = " limit ?,?";
 	public static final String INVENTORY_QUANTITY_COLUMN = "inventory_quantity";
 	public static final String DISCOUNT_PRICE_COLUMN = "discount_price";
 	public static final String BRAND_ID_COLUMN = "brand_id";
@@ -140,6 +145,7 @@ public class PublicConstant {
 
 	// Home controller
 	public static final String HOME_URL = "/home";
+	public static final String HOME_CONTROLLER = "home";
 	public static final String POPULAR_PRODUCT = "popularProduct";
 	public static final String LATEST_PRODUCT = "latestProduct";
 	public static final String SERVICE_PRODUCT = "service";

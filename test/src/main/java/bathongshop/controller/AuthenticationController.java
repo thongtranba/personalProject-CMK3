@@ -59,7 +59,7 @@ public class AuthenticationController extends HttpServlet {
 				session.setAttribute(PublicConstant.USERNAME, customer.getUsername());
 				session.setAttribute(PublicConstant.MOBILE, customer.getMobile());
 				session.setAttribute(PublicConstant.ADDRESS, customer.getAddress());
-				RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.HOME_URL);
+				RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.HOME_CONTROLLER);
 				dispatcher.forward(request, response);
 			}
 		} catch (Exception e) {
@@ -94,7 +94,7 @@ public class AuthenticationController extends HttpServlet {
 			session.removeAttribute(PublicConstant.USERNAME);
 			session.removeAttribute(PublicConstant.MOBILE);
 			session.removeAttribute(PublicConstant.ADDRESS);
-			response.sendRedirect(PublicConstant.HOME_URL);
+			response.sendRedirect(PublicConstant.HOME_CONTROLLER);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

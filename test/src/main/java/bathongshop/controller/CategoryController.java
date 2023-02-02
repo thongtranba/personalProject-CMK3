@@ -56,56 +56,15 @@ public class CategoryController extends HttpServlet {
 			int brandId = request.getParameter(PublicConstant.BRAND_ID) != null
 					? Integer.parseInt(request.getParameter(PublicConstant.BRAND_ID))
 					: Integer.parseInt(PublicConstant.CATEGORYID_DEFAULT);
-
-			int categoryId = Integer.parseInt(PublicConstant.CATEGORYID_DEFAULT);
-			switch (categoryPage) {
-			case PublicConstant.RACKETS_PAGE_COMMAND:
-				categoryId = Integer.parseInt(PublicConstant.RACKETS_CATEGORYID);
-				break;
-			case PublicConstant.BAGS_PAGE_COMMAND:
-				categoryId = Integer.parseInt(PublicConstant.BAGS_CATEGORYID);
-				break;
-			case PublicConstant.CLOTHING_PAGE_COMMAND:
-				categoryId = Integer.parseInt(PublicConstant.CLOTHING_CATEGORYID);
-				break;
-			case PublicConstant.SHOES_PAGE_COMMAND:
-				categoryId = Integer.parseInt(PublicConstant.SHOES_CATEGORYID);
-				break;
-			case PublicConstant.STRING_PAGE_COMMAND:
-				categoryId = Integer.parseInt(PublicConstant.STRING_CATEGORYID);
-				break;
-			}
-			String[] sortSelect = { PublicConstant.DEFAULT_COMMAND, PublicConstant.PRICE_ASC_COMMAND,
-					PublicConstant.PRICE_DESC_COMMAND, PublicConstant.AZ_COMMAND, PublicConstant.ZA_COMMAND };
-			String sortColumn = PublicConstant.EMPTY_STRING;
-			String sortType = PublicConstant.EMPTY_STRING;
-			switch (sort) {
-			case PublicConstant.DEFAULT_COMMAND:
-				sortColumn = PublicConstant.ID;
-				sortType = PublicConstant.ASC;
-				break;
-			case PublicConstant.PRICE_ASC_COMMAND:
-				sortColumn = PublicConstant.PRICE_COLUMN;
-				sortType = PublicConstant.ASC;
-				break;
-			case PublicConstant.PRICE_DESC_COMMAND:
-				sortColumn = PublicConstant.PRICE_COLUMN;
-				sortType = PublicConstant.DESC;
-				break;
-			case PublicConstant.AZ_COMMAND:
-				sortColumn = PublicConstant.NAME_COLUMN;
-				sortType = PublicConstant.ASC;
-				break;
-			case PublicConstant.ZA_COMMAND:
-				sortColumn = PublicConstant.NAME_COLUMN;
-				sortType = PublicConstant.DESC;
-				break;
-			}
+			int categoryId = takeCategoryIdByCategoryPage(categoryPage);
+			String sortColumn = takeSortColumnBySortRequest(sort);
+			String sortType = takeSortTypeBySortRequest(sort);
 			int itemPerPage = Integer.parseInt(PublicConstant.ITEM_PER_PAGE);
 			int totalProducts = productDAO.totalCategoryProduct(categoryId);
 			int startItem = (pageId - Integer.parseInt(PublicConstant.CONSTANT_1)) * itemPerPage;
-			int totalPage = (int) Math
-					.ceil(totalProducts * Double.parseDouble(PublicConstant.CONSTANT_DOUBLE_1) / itemPerPage);
+			int totalPage = takeTotalPage(totalProducts, itemPerPage);
+			String[] sortSelect = { PublicConstant.DEFAULT_COMMAND, PublicConstant.PRICE_ASC_COMMAND,
+					PublicConstant.PRICE_DESC_COMMAND, PublicConstant.AZ_COMMAND, PublicConstant.ZA_COMMAND };
 			List<Brand> brandList = brandDAO.selectAllBrands();
 			List<Product> categoryList = productDAO.selectAllProductByCategoryId(categoryId, startItem, itemPerPage,
 					sortColumn, sortType, brandId);
@@ -123,6 +82,78 @@ public class CategoryController extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public String takeSortColumnBySortRequest(String sort) {
+		String sortColumn = PublicConstant.EMPTY_STRING;
+		switch (sort) {
+		case PublicConstant.DEFAULT_COMMAND:
+			sortColumn = PublicConstant.ID;
+			break;
+		case PublicConstant.PRICE_ASC_COMMAND:
+			sortColumn = PublicConstant.PRICE_COLUMN;
+			break;
+		case PublicConstant.PRICE_DESC_COMMAND:
+			sortColumn = PublicConstant.PRICE_COLUMN;
+			break;
+		case PublicConstant.AZ_COMMAND:
+			sortColumn = PublicConstant.NAME_COLUMN;
+			break;
+		case PublicConstant.ZA_COMMAND:
+			sortColumn = PublicConstant.NAME_COLUMN;
+			break;
+		}
+		return sortColumn;
+	}
+
+	public String takeSortTypeBySortRequest(String sort) {
+		String sortType = PublicConstant.EMPTY_STRING;
+		switch (sort) {
+		case PublicConstant.DEFAULT_COMMAND:
+			sortType = PublicConstant.ASC;
+			break;
+		case PublicConstant.PRICE_ASC_COMMAND:
+			sortType = PublicConstant.ASC;
+			break;
+		case PublicConstant.PRICE_DESC_COMMAND:
+			sortType = PublicConstant.DESC;
+			break;
+		case PublicConstant.AZ_COMMAND:
+			sortType = PublicConstant.ASC;
+			break;
+		case PublicConstant.ZA_COMMAND:
+			sortType = PublicConstant.DESC;
+			break;
+		}
+		return sortType;
+	}
+
+	public int takeCategoryIdByCategoryPage(String categoryPage) {
+		int categoryId = Integer.parseInt(PublicConstant.CATEGORYID_DEFAULT);
+		switch (categoryPage) {
+		case PublicConstant.RACKETS_PAGE_COMMAND:
+			categoryId = Integer.parseInt(PublicConstant.RACKETS_CATEGORYID);
+			break;
+		case PublicConstant.BAGS_PAGE_COMMAND:
+			categoryId = Integer.parseInt(PublicConstant.BAGS_CATEGORYID);
+			break;
+		case PublicConstant.CLOTHING_PAGE_COMMAND:
+			categoryId = Integer.parseInt(PublicConstant.CLOTHING_CATEGORYID);
+			break;
+		case PublicConstant.SHOES_PAGE_COMMAND:
+			categoryId = Integer.parseInt(PublicConstant.SHOES_CATEGORYID);
+			break;
+		case PublicConstant.STRING_PAGE_COMMAND:
+			categoryId = Integer.parseInt(PublicConstant.STRING_CATEGORYID);
+			break;
+		}
+		return categoryId;
+	}
+
+	public int takeTotalPage(int totalProducts, int itemPerPage) {
+		int totalPage = (int) Math
+				.ceil(totalProducts * Double.parseDouble(PublicConstant.CONSTANT_DOUBLE_1) / itemPerPage);
+		return totalPage;
 	}
 
 	public void saleOff(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

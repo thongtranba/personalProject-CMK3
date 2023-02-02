@@ -33,7 +33,6 @@ public class ProductDAO {
 				products.add(new Product(id, name, inventoryQuantity, price, discountPrice, brandId, categoryId,
 						description, image));
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -205,7 +204,6 @@ public class ProductDAO {
 		try (Connection connection = JDBCUtil.getConnection();
 				PreparedStatement preparedStatement = connection
 						.prepareStatement(PublicConstant.SELECT_RELATED_PRODUCTS);) {
-
 			System.out.println(preparedStatement);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
@@ -250,8 +248,8 @@ public class ProductDAO {
 		if (brandId == Integer.parseInt(PublicConstant.CONSTANT_0)) {
 			try (Connection connection = JDBCUtil.getConnection();
 					PreparedStatement preparedStatement = connection
-							.prepareStatement("select * from product where category_id =?" + "  ORDER by " + sortColumn
-									+ sortType + " limit ?,?");) {
+							.prepareStatement(PublicConstant.SELECT_PRODUCT_ORDER_BY + sortColumn + sortType
+									+ PublicConstant.SELECT_PRODUCT_LIMIT);) {
 				preparedStatement.setInt(1, categoryId);
 				preparedStatement.setInt(2, startItem);
 				preparedStatement.setInt(3, itemPerPage);
@@ -273,11 +271,9 @@ public class ProductDAO {
 			}
 		} else {
 			try (Connection connection = JDBCUtil.getConnection();
-					PreparedStatement preparedStatement = connection.prepareStatement(
-							"select product.id, product.name, product.inventory_quantity, product.discount_price, product.price, product.image, brand.name from product "
-									+ " join brand on brand.id = product.brand_id"
-									+ " where category_id =? and brand.id = ?" + "  ORDER by " + "product." + sortColumn
-									+ sortType + " limit ?,?");) {
+					PreparedStatement preparedStatement = connection
+							.prepareStatement(PublicConstant.SELECT_PRODUCT_ORDER_BY_WITH_BRANDID + sortColumn
+									+ sortType + PublicConstant.SELECT_PRODUCT_LIMIT);) {
 				preparedStatement.setInt(1, categoryId);
 				preparedStatement.setInt(2, brandId);
 				preparedStatement.setInt(3, startItem);

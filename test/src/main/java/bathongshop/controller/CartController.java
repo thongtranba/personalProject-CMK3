@@ -98,7 +98,7 @@ public class CartController extends HttpServlet {
 			HttpSession session = request.getSession();
 			Map<Integer, ProductModel> cart = (Map<Integer, ProductModel>) session.getAttribute(PublicConstant.CART);
 			cart.remove(productId);
-			response.sendRedirect(PublicConstant.HOME_URL);
+			response.sendRedirect(PublicConstant.HOME_CONTROLLER);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
