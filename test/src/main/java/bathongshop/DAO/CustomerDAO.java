@@ -7,11 +7,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import bathongshop.JDBCUtil.JDBCUtil;
 import bathongshop.constant.PublicConstant;
 import bathongshop.entity.Customer;
 
 public class CustomerDAO {
+	private static Logger logger = LogManager.getLogger(CustomerDAO.class);
 
 	public int insertCustomer(Customer customer) throws SQLException {
 		int result = Integer.parseInt(PublicConstant.CONSTANT_0);
@@ -25,7 +29,9 @@ public class CustomerDAO {
 			System.out.println(preparedStatement);
 			result = preparedStatement.executeUpdate();
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.info("Infor message!", e);
+			logger.warn("Warn message!", e);
+			logger.error("Exceptions happen!", e);
 		}
 		return result;
 	}
@@ -71,9 +77,10 @@ public class CustomerDAO {
 				String address = rs.getString(PublicConstant.ADDRESS);
 				customer = new Customer(id, username, password, mobile, email, address);
 			}
-
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.info("Infor message!", e);
+			logger.warn("Warn message!", e);
+			logger.error("Exceptions happen!", e);
 		}
 		return customer;
 	}
@@ -94,9 +101,10 @@ public class CustomerDAO {
 				String address = rs.getString(PublicConstant.ADDRESS);
 				customers.add(new Customer(id, username, password, mobile, email, address));
 			}
-
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.info("Infor message!", e);
+			logger.warn("Warn message!", e);
+			logger.error("Exceptions happen!", e);
 		}
 		return customers;
 	}
@@ -120,21 +128,13 @@ public class CustomerDAO {
 				String address = rs.getString(PublicConstant.ADDRESS);
 				customer = new Customer(id, username, mobile, address);
 			} else {
-
 				return null;
 			}
-			return customer;
-
-		} finally {
-			close(connection, preparedStatement, rs);
-
+		} catch (Exception e) {
+			logger.info("Infor message!", e);
+			logger.warn("Warn message!", e);
+			logger.error("Exceptions happen!", e);
 		}
+		return customer;
 	}
-
-	private void close(Connection connection, PreparedStatement preparedStatement, ResultSet rs) throws SQLException {
-		connection.close();
-		preparedStatement.close();
-		rs.close();
-	}
-
 }

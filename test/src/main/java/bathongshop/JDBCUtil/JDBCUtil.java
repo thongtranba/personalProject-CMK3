@@ -4,9 +4,14 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import bathongshop.constant.PublicConstant;
 
 public class JDBCUtil {
+	private static Logger logger = LogManager.getLogger(JDBCUtil.class);
+
 	public static void main(String[] args) {
 		System.out.println(getConnection());
 	}
@@ -18,11 +23,13 @@ public class JDBCUtil {
 			connection = DriverManager.getConnection(PublicConstant.jdbcURL, PublicConstant.jdbcUsername,
 					PublicConstant.jdbcPassword);
 		} catch (SQLException e) {
-
-			e.printStackTrace();
+			logger.info("Infor message!", e);
+			logger.warn("Warn message!", e);
+			logger.error("Exceptions happen!", e);
 		} catch (ClassNotFoundException e) {
-
-			e.printStackTrace();
+			logger.info("Infor message!", e);
+			logger.warn("Warn message!", e);
+			logger.error("Exceptions happen!", e);
 		}
 		return connection;
 	}

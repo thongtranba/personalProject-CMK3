@@ -9,11 +9,15 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import bathongshop.JDBCUtil.JDBCUtil;
 import bathongshop.constant.PublicConstant;
 import bathongshop.entity.Order;
 
 public class OrderDAO {
+	private static Logger logger = LogManager.getLogger(OrderDAO.class);
 
 	public int addOrder(Order order) throws SQLException {
 		int insertedId = 0;
@@ -29,7 +33,9 @@ public class OrderDAO {
 				insertedId = rs.getInt(1);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.info("Infor message!", e);
+			logger.warn("Warn message!", e);
+			logger.error("Exceptions happen!", e);
 		}
 		return insertedId;
 	}
@@ -48,7 +54,9 @@ public class OrderDAO {
 				orders.add(new Order(id, createdDate));
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.info("Infor message!", e);
+			logger.warn("Warn message!", e);
+			logger.error("Exceptions happen!", e);
 		}
 		return orders;
 	}

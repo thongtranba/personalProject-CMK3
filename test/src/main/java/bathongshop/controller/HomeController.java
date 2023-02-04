@@ -2,6 +2,7 @@ package bathongshop.controller;
 
 import java.io.IOException;
 import java.util.List;
+import org.apache.logging.log4j.*;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,6 +18,9 @@ import bathongshop.entity.Product;
 @WebServlet(urlPatterns = { PublicConstant.HOME_URL })
 
 public class HomeController extends HttpServlet {
+
+	private static Logger logger = LogManager.getLogger(HomeController.class);
+
 	private static final long serialVersionUID = 1L;
 	private ProductDAO productDAO = new ProductDAO();
 
@@ -31,15 +35,22 @@ public class HomeController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		List<Product> products = productDAO.selectAllProducts();
-		System.out.println(PublicConstant.ALL_PRODUCT + products.size());
-		List<Product> popularProduct = productDAO.selectPopularProducts();
-		List<Product> lastestProduct = productDAO.selectLatestProducts();
-		List<Product> service = productDAO.selectService();
-		request.setAttribute(PublicConstant.POPULAR_PRODUCT, popularProduct);
-		request.setAttribute(PublicConstant.LATEST_PRODUCT, lastestProduct);
-		request.setAttribute(PublicConstant.SERVICE_PRODUCT, service);
-		RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.HOME_JSP);
-		dispatcher.forward(request, response);
+		try {
+			List<Product> products = productDAO.selectAllProducts();
+			System.out.println(PublicConstant.ALL_PRODUCT + products.size());
+			List<Product> popularProduct = productDAO.selectPopularProducts();
+			List<Product> lastestProduct = productDAO.selectLatestProducts();
+			List<Product> service = productDAO.selectService();
+			request.setAttribute(PublicConstant.POPULAR_PRODUCT, popularProduct);
+			request.setAttribute(PublicConstant.LATEST_PRODUCT, lastestProduct);
+			request.setAttribute(PublicConstant.SERVICE_PRODUCT, service);
+			RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.HOME_JSP);
+			dispatcher.forward(request, response);
+		} catch (Exception e) {
+			logger.info("Infor message!", e);
+			logger.warn("Warn message!", e);
+			logger.error("Exceptions happen!", e);
+		}
+
 	}
 }

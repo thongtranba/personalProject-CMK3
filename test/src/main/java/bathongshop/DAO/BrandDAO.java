@@ -6,11 +6,16 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import bathongshop.JDBCUtil.JDBCUtil;
 import bathongshop.constant.PublicConstant;
 import bathongshop.entity.Brand;
 
 public class BrandDAO {
+	private static Logger logger = LogManager.getLogger(BrandDAO.class);
+
 	public List<Brand> selectAllBrands() {
 		List<Brand> brands = new ArrayList<>();
 		try (Connection connection = JDBCUtil.getConnection();
@@ -23,7 +28,9 @@ public class BrandDAO {
 				brands.add(new Brand(id, name));
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.info("Infor message!", e);
+			logger.warn("Warn message!", e);
+			logger.error("Exceptions happen!", e);
 		}
 		return brands;
 	}

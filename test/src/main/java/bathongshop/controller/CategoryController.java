@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import bathongshop.DAO.BrandDAO;
 import bathongshop.DAO.ProductDAO;
 import bathongshop.constant.PublicConstant;
@@ -19,6 +22,7 @@ import bathongshop.entity.Product;
 
 @WebServlet(PublicConstant.CATEGORY_URL)
 public class CategoryController extends HttpServlet {
+	private static Logger logger = LogManager.getLogger(CategoryController.class);
 	private static final long serialVersionUID = 1L;
 	private ProductDAO productDAO = new ProductDAO();
 	private BrandDAO brandDAO = new BrandDAO();
@@ -80,7 +84,9 @@ public class CategoryController extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.CATEGORY_JSP);
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.info("Infor message!", e);
+			logger.warn("Warn message!", e);
+			logger.error("Exceptions happen!", e);
 		}
 	}
 
@@ -163,7 +169,9 @@ public class CategoryController extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.SALEOFF_JSP);
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.info("Infor message!", e);
+			logger.warn("Warn message!", e);
+			logger.error("Exceptions happen!", e);
 		}
 	}
 }

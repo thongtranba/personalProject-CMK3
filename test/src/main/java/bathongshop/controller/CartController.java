@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -34,6 +37,7 @@ public class CartController extends HttpServlet {
 	private OrderDAO orderDAO = new OrderDAO();
 	private OrderItemDAO orderItemDAO = new OrderItemDAO();
 	private Order order = new Order();
+	private static Logger logger = LogManager.getLogger(CartController.class);
 
 	public CartController() {
 		super();
@@ -88,7 +92,9 @@ public class CartController extends HttpServlet {
 					.getRequestDispatcher(PublicConstant.PRODUCT_DETAIL_PAGE_BY_ID + productId);
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.info("Infor message!", e);
+			logger.warn("Warn message!", e);
+			logger.error("Exceptions happen!", e);
 		}
 	}
 
@@ -100,7 +106,9 @@ public class CartController extends HttpServlet {
 			cart.remove(productId);
 			response.sendRedirect(PublicConstant.HOME_CONTROLLER);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.info("Infor message!", e);
+			logger.warn("Warn message!", e);
+			logger.error("Exceptions happen!", e);
 		}
 	}
 
@@ -113,7 +121,6 @@ public class CartController extends HttpServlet {
 			for (OrderedModel orderedModel : orderProducts) {
 				orderList.put(orderedModel.getProductId(), orderedModel.getQuantity());
 			}
-
 			HttpSession session = request.getSession();
 			int customerId = (int) session.getAttribute(PublicConstant.CUSTOMERID);
 			order = new Order(customerId);
@@ -129,7 +136,9 @@ public class CartController extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.PAYMENT_JSP);
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.info("Infor message!", e);
+			logger.warn("Warn message!", e);
+			logger.error("Exceptions happen!", e);
 		}
 	}
 
@@ -140,9 +149,13 @@ public class CartController extends HttpServlet {
 			List<OrderedModel> list = Arrays.asList(mapper.readValue(JSONString, OrderedModel[].class));
 			return list;
 		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
+			logger.info("Infor message!", e);
+			logger.warn("Warn message!", e);
+			logger.error("Exceptions happen!", e);
 		} catch (NullPointerException e) {
-			e.printStackTrace();
+			logger.info("Infor message!", e);
+			logger.warn("Warn message!", e);
+			logger.error("Exceptions happen!", e);
 		}
 		return null;
 	}
@@ -156,7 +169,9 @@ public class CartController extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.MY_PURCHASE_JSP);
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.info("Infor message!", e);
+			logger.warn("Warn message!", e);
+			logger.error("Exceptions happen!", e);
 		}
 	}
 
@@ -170,7 +185,9 @@ public class CartController extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.MY_ORDER_DETAIL_JSP);
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.info("Infor message!", e);
+			logger.warn("Warn message!", e);
+			logger.error("Exceptions happen!", e);
 		}
 	}
 }

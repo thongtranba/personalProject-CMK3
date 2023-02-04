@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import bathongshop.DAO.ProductDAO;
 import bathongshop.constant.PublicConstant;
 import bathongshop.entity.Product;
@@ -19,6 +22,7 @@ import bathongshop.model.ProductModel;
 public class ProductDetailController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ProductDAO productDAO = new ProductDAO();
+	private static Logger logger = LogManager.getLogger(ProductDetailController.class);
 
 	public ProductDetailController() {
 		super();
@@ -36,7 +40,9 @@ public class ProductDetailController extends HttpServlet {
 			dispatcher.forward(request, response);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.info("Infor message!", e);
+			logger.warn("Warn message!", e);
+			logger.error("Exceptions happen!", e);
 		}
 	}
 

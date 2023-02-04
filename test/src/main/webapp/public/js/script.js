@@ -63,7 +63,6 @@ $(function() {
 		$("main aside .inner-aside").toggle();
 	});
 
-
 	$(
 		"main .product-detail .product-detail-carousel-slider .owl-carousel"
 	).owlCarousel({
@@ -136,12 +135,7 @@ $(function() {
 			},
 		},
 	});
-
-
-
 });
-
-
 
 $(document).ready(function() {
 	var cartItems = $(".totalItem").val();
@@ -197,7 +191,6 @@ $(document).ready(function() {
 		}
 
 		localStorage.setItem("cartList", JSON.stringify(cartList));
-
 		checkout();
 	});
 
@@ -208,34 +201,33 @@ $(document).ready(function() {
 	var products = [];
 	if (localStorage.getItem('cartList')) {
 		products = JSON.parse(localStorage.getItem('cartList'));
+
+		console.log(products);
+		for (var i = 0; i < cartItems; i++) {
+			productId = products[i].productId;
+			price = $(".cart-price").eq(i).text();
+			inputQty = products[i].quantity;
+
+			var subtotal = Math.round((inputQty * price) * 100) / 100;
+
+			$(".qty").eq(i).html(inputQty);
+			$(".subTotal").eq(i).html(subtotal + " euro");
+			$("input[name=subTotal]").eq(i).val(subtotal);
+			total = total + (inputQty * price);
+		}
+
+		total = Math.round(total * 100) / 100;
+		$(".price-total").html(total + " euro");
+
+		var deliveryFee = 39;
+		$(".delivery-fee").html(deliveryFee + " euro");
+		$("input[name=delivery]").val(deliveryFee);
+
+		var paymentTotal = total + 39;
+		$(".payment-total").html(paymentTotal + " euro");
+		$("input[name=total]").val(paymentTotal);
+
 	};
-	console.log(products);
-	for (var i = 0; i < cartItems; i++) {
-		productId = products[i].productId;
-		price = $(".cart-price").eq(i).text();
-		inputQty = products[i].quantity;
-
-		var subtotal = Math.round((inputQty * price) * 100) / 100;
-
-		$(".qty").eq(i).html(inputQty);
-		$(".subTotal").eq(i).html(subtotal + " euro");
-		$("input[name=subTotal]").eq(i).val(subtotal);
-		total = total + (inputQty * price);
-	}
-
-	total = Math.round(total * 100) / 100;
-	$(".price-total").html(total + " euro");
-
-	var deliveryFee = 39;
-	$(".delivery-fee").html(deliveryFee + " euro");
-	$("input[name=delivery]").val(deliveryFee);
-
-	var paymentTotal = total + 39;
-	$(".payment-total").html(paymentTotal + " euro");
-	$("input[name=total]").val(paymentTotal);
-
-
-
 
 	console.log(localStorage.getItem('cartList'));
 
@@ -256,8 +248,6 @@ $(document).ready(function() {
 			},
 		});
 	});
-
-
 
 })
 

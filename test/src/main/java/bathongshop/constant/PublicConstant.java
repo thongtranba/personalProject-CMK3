@@ -167,7 +167,7 @@ public class PublicConstant {
 	public static final String ALL_PRODUCT = "products:: ";
 	public static final String CONSTANT_0 = "0";
 
-	// JSP
+	// JSP page
 	public static final String NOTIFICATION_JSP = "notification.jsp";
 	public static final String PAYMENT_JSP = "payment.jsp";
 	public static final String MY_PURCHASE_JSP = "my-purchase.jsp";
@@ -177,5 +177,9 @@ public class PublicConstant {
 	public static final String HOME_JSP = "home.jsp";
 	public static final String PRODUCT_DETAIL_JSP = "product-detail.jsp";
 	public static final String SEARCH_JSP = "search-product.jsp";
+	
+	
+	
+	
 
 }
