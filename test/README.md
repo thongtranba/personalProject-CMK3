@@ -28,7 +28,9 @@ This is a web application that demonstrates an E-commerce website using the MVC 
 - ERD relationship and design
 ![App Screenshot](https://live.staticflickr.com/65535/52586226353_a866d87f8c_b.jpg)
 - Model-View-Control: Servlet + JSP + JDBC + CRUD
-- Log4J
+- Log4J (info.log,debug.log,warn.log,error.log)
+
+![App Screenshot](https://live.staticflickr.com/65535/52668416613_d32471034c_c.jpg)
 - SQL: query, tables and sample data with Workbench
 
 ![App Screenshot](https://live.staticflickr.com/65535/52585970304_3b63d91f63_m.jpg)
