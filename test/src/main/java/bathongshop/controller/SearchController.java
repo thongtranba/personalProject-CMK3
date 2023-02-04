@@ -37,9 +37,10 @@ public class SearchController extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.SEARCH_JSP);
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
-			logger.info("Infor message!", e);
-			logger.warn("Warn message!", e);
-			logger.error("Exceptions happen!", e);
+			logger.info(PublicConstant.LOG_INFO, e);
+			logger.warn(PublicConstant.LOG_WARN, e);
+			logger.debug(PublicConstant.LOG_DEBUG, e);
+			logger.error(PublicConstant.LOG_ERROR, e);
 		}
 	}
 

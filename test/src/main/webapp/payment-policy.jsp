@@ -1,17 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-
-<!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html>
 <html>
 <!-- HEAD-->
 <jsp:include page="layout/head.jsp" />
-
 <body>
 	<!-- HEADER-->
 	<jsp:include page="layout/header.jsp" />
 	<!-- END HEADER-->
-
 	<main id="maincontent" class="page-main">
 		<div class="container">
 			<div class="row">
@@ -30,7 +27,6 @@
 						<p>
 							<span>CARD PAYMENT </span>
 						</p>
-
 						<p>You can pay with credit or debit cards from VISA,
 							Mastercard and American Express at website. Your card transaction
 							is sent encrypted through Klarna, which is our provider of card
@@ -41,7 +37,6 @@
 							order is reserved only in your account and we debit your account
 							only when we ship your order. We only charge you for products we
 							ship to you.</p>
-
 						<p>
 							<span>IF YOU CANNOT COMPLETE THE PAYMENT BY CARD</span>
 						</p>
@@ -54,17 +49,13 @@
 							try to complete your purchase from another device.</p>
 						<p>- Also check that you have activated the option for online
 							purchases with your card before paying.</p>
-						</p>
 					</div>
 				</div>
 			</div>
 		</div>
 	</main>
-
-
 	<!-- FOOTER-->
 	<jsp:include page="layout/footer.jsp" />
 	<!-- END FOOTER-->
-
 </body>
 </html>

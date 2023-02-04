@@ -6,12 +6,10 @@
 <html>
 <!-- HEAD-->
 <jsp:include page="layout/head.jsp" />
-
 <body>
 	<!-- HEADER-->
 	<jsp:include page="layout/header.jsp" />
 	<!-- END HEADER-->
-
 	<main id="maincontent" class="page-main">
 		<div class="container">
 			<div class="row">
@@ -27,9 +25,7 @@
 				<div class="col-md-6">
 					<iframe
 						src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4494.506858724236!2d13.195647300000001!3d55.719347799999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4653962d02e5ab63%3A0x2b2229b92016e5f6!2sSofiaparken%205E%2C%20222%2041%20Lund!5e0!3m2!1sen!2sse!4v1669586785962!5m2!1sen!2sse"
-						width="100%" height="400px" frameborder="0" style="border: 0;"
-						allowfullscreen=""></iframe>
-
+						width="100%" height="400px" frameborder="0" style="border: 0"></iframe>
 				</div>
 				<div class="col-md-6">
 					<h4>Send your message directly to us:</h4>
@@ -53,9 +49,7 @@
 									oninvalid="this.setCustomValidity('start at 0')"
 									oninput="this.setCustomValidity('')">
 							</div>
-
 							<div class="form-group col-sm-12">
-
 								<textarea class="form-control" placeholder="Your message"
 									name="content" rows="11" required></textarea>
 							</div>
@@ -67,9 +61,7 @@
 				</div>
 			</div>
 		</div>
-		</div>
 	</main>
-
 	<!-- FOOTER-->
 	<jsp:include page="layout/footer.jsp" />
 	<!-- END FOOTER-->

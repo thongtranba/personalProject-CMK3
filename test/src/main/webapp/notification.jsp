@@ -1,17 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-
-<!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html>
 <html>
 <!-- HEAD-->
 <jsp:include page="layout/head.jsp" />
-
 <body>
 	<!-- HEADER-->
 	<jsp:include page="layout/header.jsp" />
 	<!-- END HEADER-->
-
 	<main id="maincontent" class="page-main">
 		<div class="container">
 			<div class="row">
@@ -23,7 +20,6 @@
 					</ol>
 				</div>
 			</div>
-
 			<div class="row">
 				<c:if test="${registerNotification != null}">
 					<div class="col-md-12 col-xs-12 ">
@@ -43,16 +39,12 @@
 						${loginNotification}. Try again,
 						<button class="btn btn-primary btn-login">Login</button>
 					</div>
-
 				</c:if>
-
 			</div>
 		</div>
 	</main>
-
 	<!-- FOOTER-->
 	<jsp:include page="layout/footer.jsp" />
 	<!-- END FOOTER-->
-
 </body>
 </html>

@@ -24,7 +24,7 @@ public class OrderDAO {
 		try (Connection connection = JDBCUtil.getConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(PublicConstant.INSERT_NEW_ORDER,
 						Statement.RETURN_GENERATED_KEYS)) {
-			System.out.println(preparedStatement);
+			logger.info(preparedStatement);
 			preparedStatement.setInt(1, order.getCustomerId());
 			preparedStatement.setDate(2, new Date(System.currentTimeMillis()));
 			preparedStatement.execute();
@@ -33,9 +33,10 @@ public class OrderDAO {
 				insertedId = rs.getInt(1);
 			}
 		} catch (Exception e) {
-			logger.info("Infor message!", e);
-			logger.warn("Warn message!", e);
-			logger.error("Exceptions happen!", e);
+			logger.info(PublicConstant.LOG_INFO, e);
+			logger.warn(PublicConstant.LOG_WARN, e);
+			logger.debug(PublicConstant.LOG_DEBUG, e);
+			logger.error(PublicConstant.LOG_ERROR, e);
 		}
 		return insertedId;
 	}
@@ -46,7 +47,7 @@ public class OrderDAO {
 				PreparedStatement preparedStatement = connection
 						.prepareStatement(PublicConstant.SELECT_ORDER_BY_CUTOMER_ID);) {
 			preparedStatement.setInt(1, customerId);
-			System.out.println(preparedStatement);
+			logger.info(preparedStatement);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				int id = rs.getInt(PublicConstant.ID);
@@ -54,9 +55,10 @@ public class OrderDAO {
 				orders.add(new Order(id, createdDate));
 			}
 		} catch (Exception e) {
-			logger.info("Infor message!", e);
-			logger.warn("Warn message!", e);
-			logger.error("Exceptions happen!", e);
+			logger.info(PublicConstant.LOG_INFO, e);
+			logger.warn(PublicConstant.LOG_WARN, e);
+			logger.debug(PublicConstant.LOG_DEBUG, e);
+			logger.error(PublicConstant.LOG_ERROR, e);
 		}
 		return orders;
 	}

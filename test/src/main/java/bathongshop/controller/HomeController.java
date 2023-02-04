@@ -37,7 +37,7 @@ public class HomeController extends HttpServlet {
 			throws ServletException, IOException {
 		try {
 			List<Product> products = productDAO.selectAllProducts();
-			System.out.println(PublicConstant.ALL_PRODUCT + products.size());
+			logger.info(PublicConstant.ALL_PRODUCT + products.size());
 			List<Product> popularProduct = productDAO.selectPopularProducts();
 			List<Product> lastestProduct = productDAO.selectLatestProducts();
 			List<Product> service = productDAO.selectService();
@@ -47,10 +47,10 @@ public class HomeController extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.HOME_JSP);
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
-			logger.info("Infor message!", e);
-			logger.warn("Warn message!", e);
-			logger.error("Exceptions happen!", e);
+			logger.info(PublicConstant.LOG_INFO, e);
+			logger.warn(PublicConstant.LOG_WARN, e);
+			logger.debug(PublicConstant.LOG_DEBUG, e);
+			logger.error(PublicConstant.LOG_ERROR, e);
 		}
-
 	}
 }

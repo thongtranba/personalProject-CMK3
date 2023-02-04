@@ -13,7 +13,7 @@ public class JDBCUtil {
 	private static Logger logger = LogManager.getLogger(JDBCUtil.class);
 
 	public static void main(String[] args) {
-		System.out.println(getConnection());
+		logger.info(getConnection());
 	}
 
 	public static Connection getConnection() {
@@ -23,13 +23,15 @@ public class JDBCUtil {
 			connection = DriverManager.getConnection(PublicConstant.jdbcURL, PublicConstant.jdbcUsername,
 					PublicConstant.jdbcPassword);
 		} catch (SQLException e) {
-			logger.info("Infor message!", e);
-			logger.warn("Warn message!", e);
-			logger.error("Exceptions happen!", e);
+			logger.info(PublicConstant.LOG_INFO, e);
+			logger.warn(PublicConstant.LOG_WARN, e);
+			logger.debug(PublicConstant.LOG_DEBUG, e);
+			logger.error(PublicConstant.LOG_ERROR, e);
 		} catch (ClassNotFoundException e) {
-			logger.info("Infor message!", e);
-			logger.warn("Warn message!", e);
-			logger.error("Exceptions happen!", e);
+			logger.info(PublicConstant.LOG_INFO, e);
+			logger.warn(PublicConstant.LOG_WARN, e);
+			logger.debug(PublicConstant.LOG_DEBUG, e);
+			logger.error(PublicConstant.LOG_ERROR, e);
 		}
 		return connection;
 	}

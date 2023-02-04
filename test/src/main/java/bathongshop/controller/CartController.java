@@ -92,9 +92,10 @@ public class CartController extends HttpServlet {
 					.getRequestDispatcher(PublicConstant.PRODUCT_DETAIL_PAGE_BY_ID + productId);
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
-			logger.info("Infor message!", e);
-			logger.warn("Warn message!", e);
-			logger.error("Exceptions happen!", e);
+			logger.info(PublicConstant.LOG_INFO, e);
+			logger.warn(PublicConstant.LOG_WARN, e);
+			logger.debug(PublicConstant.LOG_DEBUG, e);
+			logger.error(PublicConstant.LOG_ERROR, e);
 		}
 	}
 
@@ -106,15 +107,16 @@ public class CartController extends HttpServlet {
 			cart.remove(productId);
 			response.sendRedirect(PublicConstant.HOME_CONTROLLER);
 		} catch (Exception e) {
-			logger.info("Infor message!", e);
-			logger.warn("Warn message!", e);
-			logger.error("Exceptions happen!", e);
+			logger.info(PublicConstant.LOG_INFO, e);
+			logger.warn(PublicConstant.LOG_WARN, e);
+			logger.debug(PublicConstant.LOG_DEBUG, e);
+			logger.error(PublicConstant.LOG_ERROR, e);
 		}
 	}
 
 	private void submitCart(HttpServletRequest request, HttpServletResponse response, String JSONString)
 			throws ServletException, IOException {
-		System.out.println(JSONString);
+		logger.info(JSONString);
 		try {
 			List<OrderedModel> orderProducts = jsonData(JSONString);
 			Map<Integer, Integer> orderList = new HashMap<Integer, Integer>();
@@ -136,9 +138,10 @@ public class CartController extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.PAYMENT_JSP);
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
-			logger.info("Infor message!", e);
-			logger.warn("Warn message!", e);
-			logger.error("Exceptions happen!", e);
+			logger.info(PublicConstant.LOG_INFO, e);
+			logger.warn(PublicConstant.LOG_WARN, e);
+			logger.debug(PublicConstant.LOG_DEBUG, e);
+			logger.error(PublicConstant.LOG_ERROR, e);
 		}
 	}
 
@@ -149,13 +152,15 @@ public class CartController extends HttpServlet {
 			List<OrderedModel> list = Arrays.asList(mapper.readValue(JSONString, OrderedModel[].class));
 			return list;
 		} catch (IllegalArgumentException e) {
-			logger.info("Infor message!", e);
-			logger.warn("Warn message!", e);
-			logger.error("Exceptions happen!", e);
+			logger.info(PublicConstant.LOG_INFO, e);
+			logger.warn(PublicConstant.LOG_WARN, e);
+			logger.debug(PublicConstant.LOG_DEBUG, e);
+			logger.error(PublicConstant.LOG_ERROR, e);
 		} catch (NullPointerException e) {
-			logger.info("Infor message!", e);
-			logger.warn("Warn message!", e);
-			logger.error("Exceptions happen!", e);
+			logger.info(PublicConstant.LOG_INFO, e);
+			logger.warn(PublicConstant.LOG_WARN, e);
+			logger.debug(PublicConstant.LOG_DEBUG, e);
+			logger.error(PublicConstant.LOG_ERROR, e);
 		}
 		return null;
 	}
@@ -169,9 +174,10 @@ public class CartController extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.MY_PURCHASE_JSP);
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
-			logger.info("Infor message!", e);
-			logger.warn("Warn message!", e);
-			logger.error("Exceptions happen!", e);
+			logger.info(PublicConstant.LOG_INFO, e);
+			logger.warn(PublicConstant.LOG_WARN, e);
+			logger.debug(PublicConstant.LOG_DEBUG, e);
+			logger.error(PublicConstant.LOG_ERROR, e);
 		}
 	}
 
@@ -185,9 +191,10 @@ public class CartController extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.MY_ORDER_DETAIL_JSP);
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
-			logger.info("Infor message!", e);
-			logger.warn("Warn message!", e);
-			logger.error("Exceptions happen!", e);
+			logger.info(PublicConstant.LOG_INFO, e);
+			logger.warn(PublicConstant.LOG_WARN, e);
+			logger.debug(PublicConstant.LOG_DEBUG, e);
+			logger.error(PublicConstant.LOG_ERROR, e);
 		}
 	}
 }

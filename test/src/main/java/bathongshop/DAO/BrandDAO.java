@@ -20,7 +20,7 @@ public class BrandDAO {
 		List<Brand> brands = new ArrayList<>();
 		try (Connection connection = JDBCUtil.getConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(PublicConstant.SELECT_ALL_BRAND);) {
-			System.out.println(preparedStatement);
+			logger.info(preparedStatement);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				int id = rs.getInt(PublicConstant.ID);
@@ -28,9 +28,10 @@ public class BrandDAO {
 				brands.add(new Brand(id, name));
 			}
 		} catch (Exception e) {
-			logger.info("Infor message!", e);
-			logger.warn("Warn message!", e);
-			logger.error("Exceptions happen!", e);
+			logger.info(PublicConstant.LOG_INFO, e);
+			logger.warn(PublicConstant.LOG_WARN, e);
+			logger.debug(PublicConstant.LOG_DEBUG, e);
+			logger.error(PublicConstant.LOG_ERROR, e);
 		}
 		return brands;
 	}

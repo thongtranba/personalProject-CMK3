@@ -1,19 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-
-<!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html>
 <html>
 <!-- HEAD-->
 <jsp:include page="layout/head.jsp" />
-
 <body>
 	<!-- HEADER-->
 	<jsp:include page="layout/header.jsp" />
 	<!-- END HEADER-->
-
 	<main id="maincontent" class="page-main">
-
 		<div class="container">
 			<div class="row equal">
 				<div class="col-xs-9">
@@ -35,6 +31,5 @@
 	<!-- FOOTER-->
 	<jsp:include page="layout/footer.jsp" />
 	<!-- END FOOTER-->
-
 </body>
 </html>

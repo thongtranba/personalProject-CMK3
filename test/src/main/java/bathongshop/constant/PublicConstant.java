@@ -179,7 +179,10 @@ public class PublicConstant {
 	public static final String SEARCH_JSP = "search-product.jsp";
 	
 	
-	
-	
+	//log4j
+	public static final String LOG_INFO = "Infor message!";
+	public static final String LOG_WARN = "Warn message!";
+	public static final String LOG_DEBUG = "Debug message!";
+	public static final String LOG_ERROR = "Error message!";
 
 }

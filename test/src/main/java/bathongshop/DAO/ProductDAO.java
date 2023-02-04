@@ -21,7 +21,7 @@ public class ProductDAO {
 		List<Product> products = new ArrayList<>();
 		try (Connection connection = JDBCUtil.getConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(PublicConstant.SELECT_ALL_PRODUCT);) {
-			System.out.println(preparedStatement);
+			logger.info(preparedStatement);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				int id = rs.getInt(PublicConstant.ID);
@@ -37,9 +37,10 @@ public class ProductDAO {
 						description, image));
 			}
 		} catch (Exception e) {
-			logger.info("Infor message!", e);
-			logger.warn("Warn message!", e);
-			logger.error("Exceptions happen!", e);
+			logger.info(PublicConstant.LOG_INFO, e);
+			logger.warn(PublicConstant.LOG_WARN, e);
+			logger.debug(PublicConstant.LOG_DEBUG, e);
+			logger.error(PublicConstant.LOG_ERROR, e);
 		}
 		return products;
 	}
@@ -54,12 +55,13 @@ public class ProductDAO {
 			preparedStatement.setInt(5, product.getCategoryId());
 			preparedStatement.setString(6, product.getDescription());
 			preparedStatement.setString(7, product.getImage());
-			System.out.println(preparedStatement);
+			logger.info(preparedStatement);
 			preparedStatement.executeUpdate();
 		} catch (Exception e) {
-			logger.info("Infor message!", e);
-			logger.warn("Warn message!", e);
-			logger.error("Exceptions happen!", e);
+			logger.info(PublicConstant.LOG_INFO, e);
+			logger.warn(PublicConstant.LOG_WARN, e);
+			logger.debug(PublicConstant.LOG_DEBUG, e);
+			logger.error(PublicConstant.LOG_ERROR, e);
 		}
 	}
 
@@ -69,15 +71,16 @@ public class ProductDAO {
 				PreparedStatement preparedStatement = connection
 						.prepareStatement(PublicConstant.TAKE_INVENTORY_QUANTITY)) {
 			preparedStatement.setInt(1, productId);
-			System.out.println(preparedStatement);
+			logger.info(preparedStatement);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				inventoryQuantity = rs.getInt(PublicConstant.INVENTORY_QUANTITY_COLUMN);
 			}
 		} catch (Exception e) {
-			logger.info("Infor message!", e);
-			logger.warn("Warn message!", e);
-			logger.error("Exceptions happen!", e);
+			logger.info(PublicConstant.LOG_INFO, e);
+			logger.warn(PublicConstant.LOG_WARN, e);
+			logger.debug(PublicConstant.LOG_DEBUG, e);
+			logger.error(PublicConstant.LOG_ERROR, e);
 		}
 		return inventoryQuantity;
 	}
@@ -89,7 +92,7 @@ public class ProductDAO {
 						.prepareStatement(PublicConstant.UPDATE_QUANTITY_BY_PRODUCTID)) {
 			preparedStatement.setInt(1, quantity);
 			preparedStatement.setInt(2, productId);
-			System.out.println(preparedStatement);
+			logger.info(preparedStatement);
 			rowUpdated = preparedStatement.executeUpdate() > Integer.parseInt(PublicConstant.CONSTANT_0);
 		}
 		return rowUpdated;
@@ -111,7 +114,7 @@ public class ProductDAO {
 				PreparedStatement preparedStatement = connection
 						.prepareStatement(PublicConstant.SELECT_PRODUCT_BY_ID);) {
 			preparedStatement.setInt(1, id);
-			System.out.println(preparedStatement);
+			logger.info(preparedStatement);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				String name = rs.getString(PublicConstant.NAME_COLUMN);
@@ -126,9 +129,10 @@ public class ProductDAO {
 						brandName, categoryName);
 			}
 		} catch (Exception e) {
-			logger.info("Infor message!", e);
-			logger.warn("Warn message!", e);
-			logger.error("Exceptions happen!", e);
+			logger.info(PublicConstant.LOG_INFO, e);
+			logger.warn(PublicConstant.LOG_WARN, e);
+			logger.debug(PublicConstant.LOG_DEBUG, e);
+			logger.error(PublicConstant.LOG_ERROR, e);
 		}
 		return product;
 	}
@@ -138,7 +142,7 @@ public class ProductDAO {
 		try (Connection connection = JDBCUtil.getConnection();
 				PreparedStatement preparedStatement = connection
 						.prepareStatement(PublicConstant.SELECT_POPULAR_PRODUCT);) {
-			System.out.println(preparedStatement);
+			logger.info(preparedStatement);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				int id = rs.getInt(PublicConstant.ID);
@@ -154,9 +158,10 @@ public class ProductDAO {
 						description, image));
 			}
 		} catch (Exception e) {
-			logger.info("Infor message!", e);
-			logger.warn("Warn message!", e);
-			logger.error("Exceptions happen!", e);
+			logger.info(PublicConstant.LOG_INFO, e);
+			logger.warn(PublicConstant.LOG_WARN, e);
+			logger.debug(PublicConstant.LOG_DEBUG, e);
+			logger.error(PublicConstant.LOG_ERROR, e);
 		}
 		return products;
 	}
@@ -166,7 +171,7 @@ public class ProductDAO {
 		try (Connection connection = JDBCUtil.getConnection();
 				PreparedStatement preparedStatement = connection
 						.prepareStatement(PublicConstant.SELECT_LATEST_PRODUCT);) {
-			System.out.println(preparedStatement);
+			logger.info(preparedStatement);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				int id = rs.getInt(PublicConstant.ID);
@@ -182,9 +187,10 @@ public class ProductDAO {
 						description, image));
 			}
 		} catch (Exception e) {
-			logger.info("Infor message!", e);
-			logger.warn("Warn message!", e);
-			logger.error("Exceptions happen!", e);
+			logger.info(PublicConstant.LOG_INFO, e);
+			logger.warn(PublicConstant.LOG_WARN, e);
+			logger.debug(PublicConstant.LOG_DEBUG, e);
+			logger.error(PublicConstant.LOG_ERROR, e);
 		}
 		return products;
 	}
@@ -193,7 +199,7 @@ public class ProductDAO {
 		List<Product> products = new ArrayList<>();
 		try (Connection connection = JDBCUtil.getConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(PublicConstant.SELECT_SERVICE);) {
-			System.out.println(preparedStatement);
+			logger.info(preparedStatement);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				int id = rs.getInt(PublicConstant.ID);
@@ -209,9 +215,10 @@ public class ProductDAO {
 						description, image));
 			}
 		} catch (Exception e) {
-			logger.info("Infor message!", e);
-			logger.warn("Warn message!", e);
-			logger.error("Exceptions happen!", e);
+			logger.info(PublicConstant.LOG_INFO, e);
+			logger.warn(PublicConstant.LOG_WARN, e);
+			logger.debug(PublicConstant.LOG_DEBUG, e);
+			logger.error(PublicConstant.LOG_ERROR, e);
 		}
 		return products;
 	}
@@ -221,7 +228,7 @@ public class ProductDAO {
 		try (Connection connection = JDBCUtil.getConnection();
 				PreparedStatement preparedStatement = connection
 						.prepareStatement(PublicConstant.SELECT_RELATED_PRODUCTS);) {
-			System.out.println(preparedStatement);
+			logger.info(preparedStatement);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				int id = rs.getInt(PublicConstant.ID);
@@ -237,9 +244,10 @@ public class ProductDAO {
 						description, image));
 			}
 		} catch (Exception e) {
-			logger.info("Infor message!", e);
-			logger.warn("Warn message!", e);
-			logger.error("Exceptions happen!", e);
+			logger.info(PublicConstant.LOG_INFO, e);
+			logger.warn(PublicConstant.LOG_WARN, e);
+			logger.debug(PublicConstant.LOG_DEBUG, e);
+			logger.error(PublicConstant.LOG_ERROR, e);
 		}
 		return products;
 	}
@@ -250,15 +258,16 @@ public class ProductDAO {
 				PreparedStatement preparedStatement = connection
 						.prepareStatement(PublicConstant.COUNT_CATEGORY_PRODUCTS);) {
 			preparedStatement.setInt(1, categoryId);
-			System.out.println(preparedStatement);
+			logger.info(preparedStatement);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				totalProducts = rs.getInt(PublicConstant.COUNT_ALL);
 			}
 		} catch (Exception e) {
-			logger.info("Infor message!", e);
-			logger.warn("Warn message!", e);
-			logger.error("Exceptions happen!", e);
+			logger.info(PublicConstant.LOG_INFO, e);
+			logger.warn(PublicConstant.LOG_WARN, e);
+			logger.debug(PublicConstant.LOG_DEBUG, e);
+			logger.error(PublicConstant.LOG_ERROR, e);
 		}
 		return totalProducts;
 	}
@@ -274,7 +283,7 @@ public class ProductDAO {
 				preparedStatement.setInt(1, categoryId);
 				preparedStatement.setInt(2, startItem);
 				preparedStatement.setInt(3, itemPerPage);
-				System.out.println(preparedStatement);
+				logger.info(preparedStatement);
 				ResultSet rs = preparedStatement.executeQuery();
 				while (rs.next()) {
 					int id = rs.getInt(PublicConstant.ID);
@@ -288,9 +297,10 @@ public class ProductDAO {
 							description, image));
 				}
 			} catch (Exception e) {
-				logger.info("Infor message!", e);
-				logger.warn("Warn message!", e);
-				logger.error("Exceptions happen!", e);
+				logger.info(PublicConstant.LOG_INFO, e);
+				logger.warn(PublicConstant.LOG_WARN, e);
+				logger.debug(PublicConstant.LOG_DEBUG, e);
+				logger.error(PublicConstant.LOG_ERROR, e);
 			}
 		} else {
 			try (Connection connection = JDBCUtil.getConnection();
@@ -301,7 +311,7 @@ public class ProductDAO {
 				preparedStatement.setInt(2, brandId);
 				preparedStatement.setInt(3, startItem);
 				preparedStatement.setInt(4, itemPerPage);
-				System.out.println(preparedStatement);
+				logger.info(preparedStatement);
 				ResultSet rs = preparedStatement.executeQuery();
 				while (rs.next()) {
 					int id = rs.getInt(PublicConstant.ID);
@@ -314,9 +324,10 @@ public class ProductDAO {
 				}
 
 			} catch (Exception e) {
-				logger.info("Infor message!", e);
-				logger.warn("Warn message!", e);
-				logger.error("Exceptions happen!", e);
+				logger.info(PublicConstant.LOG_INFO, e);
+				logger.warn(PublicConstant.LOG_WARN, e);
+				logger.debug(PublicConstant.LOG_DEBUG, e);
+				logger.error(PublicConstant.LOG_ERROR, e);
 			}
 		}
 		return products;
@@ -328,7 +339,7 @@ public class ProductDAO {
 				PreparedStatement preparedStatement = connection.prepareStatement(PublicConstant.SEARCH_PRODUCTS);) {
 			preparedStatement.setString(1, PublicConstant.SEARCH_SYMBOL + searchString + PublicConstant.SEARCH_SYMBOL);
 			preparedStatement.setString(2, PublicConstant.SEARCH_SYMBOL + searchString + PublicConstant.SEARCH_SYMBOL);
-			System.out.println(preparedStatement);
+			logger.info(preparedStatement);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				int id = rs.getInt(PublicConstant.ID);
@@ -345,9 +356,10 @@ public class ProductDAO {
 			}
 
 		} catch (Exception e) {
-			logger.info("Infor message!", e);
-			logger.warn("Warn message!", e);
-			logger.error("Exceptions happen!", e);
+			logger.info(PublicConstant.LOG_INFO, e);
+			logger.warn(PublicConstant.LOG_WARN, e);
+			logger.debug(PublicConstant.LOG_DEBUG, e);
+			logger.error(PublicConstant.LOG_ERROR, e);
 		}
 		return products;
 	}
@@ -358,7 +370,7 @@ public class ProductDAO {
 				PreparedStatement preparedStatement = connection
 						.prepareStatement(PublicConstant.SELECT_PRODUCT_BY_ORDER_ID);) {
 			preparedStatement.setInt(1, orderId);
-			System.out.println(preparedStatement);
+			logger.info(preparedStatement);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				int id = rs.getInt(PublicConstant.ID);
@@ -370,9 +382,10 @@ public class ProductDAO {
 				products.add(new ProductModel(id, name, inputQuantity, price, discountPrice, image));
 			}
 		} catch (Exception e) {
-			logger.info("Infor message!", e);
-			logger.warn("Warn message!", e);
-			logger.error("Exceptions happen!", e);
+			logger.info(PublicConstant.LOG_INFO, e);
+			logger.warn(PublicConstant.LOG_WARN, e);
+			logger.debug(PublicConstant.LOG_DEBUG, e);
+			logger.error(PublicConstant.LOG_ERROR, e);
 		}
 		return products;
 	}
@@ -382,7 +395,7 @@ public class ProductDAO {
 		try (Connection connection = JDBCUtil.getConnection();
 				PreparedStatement preparedStatement = connection
 						.prepareStatement(PublicConstant.SELECT_SALE_OFF_PRODDUCTS);) {
-			System.out.println(preparedStatement);
+			logger.info(preparedStatement);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				int id = rs.getInt(PublicConstant.ID);
@@ -398,9 +411,10 @@ public class ProductDAO {
 						description, image));
 			}
 		} catch (Exception e) {
-			logger.info("Infor message!", e);
-			logger.warn("Warn message!", e);
-			logger.error("Exceptions happen!", e);
+			logger.info(PublicConstant.LOG_INFO, e);
+			logger.warn(PublicConstant.LOG_WARN, e);
+			logger.debug(PublicConstant.LOG_DEBUG, e);
+			logger.error(PublicConstant.LOG_ERROR, e);
 		}
 		return products;
 	}

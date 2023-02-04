@@ -9,7 +9,6 @@
 	<!-- HEADER-->
 	<jsp:include page="layout/header.jsp" />
 	<!-- END HEADER-->
-
 	<main id="maincontent" class="page-main">
 		<div class="container">
 			<div class="row">
@@ -46,7 +45,6 @@
 					<!-- Paging -->
 					<jsp:include page="layout/category-pagination.jsp" />
 					<!-- End paging -->
-
 				</div>
 			</div>
 		</div>

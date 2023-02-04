@@ -26,12 +26,13 @@ public class CustomerDAO {
 			preparedStatement.setString(3, customer.getMobile());
 			preparedStatement.setString(4, customer.getEmail());
 			preparedStatement.setString(5, customer.getAddress());
-			System.out.println(preparedStatement);
+			logger.info(preparedStatement);
 			result = preparedStatement.executeUpdate();
 		} catch (Exception e) {
-			logger.info("Infor message!", e);
-			logger.warn("Warn message!", e);
-			logger.error("Exceptions happen!", e);
+			logger.info(PublicConstant.LOG_INFO, e);
+			logger.warn(PublicConstant.LOG_WARN, e);
+			logger.debug(PublicConstant.LOG_DEBUG, e);
+			logger.error(PublicConstant.LOG_ERROR, e);
 		}
 		return result;
 	}
@@ -67,7 +68,7 @@ public class CustomerDAO {
 				PreparedStatement preparedStatement = connection
 						.prepareStatement(PublicConstant.SELECT_CUSTOMER_BY_ID);) {
 			preparedStatement.setInt(1, id);
-			System.out.println(preparedStatement);
+			logger.info(preparedStatement);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				String username = rs.getString(PublicConstant.USERNAME);
@@ -78,9 +79,10 @@ public class CustomerDAO {
 				customer = new Customer(id, username, password, mobile, email, address);
 			}
 		} catch (Exception e) {
-			logger.info("Infor message!", e);
-			logger.warn("Warn message!", e);
-			logger.error("Exceptions happen!", e);
+			logger.info(PublicConstant.LOG_INFO, e);
+			logger.warn(PublicConstant.LOG_WARN, e);
+			logger.debug(PublicConstant.LOG_DEBUG, e);
+			logger.error(PublicConstant.LOG_ERROR, e);
 		}
 		return customer;
 	}
@@ -90,7 +92,7 @@ public class CustomerDAO {
 		try (Connection connection = JDBCUtil.getConnection();
 				PreparedStatement preparedStatement = connection
 						.prepareStatement(PublicConstant.SELECT_ALL_CUSTOMER);) {
-			System.out.println(preparedStatement);
+			logger.info(preparedStatement);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				int id = rs.getInt(PublicConstant.ID);
@@ -102,9 +104,10 @@ public class CustomerDAO {
 				customers.add(new Customer(id, username, password, mobile, email, address));
 			}
 		} catch (Exception e) {
-			logger.info("Infor message!", e);
-			logger.warn("Warn message!", e);
-			logger.error("Exceptions happen!", e);
+			logger.info(PublicConstant.LOG_INFO, e);
+			logger.warn(PublicConstant.LOG_WARN, e);
+			logger.debug(PublicConstant.LOG_DEBUG, e);
+			logger.error(PublicConstant.LOG_ERROR, e);
 		}
 		return customers;
 	}
@@ -119,7 +122,7 @@ public class CustomerDAO {
 			preparedStatement = connection.prepareStatement(PublicConstant.LOGIN_BY_USERNAME_PASSWORD);
 			preparedStatement.setString(1, email);
 			preparedStatement.setString(2, password);
-			System.out.println(preparedStatement);
+			logger.info(preparedStatement);
 			rs = preparedStatement.executeQuery();
 			if (rs.next()) {
 				int id = rs.getInt(PublicConstant.ID);
@@ -131,9 +134,10 @@ public class CustomerDAO {
 				return null;
 			}
 		} catch (Exception e) {
-			logger.info("Infor message!", e);
-			logger.warn("Warn message!", e);
-			logger.error("Exceptions happen!", e);
+			logger.info(PublicConstant.LOG_INFO, e);
+			logger.warn(PublicConstant.LOG_WARN, e);
+			logger.debug(PublicConstant.LOG_DEBUG, e);
+			logger.error(PublicConstant.LOG_ERROR, e);
 		}
 		return customer;
 	}

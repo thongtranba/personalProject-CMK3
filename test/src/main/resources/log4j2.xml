@@ -53,14 +53,12 @@
 		</RollingFile>
 	</Appenders>
 	<Loggers>
-		<Logger name="bathongshop" additivity="false" level="trace">
+		<Logger name="bathongshop" additivity="false" level="debug">
 			<AppenderRef ref="console" />
 			<AppenderRef ref="debug" />
 			<AppenderRef ref="info" />
 			<AppenderRef ref="error" />
-			<AppenderRef ref="warn" />
-			<AppenderRef ref="trace" />
-			
+			<AppenderRef ref="warn" />		
 		</Logger>
 		<Root level="trace">
 			<AppenderRef ref="console" />

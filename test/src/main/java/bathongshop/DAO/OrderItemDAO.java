@@ -17,16 +17,17 @@ public class OrderItemDAO {
 	public void addOrderItem(OrderItem orderItem) throws SQLException {
 		try (Connection connection = JDBCUtil.getConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(PublicConstant.INSERT_ORDER_ITEM)) {
-			System.out.println(preparedStatement);
+			logger.info(preparedStatement);
 			preparedStatement.setInt(1, orderItem.getOrderId());
 			preparedStatement.setInt(2, orderItem.getProductId());
 			preparedStatement.setInt(3, orderItem.getQuantity());
 			preparedStatement.execute();
 
 		} catch (Exception e) {
-			logger.info("Infor message!", e);
-			logger.warn("Warn message!", e);
-			logger.error("Exceptions happen!", e);
+			logger.info(PublicConstant.LOG_INFO, e);
+			logger.warn(PublicConstant.LOG_WARN, e);
+			logger.debug(PublicConstant.LOG_DEBUG, e);
+			logger.error(PublicConstant.LOG_ERROR, e);
 		}
 
 	}
