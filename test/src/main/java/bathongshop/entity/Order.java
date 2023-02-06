@@ -6,6 +6,21 @@ public class Order {
 	private int id;
 	private int customerId;
 	private Date createdDate;
+	private static Order order = null;
+
+	public static Order getOrderByCustomerId(int id, Date createdDate) {
+		if (order == null) {
+			order = new Order(id, createdDate);
+		}
+		return order;
+	}
+
+	public static Order NewOrderByCustomerId(int customerId) {
+		if (order == null) {
+			order = new Order(customerId);
+		}
+		return order;
+	}
 
 	public Order(int id, int customerId, Date createdDate) {
 		super();

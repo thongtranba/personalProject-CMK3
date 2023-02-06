@@ -13,15 +13,15 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import bathongshop.DAO.ProductDAO;
 import bathongshop.constant.PublicConstant;
+import bathongshop.dao.ProductDAO;
 import bathongshop.entity.Product;
 import bathongshop.model.ProductModel;
 
 @WebServlet(PublicConstant.PRODUCT_DETAIL_URL)
 public class ProductDetailController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ProductDAO productDAO = new ProductDAO();
+	private ProductDAO productDAO = ProductDAO.getProductDAO();
 	private static Logger logger = LogManager.getLogger(ProductDetailController.class);
 
 	public ProductDetailController() {
@@ -40,10 +40,7 @@ public class ProductDetailController extends HttpServlet {
 			dispatcher.forward(request, response);
 
 		} catch (Exception e) {
-			logger.info(PublicConstant.LOG_INFO, e);
-			logger.warn(PublicConstant.LOG_WARN, e);
-			logger.debug(PublicConstant.LOG_DEBUG, e);
-			logger.error(PublicConstant.LOG_ERROR, e);
+			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
 		}
 	}
 

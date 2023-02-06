@@ -219,11 +219,11 @@ $(document).ready(function() {
 		total = Math.round(total * 100) / 100;
 		$(".price-total").html(total + " euro");
 
-		var deliveryFee = 39;
+		var deliveryFee = 3.9;
 		$(".delivery-fee").html(deliveryFee + " euro");
 		$("input[name=delivery]").val(deliveryFee);
 
-		var paymentTotal = total + 39;
+		var paymentTotal = total + 3.9;
 		$(".payment-total").html(paymentTotal + " euro");
 		$("input[name=total]").val(paymentTotal);
 

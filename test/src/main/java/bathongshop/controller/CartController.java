@@ -21,10 +21,10 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import bathongshop.DAO.OrderDAO;
-import bathongshop.DAO.OrderItemDAO;
-import bathongshop.DAO.ProductDAO;
 import bathongshop.constant.PublicConstant;
+import bathongshop.dao.OrderDAO;
+import bathongshop.dao.OrderItemDAO;
+import bathongshop.dao.ProductDAO;
 import bathongshop.entity.Order;
 import bathongshop.entity.OrderItem;
 import bathongshop.model.OrderedModel;
@@ -33,10 +33,9 @@ import bathongshop.model.ProductModel;
 @WebServlet(PublicConstant.CART_URL)
 public class CartController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ProductDAO productDAO = new ProductDAO();
-	private OrderDAO orderDAO = new OrderDAO();
-	private OrderItemDAO orderItemDAO = new OrderItemDAO();
-	private Order order = new Order();
+	private ProductDAO productDAO = ProductDAO.getProductDAO();
+	private OrderDAO orderDAO = OrderDAO.getOrderDAO();
+	private OrderItemDAO orderItemDAO = OrderItemDAO.getOrderItemDAO();
 	private static Logger logger = LogManager.getLogger(CartController.class);
 
 	public CartController() {
@@ -92,10 +91,7 @@ public class CartController extends HttpServlet {
 					.getRequestDispatcher(PublicConstant.PRODUCT_DETAIL_PAGE_BY_ID + productId);
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
-			logger.info(PublicConstant.LOG_INFO, e);
-			logger.warn(PublicConstant.LOG_WARN, e);
-			logger.debug(PublicConstant.LOG_DEBUG, e);
-			logger.error(PublicConstant.LOG_ERROR, e);
+			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
 		}
 	}
 
@@ -107,10 +103,7 @@ public class CartController extends HttpServlet {
 			cart.remove(productId);
 			response.sendRedirect(PublicConstant.HOME_CONTROLLER);
 		} catch (Exception e) {
-			logger.info(PublicConstant.LOG_INFO, e);
-			logger.warn(PublicConstant.LOG_WARN, e);
-			logger.debug(PublicConstant.LOG_DEBUG, e);
-			logger.error(PublicConstant.LOG_ERROR, e);
+			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
 		}
 	}
 
@@ -125,7 +118,7 @@ public class CartController extends HttpServlet {
 			}
 			HttpSession session = request.getSession();
 			int customerId = (int) session.getAttribute(PublicConstant.CUSTOMERID);
-			order = new Order(customerId);
+			Order order = Order.NewOrderByCustomerId(customerId);
 			int orderId = orderDAO.addOrder(order);
 			for (int key : orderList.keySet()) {
 				OrderItem orderItem = new OrderItem(key, orderList.get(key), orderId);
@@ -138,10 +131,7 @@ public class CartController extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.PAYMENT_JSP);
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
-			logger.info(PublicConstant.LOG_INFO, e);
-			logger.warn(PublicConstant.LOG_WARN, e);
-			logger.debug(PublicConstant.LOG_DEBUG, e);
-			logger.error(PublicConstant.LOG_ERROR, e);
+			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
 		}
 	}
 
@@ -152,15 +142,9 @@ public class CartController extends HttpServlet {
 			List<OrderedModel> list = Arrays.asList(mapper.readValue(JSONString, OrderedModel[].class));
 			return list;
 		} catch (IllegalArgumentException e) {
-			logger.info(PublicConstant.LOG_INFO, e);
-			logger.warn(PublicConstant.LOG_WARN, e);
-			logger.debug(PublicConstant.LOG_DEBUG, e);
-			logger.error(PublicConstant.LOG_ERROR, e);
+			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
 		} catch (NullPointerException e) {
-			logger.info(PublicConstant.LOG_INFO, e);
-			logger.warn(PublicConstant.LOG_WARN, e);
-			logger.debug(PublicConstant.LOG_DEBUG, e);
-			logger.error(PublicConstant.LOG_ERROR, e);
+			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
 		}
 		return null;
 	}
@@ -174,10 +158,7 @@ public class CartController extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.MY_PURCHASE_JSP);
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
-			logger.info(PublicConstant.LOG_INFO, e);
-			logger.warn(PublicConstant.LOG_WARN, e);
-			logger.debug(PublicConstant.LOG_DEBUG, e);
-			logger.error(PublicConstant.LOG_ERROR, e);
+			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
 		}
 	}
 
@@ -191,10 +172,7 @@ public class CartController extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.MY_ORDER_DETAIL_JSP);
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
-			logger.info(PublicConstant.LOG_INFO, e);
-			logger.warn(PublicConstant.LOG_WARN, e);
-			logger.debug(PublicConstant.LOG_DEBUG, e);
-			logger.error(PublicConstant.LOG_ERROR, e);
+			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
 		}
 	}
 }

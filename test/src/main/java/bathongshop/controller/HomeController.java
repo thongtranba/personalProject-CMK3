@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import bathongshop.DAO.ProductDAO;
 import bathongshop.constant.PublicConstant;
+import bathongshop.dao.ProductDAO;
 import bathongshop.entity.Product;
 
 @WebServlet(urlPatterns = { PublicConstant.HOME_URL })
@@ -22,7 +22,7 @@ public class HomeController extends HttpServlet {
 	private static Logger logger = LogManager.getLogger(HomeController.class);
 
 	private static final long serialVersionUID = 1L;
-	private ProductDAO productDAO = new ProductDAO();
+	private ProductDAO productDAO = ProductDAO.getProductDAO();
 
 	public HomeController() {
 		super();
@@ -47,10 +47,7 @@ public class HomeController extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.HOME_JSP);
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
-			logger.info(PublicConstant.LOG_INFO, e);
-			logger.warn(PublicConstant.LOG_WARN, e);
-			logger.debug(PublicConstant.LOG_DEBUG, e);
-			logger.error(PublicConstant.LOG_ERROR, e);
+			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
 		}
 	}
 }

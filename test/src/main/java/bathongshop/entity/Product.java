@@ -25,8 +25,7 @@ public class Product {
 		this.image = image;
 
 	}
-	
-	
+
 	public Product(int id, String name, int inventoryQuantity, double price, double discountPrice, int categoryId,
 			String image) {
 		super();
@@ -38,7 +37,6 @@ public class Product {
 		this.categoryId = categoryId;
 		this.image = image;
 	}
-
 
 	public int getId() {
 		return id;

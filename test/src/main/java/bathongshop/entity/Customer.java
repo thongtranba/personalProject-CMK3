@@ -20,8 +20,6 @@ public class Customer {
 		this.address = address;
 	}
 
-
-
 	public Customer(String username, String password, String mobile, String email, String address) {
 		super();
 		this.username = username;

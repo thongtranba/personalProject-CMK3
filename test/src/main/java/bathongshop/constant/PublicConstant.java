@@ -3,9 +3,6 @@ package bathongshop.constant;
 public class PublicConstant {
 
 	// JDBCUtil
-//	public static final String jdbcURL = "jdbc:mysql://db-mysql-bathongshop-do-user-13241251-0.b.db.ondigitalocean.com:25060/bathongshop?useSSL=false";
-//	public static final String jdbcUsername = "doadmin";
-//	public static final String jdbcPassword = "AVNS_uDp9UhuFWJQLdR-OqdU";
 	public static final String jdbcURL = "jdbc:mysql://localhost:3306/bathongshop?useSSL=false";
 	public static final String jdbcUsername = "bathong";
 	public static final String jdbcPassword = "123123";
@@ -181,9 +178,9 @@ public class PublicConstant {
 	
 	
 	//log4j
-	public static final String LOG_INFO = "Infor message!";
-	public static final String LOG_WARN = "Warn message!";
-	public static final String LOG_DEBUG = "Debug message!";
-	public static final String LOG_ERROR = "Error message!";
+	public static final String THIS_IS_INFO = "This is Info!";
+	public static final String THIS_IS_WARN = "This is Warn!";
+	public static final String THIS_IS_DEBUG = "This is Debug!";
+	public static final String THIS_IS_ERROR = "This is Error!";
 
 }

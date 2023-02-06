@@ -1,4 +1,4 @@
-package bathongshop.DAO;
+package bathongshop.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,13 +7,20 @@ import java.sql.SQLException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import bathongshop.JDBCUtil.JDBCUtil;
 import bathongshop.constant.PublicConstant;
 import bathongshop.entity.OrderItem;
+import bathongshop.jdbcutil.JDBCUtil;
 
 public class OrderItemDAO {
 	private static Logger logger = LogManager.getLogger(OrderItemDAO.class);
+	private static OrderItemDAO orderItemDAO = null;
 
+	public static OrderItemDAO getOrderItemDAO() {
+		if (orderItemDAO == null) {
+			orderItemDAO = new OrderItemDAO();
+		}
+		return orderItemDAO;
+	}
 	public void addOrderItem(OrderItem orderItem) throws SQLException {
 		try (Connection connection = JDBCUtil.getConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(PublicConstant.INSERT_ORDER_ITEM)) {
@@ -22,14 +29,8 @@ public class OrderItemDAO {
 			preparedStatement.setInt(2, orderItem.getProductId());
 			preparedStatement.setInt(3, orderItem.getQuantity());
 			preparedStatement.execute();
-
 		} catch (Exception e) {
-			logger.info(PublicConstant.LOG_INFO, e);
-			logger.warn(PublicConstant.LOG_WARN, e);
-			logger.debug(PublicConstant.LOG_DEBUG, e);
-			logger.error(PublicConstant.LOG_ERROR, e);
+			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
 		}
-
 	}
-
 }

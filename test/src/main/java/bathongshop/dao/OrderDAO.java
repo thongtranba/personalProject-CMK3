@@ -1,4 +1,4 @@
-package bathongshop.DAO;
+package bathongshop.dao;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -12,15 +12,23 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import bathongshop.JDBCUtil.JDBCUtil;
 import bathongshop.constant.PublicConstant;
 import bathongshop.entity.Order;
+import bathongshop.jdbcutil.JDBCUtil;
 
 public class OrderDAO {
 	private static Logger logger = LogManager.getLogger(OrderDAO.class);
+	private static OrderDAO orderDAO = null;
+
+	public static OrderDAO getOrderDAO() {
+		if (orderDAO == null) {
+			orderDAO = new OrderDAO();
+		}
+		return orderDAO;
+	}
 
 	public int addOrder(Order order) throws SQLException {
-		int insertedId = 0;
+		int insertedId = Integer.parseInt(PublicConstant.CONSTANT_0);
 		try (Connection connection = JDBCUtil.getConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(PublicConstant.INSERT_NEW_ORDER,
 						Statement.RETURN_GENERATED_KEYS)) {
@@ -33,10 +41,7 @@ public class OrderDAO {
 				insertedId = rs.getInt(1);
 			}
 		} catch (Exception e) {
-			logger.info(PublicConstant.LOG_INFO, e);
-			logger.warn(PublicConstant.LOG_WARN, e);
-			logger.debug(PublicConstant.LOG_DEBUG, e);
-			logger.error(PublicConstant.LOG_ERROR, e);
+			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
 		}
 		return insertedId;
 	}
@@ -55,10 +60,7 @@ public class OrderDAO {
 				orders.add(new Order(id, createdDate));
 			}
 		} catch (Exception e) {
-			logger.info(PublicConstant.LOG_INFO, e);
-			logger.warn(PublicConstant.LOG_WARN, e);
-			logger.debug(PublicConstant.LOG_DEBUG, e);
-			logger.error(PublicConstant.LOG_ERROR, e);
+			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
 		}
 		return orders;
 	}

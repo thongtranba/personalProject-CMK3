@@ -1,4 +1,4 @@
-package bathongshop.JDBCUtil;
+package bathongshop.jdbcutil;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -23,15 +23,9 @@ public class JDBCUtil {
 			connection = DriverManager.getConnection(PublicConstant.jdbcURL, PublicConstant.jdbcUsername,
 					PublicConstant.jdbcPassword);
 		} catch (SQLException e) {
-			logger.info(PublicConstant.LOG_INFO, e);
-			logger.warn(PublicConstant.LOG_WARN, e);
-			logger.debug(PublicConstant.LOG_DEBUG, e);
-			logger.error(PublicConstant.LOG_ERROR, e);
+			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
 		} catch (ClassNotFoundException e) {
-			logger.info(PublicConstant.LOG_INFO, e);
-			logger.warn(PublicConstant.LOG_WARN, e);
-			logger.debug(PublicConstant.LOG_DEBUG, e);
-			logger.error(PublicConstant.LOG_ERROR, e);
+			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
 		}
 		return connection;
 	}

@@ -13,14 +13,14 @@ import javax.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import bathongshop.DAO.CustomerDAO;
 import bathongshop.constant.PublicConstant;
+import bathongshop.dao.CustomerDAO;
 import bathongshop.entity.Customer;
 
 @WebServlet(PublicConstant.AUTH_URL)
 public class AuthenticationController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private CustomerDAO customerDAO = new CustomerDAO();
+	private CustomerDAO customerDAO = CustomerDAO.getCustomerDAO();
 	private static Logger logger = LogManager.getLogger(AuthenticationController.class);
 
 	public AuthenticationController() {
@@ -67,10 +67,7 @@ public class AuthenticationController extends HttpServlet {
 				dispatcher.forward(request, response);
 			}
 		} catch (Exception e) {
-			logger.info(PublicConstant.LOG_INFO, e);
-			logger.warn(PublicConstant.LOG_WARN, e);
-			logger.debug(PublicConstant.LOG_DEBUG, e);
-			logger.error(PublicConstant.LOG_ERROR, e);
+			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
 		}
 	}
 
@@ -91,10 +88,7 @@ public class AuthenticationController extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.NOTIFICATION_JSP);
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
-			logger.info(PublicConstant.LOG_INFO, e);
-			logger.warn(PublicConstant.LOG_WARN, e);
-			logger.debug(PublicConstant.LOG_DEBUG, e);
-			logger.error(PublicConstant.LOG_ERROR, e);
+			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
 		}
 	}
 
@@ -106,10 +100,7 @@ public class AuthenticationController extends HttpServlet {
 			session.removeAttribute(PublicConstant.ADDRESS);
 			response.sendRedirect(PublicConstant.HOME_CONTROLLER);
 		} catch (Exception e) {
-			logger.info(PublicConstant.LOG_INFO, e);
-			logger.warn(PublicConstant.LOG_WARN, e);
-			logger.debug(PublicConstant.LOG_DEBUG, e);
-			logger.error(PublicConstant.LOG_ERROR, e);
+			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
 		}
 	}
 

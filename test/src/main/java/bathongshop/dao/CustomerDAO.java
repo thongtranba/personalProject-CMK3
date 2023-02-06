@@ -1,4 +1,4 @@
-package bathongshop.DAO;
+package bathongshop.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,12 +10,20 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import bathongshop.JDBCUtil.JDBCUtil;
 import bathongshop.constant.PublicConstant;
 import bathongshop.entity.Customer;
+import bathongshop.jdbcutil.JDBCUtil;
 
 public class CustomerDAO {
 	private static Logger logger = LogManager.getLogger(CustomerDAO.class);
+	private static CustomerDAO customerDAO = null;
+
+	public static CustomerDAO getCustomerDAO() {
+		if (customerDAO == null) {
+			customerDAO = new CustomerDAO();
+		}
+		return customerDAO;
+	}
 
 	public int insertCustomer(Customer customer) throws SQLException {
 		int result = Integer.parseInt(PublicConstant.CONSTANT_0);
@@ -29,10 +37,7 @@ public class CustomerDAO {
 			logger.info(preparedStatement);
 			result = preparedStatement.executeUpdate();
 		} catch (Exception e) {
-			logger.info(PublicConstant.LOG_INFO, e);
-			logger.warn(PublicConstant.LOG_WARN, e);
-			logger.debug(PublicConstant.LOG_DEBUG, e);
-			logger.error(PublicConstant.LOG_ERROR, e);
+			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
 		}
 		return result;
 	}
@@ -79,10 +84,7 @@ public class CustomerDAO {
 				customer = new Customer(id, username, password, mobile, email, address);
 			}
 		} catch (Exception e) {
-			logger.info(PublicConstant.LOG_INFO, e);
-			logger.warn(PublicConstant.LOG_WARN, e);
-			logger.debug(PublicConstant.LOG_DEBUG, e);
-			logger.error(PublicConstant.LOG_ERROR, e);
+			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
 		}
 		return customer;
 	}
@@ -104,10 +106,7 @@ public class CustomerDAO {
 				customers.add(new Customer(id, username, password, mobile, email, address));
 			}
 		} catch (Exception e) {
-			logger.info(PublicConstant.LOG_INFO, e);
-			logger.warn(PublicConstant.LOG_WARN, e);
-			logger.debug(PublicConstant.LOG_DEBUG, e);
-			logger.error(PublicConstant.LOG_ERROR, e);
+			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
 		}
 		return customers;
 	}
@@ -134,10 +133,7 @@ public class CustomerDAO {
 				return null;
 			}
 		} catch (Exception e) {
-			logger.info(PublicConstant.LOG_INFO, e);
-			logger.warn(PublicConstant.LOG_WARN, e);
-			logger.debug(PublicConstant.LOG_DEBUG, e);
-			logger.error(PublicConstant.LOG_ERROR, e);
+			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
 		}
 		return customer;
 	}

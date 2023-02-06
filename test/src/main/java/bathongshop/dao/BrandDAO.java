@@ -1,4 +1,4 @@
-package bathongshop.DAO;
+package bathongshop.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,12 +9,20 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import bathongshop.JDBCUtil.JDBCUtil;
 import bathongshop.constant.PublicConstant;
 import bathongshop.entity.Brand;
+import bathongshop.jdbcutil.JDBCUtil;
 
 public class BrandDAO {
 	private static Logger logger = LogManager.getLogger(BrandDAO.class);
+	private static BrandDAO brandDAO = null;
+
+	public static BrandDAO getBrandDAO() {
+		if (brandDAO == null) {
+			brandDAO = new BrandDAO();
+		}
+		return brandDAO;
+	}
 
 	public List<Brand> selectAllBrands() {
 		List<Brand> brands = new ArrayList<>();
@@ -28,10 +36,7 @@ public class BrandDAO {
 				brands.add(new Brand(id, name));
 			}
 		} catch (Exception e) {
-			logger.info(PublicConstant.LOG_INFO, e);
-			logger.warn(PublicConstant.LOG_WARN, e);
-			logger.debug(PublicConstant.LOG_DEBUG, e);
-			logger.error(PublicConstant.LOG_ERROR, e);
+			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
 		}
 		return brands;
 	}

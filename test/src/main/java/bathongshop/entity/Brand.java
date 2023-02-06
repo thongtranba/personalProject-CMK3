@@ -4,14 +4,14 @@ public class Brand {
 	private int id;
 	private String name;
 
+	public Brand() {
+		super();
+	}
+
 	public Brand(int id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
-	}
-
-	public Brand() {
-		super();
 	}
 
 	public int getId() {

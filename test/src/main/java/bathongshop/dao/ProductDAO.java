@@ -1,4 +1,4 @@
-package bathongshop.DAO;
+package bathongshop.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,13 +9,21 @@ import java.util.List;
 
 import org.apache.logging.log4j.*;
 
-import bathongshop.JDBCUtil.JDBCUtil;
 import bathongshop.constant.PublicConstant;
 import bathongshop.entity.Product;
+import bathongshop.jdbcutil.JDBCUtil;
 import bathongshop.model.ProductModel;
 
 public class ProductDAO {
 	private static Logger logger = LogManager.getLogger(ProductDAO.class);
+	private static ProductDAO productDAO = null;
+
+	public static ProductDAO getProductDAO() {
+		if (productDAO == null) {
+			productDAO = new ProductDAO();
+		}
+		return productDAO;
+	}
 
 	public List<Product> selectAllProducts() {
 		List<Product> products = new ArrayList<>();
@@ -37,10 +45,7 @@ public class ProductDAO {
 						description, image));
 			}
 		} catch (Exception e) {
-			logger.info(PublicConstant.LOG_INFO, e);
-			logger.warn(PublicConstant.LOG_WARN, e);
-			logger.debug(PublicConstant.LOG_DEBUG, e);
-			logger.error(PublicConstant.LOG_ERROR, e);
+			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
 		}
 		return products;
 	}
@@ -58,10 +63,7 @@ public class ProductDAO {
 			logger.info(preparedStatement);
 			preparedStatement.executeUpdate();
 		} catch (Exception e) {
-			logger.info(PublicConstant.LOG_INFO, e);
-			logger.warn(PublicConstant.LOG_WARN, e);
-			logger.debug(PublicConstant.LOG_DEBUG, e);
-			logger.error(PublicConstant.LOG_ERROR, e);
+			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
 		}
 	}
 
@@ -77,10 +79,7 @@ public class ProductDAO {
 				inventoryQuantity = rs.getInt(PublicConstant.INVENTORY_QUANTITY_COLUMN);
 			}
 		} catch (Exception e) {
-			logger.info(PublicConstant.LOG_INFO, e);
-			logger.warn(PublicConstant.LOG_WARN, e);
-			logger.debug(PublicConstant.LOG_DEBUG, e);
-			logger.error(PublicConstant.LOG_ERROR, e);
+			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
 		}
 		return inventoryQuantity;
 	}
@@ -129,10 +128,7 @@ public class ProductDAO {
 						brandName, categoryName);
 			}
 		} catch (Exception e) {
-			logger.info(PublicConstant.LOG_INFO, e);
-			logger.warn(PublicConstant.LOG_WARN, e);
-			logger.debug(PublicConstant.LOG_DEBUG, e);
-			logger.error(PublicConstant.LOG_ERROR, e);
+			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
 		}
 		return product;
 	}
@@ -158,10 +154,7 @@ public class ProductDAO {
 						description, image));
 			}
 		} catch (Exception e) {
-			logger.info(PublicConstant.LOG_INFO, e);
-			logger.warn(PublicConstant.LOG_WARN, e);
-			logger.debug(PublicConstant.LOG_DEBUG, e);
-			logger.error(PublicConstant.LOG_ERROR, e);
+			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
 		}
 		return products;
 	}
@@ -187,10 +180,7 @@ public class ProductDAO {
 						description, image));
 			}
 		} catch (Exception e) {
-			logger.info(PublicConstant.LOG_INFO, e);
-			logger.warn(PublicConstant.LOG_WARN, e);
-			logger.debug(PublicConstant.LOG_DEBUG, e);
-			logger.error(PublicConstant.LOG_ERROR, e);
+			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
 		}
 		return products;
 	}
@@ -215,10 +205,7 @@ public class ProductDAO {
 						description, image));
 			}
 		} catch (Exception e) {
-			logger.info(PublicConstant.LOG_INFO, e);
-			logger.warn(PublicConstant.LOG_WARN, e);
-			logger.debug(PublicConstant.LOG_DEBUG, e);
-			logger.error(PublicConstant.LOG_ERROR, e);
+			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
 		}
 		return products;
 	}
@@ -244,10 +231,7 @@ public class ProductDAO {
 						description, image));
 			}
 		} catch (Exception e) {
-			logger.info(PublicConstant.LOG_INFO, e);
-			logger.warn(PublicConstant.LOG_WARN, e);
-			logger.debug(PublicConstant.LOG_DEBUG, e);
-			logger.error(PublicConstant.LOG_ERROR, e);
+			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
 		}
 		return products;
 	}
@@ -264,10 +248,7 @@ public class ProductDAO {
 				totalProducts = rs.getInt(PublicConstant.COUNT_ALL);
 			}
 		} catch (Exception e) {
-			logger.info(PublicConstant.LOG_INFO, e);
-			logger.warn(PublicConstant.LOG_WARN, e);
-			logger.debug(PublicConstant.LOG_DEBUG, e);
-			logger.error(PublicConstant.LOG_ERROR, e);
+			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
 		}
 		return totalProducts;
 	}
@@ -297,10 +278,7 @@ public class ProductDAO {
 							description, image));
 				}
 			} catch (Exception e) {
-				logger.info(PublicConstant.LOG_INFO, e);
-				logger.warn(PublicConstant.LOG_WARN, e);
-				logger.debug(PublicConstant.LOG_DEBUG, e);
-				logger.error(PublicConstant.LOG_ERROR, e);
+				logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
 			}
 		} else {
 			try (Connection connection = JDBCUtil.getConnection();
@@ -322,12 +300,8 @@ public class ProductDAO {
 					String image = rs.getString(PublicConstant.IMAGE_COLUMN);
 					products.add(new Product(id, name, inventoryQuantity, price, discountPrice, categoryId, image));
 				}
-
 			} catch (Exception e) {
-				logger.info(PublicConstant.LOG_INFO, e);
-				logger.warn(PublicConstant.LOG_WARN, e);
-				logger.debug(PublicConstant.LOG_DEBUG, e);
-				logger.error(PublicConstant.LOG_ERROR, e);
+				logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
 			}
 		}
 		return products;
@@ -354,12 +328,8 @@ public class ProductDAO {
 				products.add(new Product(id, name, inventoryQuantity, price, discountPrice, brandId, categoryId,
 						description, image));
 			}
-
 		} catch (Exception e) {
-			logger.info(PublicConstant.LOG_INFO, e);
-			logger.warn(PublicConstant.LOG_WARN, e);
-			logger.debug(PublicConstant.LOG_DEBUG, e);
-			logger.error(PublicConstant.LOG_ERROR, e);
+			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
 		}
 		return products;
 	}
@@ -382,10 +352,7 @@ public class ProductDAO {
 				products.add(new ProductModel(id, name, inputQuantity, price, discountPrice, image));
 			}
 		} catch (Exception e) {
-			logger.info(PublicConstant.LOG_INFO, e);
-			logger.warn(PublicConstant.LOG_WARN, e);
-			logger.debug(PublicConstant.LOG_DEBUG, e);
-			logger.error(PublicConstant.LOG_ERROR, e);
+			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
 		}
 		return products;
 	}
@@ -411,12 +378,8 @@ public class ProductDAO {
 						description, image));
 			}
 		} catch (Exception e) {
-			logger.info(PublicConstant.LOG_INFO, e);
-			logger.warn(PublicConstant.LOG_WARN, e);
-			logger.debug(PublicConstant.LOG_DEBUG, e);
-			logger.error(PublicConstant.LOG_ERROR, e);
+			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
 		}
 		return products;
 	}
-
 }

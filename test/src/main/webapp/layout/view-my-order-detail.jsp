@@ -48,13 +48,13 @@
 		</div>
 		<div class="row">
 			<div class="col-xs-6">Delivery</div>
-			<div class="col-xs-6 text-right">39,0 euro</div>
+			<div class="col-xs-6 text-right">3,9 euro</div>
 		</div>
 		<hr>
 		<div class="row">
 			<div class="col-xs-6">Total</div>
 			<div class="col-xs-6 text-right">
-				<c:set var="paymentTotal" value="${total + 39}" />
+				<c:set var="paymentTotal" value="${total + 3.9}" />
 				<fmt:formatNumber type="number"  groupingUsed = "false"
 					value="${paymentTotal}" />
 				euro
