@@ -1,6 +1,6 @@
 # My personal project in the Backend Intensive course (Java) of Coding Mentor (https://codingmentor.com.au/course/16)
 
-This is a web application that demonstrates an E-commerce website using the MVC + SQL. The application loads products a SQL database and displays them. Users can select to display products in each category. Users can click on any product to get more information including the pricing, pictures, and description. User can select items and add them to their shopping cart.
+This is a web application that demonstrates an E-commerce website using the MVC + MySQL. The application loads products a SQL database and displays them. Users can select to display products in each category. Users can click on any product to get more information including the pricing, pictures, and description. User can select items and add them to their shopping cart.
 
 ## Features
 
