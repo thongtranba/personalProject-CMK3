@@ -187,7 +187,7 @@ public class CartController extends HttpServlet {
 			int id = Integer.parseInt(request.getParameter(PublicConstant.ORDER_ID));
 			List<ProductModel> products = productDAO.selectAllProductByOrderId(id);
 			request.setAttribute(PublicConstant.ORDER_ID, id);
-			request.setAttribute("productList", products);
+			request.setAttribute(PublicConstant.PRODUCT_LIST_ATTRIBUTE, products);
 			RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.MY_ORDER_DETAIL_JSP);
 			dispatcher.forward(request, response);
 		} catch (Exception e) {

@@ -102,6 +102,7 @@ public class PublicConstant {
 	public static final String PRODUCT_DETAIL_PAGE_BY_ID = "product?id=";
 	public static final String ORDER_LIST = "orderList";
 	public static final String ORDER_ID = "orderId";
+	public static final String PRODUCT_LIST_ATTRIBUTE  ="productList";
 
 	// Category controller
 	public static final String CATEGORY_URL = "/category";

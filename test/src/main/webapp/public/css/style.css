@@ -258,6 +258,9 @@ nav.desktop-menu {
 /*END SERVICE*/
 
 /*MAIN*/
+main {
+	min-height: 80vh;
+}
 main h4.home-title {
 	font-size: 14px;
 	font-weight: bold;

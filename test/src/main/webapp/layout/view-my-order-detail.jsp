@@ -1,9 +1,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <div class="row">
 	<div class="col-xs-6">
 		<h4 class="home-title">Order number: #${orderId}</h4>
 	</div>
-
 	<aside class="col-md-12 cart-checkout">
 		<c:set var="total" value="0" />
 		<c:forEach var="product" items="${productList}">
@@ -29,8 +29,10 @@
 					</c:if>
 				</div>
 				<div class="col-md-2 col-xs-3 text-right">
-					<c:set var="subtotal" value="${Math.round((inputQuantity * price)*100)/100}" />
-					<span> <c:out value="${subtotal}" /> euro</span>
+					<c:set var="subtotal" value="${inputQuantity * price}" />
+					<span> <fmt:formatNumber type="number"    groupingUsed = "false"
+							value="${subtotal}" /> euro
+					</span>
 				</div>
 			</div>
 			<hr>
@@ -38,18 +40,24 @@
 		</c:forEach>
 		<div class="row">
 			<div class="col-xs-6">Goods</div>
-			<div class="col-xs-6 text-right">${total} euro</div>
+			<div class="col-xs-6 text-right">
+				<fmt:formatNumber type="number"   groupingUsed = "false"
+					value="${total}" />
+				euro
+			</div>
 		</div>
 		<div class="row">
 			<div class="col-xs-6">Delivery</div>
-			<div class="col-xs-6 text-right">39 euro</div>
+			<div class="col-xs-6 text-right">39,0 euro</div>
 		</div>
 		<hr>
 		<div class="row">
 			<div class="col-xs-6">Total</div>
 			<div class="col-xs-6 text-right">
-				<c:set var="paymentTotal" value="${Math.round((total + 39)*100)/100}" />
-				<c:out value="${paymentTotal}" /> euro
+				<c:set var="paymentTotal" value="${total + 39}" />
+				<fmt:formatNumber type="number"  groupingUsed = "false"
+					value="${paymentTotal}" />
+				euro
 			</div>
 		</div>
 	</aside>

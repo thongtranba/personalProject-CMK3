@@ -2,17 +2,16 @@ package bathongshop.entity;
 
 public class Staff {
 	private int id;
-	private String name;
-	private String mobile;
-	private String email;
 	private String userName;
 	private String password;
+	private String mobile;
+	private String email;
 	private int roleId;
 
-	public Staff(int id, String name, String mobile, String email, String userName, String password, int roleId) {
+	public Staff(int id, String mobile, String email, String userName, String password, int roleId) {
 		super();
 		this.id = id;
-		this.name = name;
+
 		this.mobile = mobile;
 		this.email = email;
 		this.userName = userName;
@@ -30,14 +29,6 @@ public class Staff {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public String getMobile() {
