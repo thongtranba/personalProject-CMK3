@@ -26,6 +26,7 @@ This is a web application that demonstrates an E-commerce website using the MVC 
 #### Back-end: 
 - Java fundamental (OOP + data structure + algorithm) with Eclipse
 - Design Pattern : Singleton
+
 ![App Screenshot](https://live.staticflickr.com/65535/52673200594_c70b1310eb_z.jpg)
 - ERD relationship and design
 ![App Screenshot](https://live.staticflickr.com/65535/52673446823_ffef8a10c6_z.jpg)
@@ -36,6 +37,7 @@ This is a web application that demonstrates an E-commerce website using the MVC 
 - 404,403,500... error handler
 ![App Screenshot](https://live.staticflickr.com/65535/52672410257_0ec8278278_k.jpg)
 - SQL: query, tables and sample data with Workbench
+
 ![App Screenshot](https://live.staticflickr.com/65535/52585970304_3b63d91f63_m.jpg)
 
 ## Demonstration
