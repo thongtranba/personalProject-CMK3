@@ -46,6 +46,7 @@ public class HomeController extends HttpServlet {
 			request.setAttribute(PublicConstant.SERVICE_PRODUCT, service);
 			RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.HOME_JSP);
 			dispatcher.forward(request, response);
+
 		} catch (Exception e) {
 			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
 		}
