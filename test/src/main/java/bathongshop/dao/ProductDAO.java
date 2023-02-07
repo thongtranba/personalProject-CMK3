@@ -15,8 +15,8 @@ import bathongshop.jdbcutil.JDBCUtil;
 import bathongshop.model.ProductModel;
 
 public class ProductDAO {
-	private static Logger logger = LogManager.getLogger(ProductDAO.class);
 	private static ProductDAO productDAO = null;
+	private static Logger logger = LogManager.getLogger(ProductDAO.class);
 
 	public static ProductDAO getProductDAO() {
 		if (productDAO == null) {

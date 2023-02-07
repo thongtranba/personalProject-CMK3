@@ -38,7 +38,6 @@ public class ProductDetailController extends HttpServlet {
 			request.setAttribute(PublicConstant.PRODUCT, existingProduct);
 			RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.PRODUCT_DETAIL_JSP);
 			dispatcher.forward(request, response);
-
 		} catch (Exception e) {
 			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
 		}
@@ -48,5 +47,4 @@ public class ProductDetailController extends HttpServlet {
 			throws ServletException, IOException {
 		doGet(request, response);
 	}
-
 }

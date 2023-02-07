@@ -19,9 +19,9 @@ import bathongshop.entity.Product;
 
 @WebServlet(PublicConstant.SEARCH_URL)
 public class SearchController extends HttpServlet {
-	private static Logger logger = LogManager.getLogger(SearchController.class);
 	private static final long serialVersionUID = 1L;
 	ProductDAO productDAO = ProductDAO.getProductDAO();
+	private static Logger logger = LogManager.getLogger(SearchController.class);
 
 	public SearchController() {
 		super();
@@ -45,5 +45,4 @@ public class SearchController extends HttpServlet {
 			throws ServletException, IOException {
 		doGet(request, response);
 	}
-
 }

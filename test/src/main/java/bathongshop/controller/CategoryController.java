@@ -22,10 +22,10 @@ import bathongshop.entity.Product;
 
 @WebServlet(PublicConstant.CATEGORY_URL)
 public class CategoryController extends HttpServlet {
-	private static Logger logger = LogManager.getLogger(CategoryController.class);
 	private static final long serialVersionUID = 1L;
 	private ProductDAO productDAO = ProductDAO.getProductDAO();
 	private BrandDAO brandDAO = BrandDAO.getBrandDAO();
+	private static Logger logger = LogManager.getLogger(CategoryController.class);
 
 	public CategoryController() {
 		super();

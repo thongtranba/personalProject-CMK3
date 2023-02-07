@@ -44,7 +44,7 @@
 							oninput="this.setCustomValidity('')" />
 					</div>
 					<div class="form-group">
-						<input type="address" class="form-control" id="address"
+						<input type="text" class="form-control" id="address"
 							name="address" placeholder="Address" required />
 					</div>
 					<div class="form-group">

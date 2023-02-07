@@ -60,7 +60,7 @@
 			<AppenderRef ref="error" />
 			<AppenderRef ref="warn" />		
 		</Logger>
-		<Root level="trace">
+		<Root level="debug">
 			<AppenderRef ref="console" />
 		</Root>
 	</Loggers>

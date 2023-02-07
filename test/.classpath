@@ -6,7 +6,11 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" path="src/main/resources"/>
+	<classpathentry excluding="**" kind="src" output="target/classes" path="src/main/resources">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
 		<attributes>
 			<attribute name="test" value="true"/>
@@ -41,12 +45,12 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="D:/Informatics job/Java Course/backendIntensive_3/testProject/test/src/main/webapp/WEB-INF/lib/jstl-1.2.jar"/>
 	<classpathentry kind="lib" path="D:/Informatics job/Java Course/backendIntensive_3/testProject/test/src/main/webapp/WEB-INF/lib/rest-api-sdk-1.14.0.jar"/>
-	<classpathentry kind="lib" path="D:/Informatics job/Java Course/backendIntensive_3/testProject/test/src/main/webapp/WEB-INF/lib/gson-2.10.1.jar"/>
 	<classpathentry kind="lib" path="D:/Informatics job/Java Course/backendIntensive_3/testProject/test/src/main/webapp/WEB-INF/lib/slf4j-api-2.0.6.jar"/>
 	<classpathentry kind="lib" path="D:/Informatics job/Java Course/backendIntensive_3/testProject/test/src/main/webapp/WEB-INF/lib/log4j-api-2.19.0.jar"/>
 	<classpathentry kind="lib" path="D:/Informatics job/Java Course/backendIntensive_3/testProject/test/src/main/webapp/WEB-INF/lib/log4j-core-2.19.0.jar"/>
 	<classpathentry kind="lib" path="D:/Informatics job/Java Course/backendIntensive_3/testProject/test/src/main/webapp/WEB-INF/lib/disruptor-3.4.4.jar"/>
 	<classpathentry kind="lib" path="D:/Informatics job/Java Course/backendIntensive_3/testProject/test/src/main/webapp/WEB-INF/lib/maven-compiler-plugin-3.10.1.jar"/>
 	<classpathentry kind="lib" path="D:/Informatics job/Java Course/backendIntensive_3/testProject/test/src/main/webapp/WEB-INF/lib/maven-shade-plugin-3.4.1.jar"/>
+	<classpathentry kind="lib" path="D:/Informatics job/Java Course/backendIntensive_3/testProject/test/src/main/webapp/WEB-INF/lib/gson-2.10.1.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

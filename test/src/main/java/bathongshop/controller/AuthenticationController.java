@@ -103,5 +103,4 @@ public class AuthenticationController extends HttpServlet {
 			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
 		}
 	}
-
 }

@@ -35,7 +35,6 @@
 				</c:if>
 				<c:if test="${loginNotification != null}">
 					<div class="col-md-12 col-xs-12 ">
-
 						${loginNotification}. Try again,
 						<button class="btn btn-primary btn-login">Login</button>
 					</div>

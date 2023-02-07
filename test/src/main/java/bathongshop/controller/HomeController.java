@@ -18,11 +18,9 @@ import bathongshop.entity.Product;
 @WebServlet(urlPatterns = { PublicConstant.HOME_URL })
 
 public class HomeController extends HttpServlet {
-
-	private static Logger logger = LogManager.getLogger(HomeController.class);
-
 	private static final long serialVersionUID = 1L;
 	private ProductDAO productDAO = ProductDAO.getProductDAO();
+	private static Logger logger = LogManager.getLogger(HomeController.class);
 
 	public HomeController() {
 		super();
@@ -46,7 +44,6 @@ public class HomeController extends HttpServlet {
 			request.setAttribute(PublicConstant.SERVICE_PRODUCT, service);
 			RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.HOME_JSP);
 			dispatcher.forward(request, response);
-
 		} catch (Exception e) {
 			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
 		}
