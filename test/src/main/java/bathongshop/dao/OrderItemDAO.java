@@ -21,16 +21,27 @@ public class OrderItemDAO {
 		}
 		return orderItemDAO;
 	}
-	public void addOrderItem(OrderItem orderItem) throws SQLException {
-		try (Connection connection = JDBCUtil.getConnection();
-				PreparedStatement preparedStatement = connection.prepareStatement(PublicConstant.INSERT_ORDER_ITEM)) {
-			logger.info(preparedStatement);
-			preparedStatement.setInt(1, orderItem.getOrderId());
-			preparedStatement.setInt(2, orderItem.getProductId());
-			preparedStatement.setInt(3, orderItem.getQuantity());
-			preparedStatement.execute();
-		} catch (Exception e) {
-			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
+
+	public boolean addOrderItem(OrderItem orderItem) throws SQLException {
+		boolean status = false;
+		int result = Integer.parseInt(PublicConstant.CONSTANT_0);
+		try (Connection connection = JDBCUtil.getConnection()) {
+			connection.setAutoCommit(false);
+			try (PreparedStatement preparedStatement = connection.prepareStatement(PublicConstant.INSERT_ORDER_ITEM)) {
+				logger.info(preparedStatement);
+				preparedStatement.setInt(1, orderItem.getOrderId());
+				preparedStatement.setInt(2, orderItem.getProductId());
+				preparedStatement.setInt(3, orderItem.getQuantity());
+				result = preparedStatement.executeUpdate();
+				if (result != Integer.parseInt(PublicConstant.CONSTANT_0)) {
+					connection.commit();
+					status = true;
+				}
+			} catch (Exception e) {
+				connection.rollback();
+				logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
+			}
 		}
+		return status;
 	}
 }

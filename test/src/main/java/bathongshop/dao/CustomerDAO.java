@@ -25,36 +25,72 @@ public class CustomerDAO {
 		return customerDAO;
 	}
 
-	public int insertCustomer(Customer customer) throws SQLException {
-		int result = Integer.parseInt(PublicConstant.CONSTANT_0);
+	public boolean checkDuplicatedEmailAndMobile(String email, String password) throws SQLException {
+		boolean duplicated = false;
 		try (Connection connection = JDBCUtil.getConnection();
-				PreparedStatement preparedStatement = connection.prepareStatement(PublicConstant.INSERT_CUSTOMER_SQL)) {
-			preparedStatement.setString(1, customer.getUsername());
-			preparedStatement.setString(2, customer.getPassword());
-			preparedStatement.setString(3, customer.getMobile());
-			preparedStatement.setString(4, customer.getEmail());
-			preparedStatement.setString(5, customer.getAddress());
+				PreparedStatement preparedStatement = connection
+						.prepareStatement(PublicConstant.CHECK_DUPLICATED_EMAIL_MOBILE_SQL)) {
+			preparedStatement.setString(1, email);
+			preparedStatement.setString(2, password);
 			logger.info(preparedStatement);
-			result = preparedStatement.executeUpdate();
+			ResultSet rs = preparedStatement.executeQuery();
+			if (rs.next()) {
+				duplicated = true;
+			}
 		} catch (Exception e) {
 			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
+		}
+		return duplicated;
+	}
+
+	public int insertCustomer(Customer customer) throws SQLException {
+		int result = Integer.parseInt(PublicConstant.CONSTANT_0);
+		try (Connection connection = JDBCUtil.getConnection()) {
+			connection.setAutoCommit(false);
+			try (PreparedStatement preparedStatement = connection
+					.prepareStatement(PublicConstant.INSERT_CUSTOMER_SQL)) {
+				preparedStatement.setString(1, customer.getUsername());
+				preparedStatement.setString(2, customer.getPassword());
+				preparedStatement.setString(3, customer.getMobile());
+				preparedStatement.setString(4, customer.getEmail());
+				preparedStatement.setString(5, customer.getAddress());
+				logger.info(preparedStatement);
+				result = preparedStatement.executeUpdate();
+				if (result != Integer.parseInt(PublicConstant.CONSTANT_0)) {
+					connection.commit();
+				}
+			} catch (Exception e) {
+				connection.rollback();
+				logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
+			}
 		}
 		return result;
 	}
 
-	public boolean updateCustomer(Customer customer) throws SQLException {
-		boolean rowUpdated;
-		try (Connection connection = JDBCUtil.getConnection();
-				PreparedStatement statement = connection.prepareStatement(PublicConstant.UPDATE_CUSTOMER_SQL)) {
-			statement.setString(1, customer.getUsername());
-			statement.setString(2, customer.getPassword());
-			statement.setString(3, customer.getMobile());
-			statement.setString(4, customer.getEmail());
-			statement.setString(5, customer.getAddress());
-			statement.setInt(6, customer.getId());
-			rowUpdated = statement.executeUpdate() > Integer.parseInt(PublicConstant.CONSTANT_0);
+	public boolean updateCustomer(Customer updateCustomer, int id) throws SQLException {
+		boolean status = false;
+		int result = Integer.parseInt(PublicConstant.CONSTANT_0);
+		try (Connection connection = JDBCUtil.getConnection()) {
+			connection.setAutoCommit(false);
+			try (PreparedStatement preparedStatement = connection
+					.prepareStatement(PublicConstant.UPDATE_CUSTOMER_SQL)) {
+				preparedStatement.setString(1, updateCustomer.getUsername());
+				preparedStatement.setString(2, updateCustomer.getPassword());
+				preparedStatement.setString(3, updateCustomer.getMobile());
+				preparedStatement.setString(4, updateCustomer.getEmail());
+				preparedStatement.setString(5, updateCustomer.getAddress());
+				preparedStatement.setInt(6, id);
+				result = preparedStatement.executeUpdate();
+				if (result != Integer.parseInt(PublicConstant.CONSTANT_0)) {
+					connection.commit();
+					status = true;
+				}
+			} catch (Exception e) {
+				connection.rollback();
+				logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
+			}
 		}
-		return rowUpdated;
+		return status;
 	}
 
 	public boolean deleteCustomer(int id) throws SQLException {
@@ -128,7 +164,7 @@ public class CustomerDAO {
 				String username = rs.getString(PublicConstant.USERNAME);
 				String mobile = rs.getString(PublicConstant.MOBILE);
 				String address = rs.getString(PublicConstant.ADDRESS);
-				customer = new Customer(id, username, mobile, address);
+				customer = new Customer(id, username, mobile, email, address);
 			} else {
 				return null;
 			}

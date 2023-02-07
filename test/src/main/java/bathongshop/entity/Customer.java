@@ -12,11 +12,12 @@ public class Customer {
 		super();
 	}
 
-	public Customer(int id, String username, String mobile, String address) {
+	public Customer(int id, String username, String mobile, String email, String address) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.mobile = mobile;
+		this.email = email;
 		this.address = address;
 	}
 

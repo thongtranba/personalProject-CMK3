@@ -29,21 +29,37 @@ public class OrderDAO {
 
 	public int addOrder(Order order) throws SQLException {
 		int insertedId = Integer.parseInt(PublicConstant.CONSTANT_0);
-		try (Connection connection = JDBCUtil.getConnection();
-				PreparedStatement preparedStatement = connection.prepareStatement(PublicConstant.INSERT_NEW_ORDER,
-						Statement.RETURN_GENERATED_KEYS)) {
-			logger.info(preparedStatement);
-			preparedStatement.setInt(1, order.getCustomerId());
-			preparedStatement.setDate(2, new Date(System.currentTimeMillis()));
-			preparedStatement.execute();
-			ResultSet rs = preparedStatement.getGeneratedKeys();
-			if (rs.next()) {
-				insertedId = rs.getInt(1);
+		try (Connection connection = JDBCUtil.getConnection()) {
+			connection.setAutoCommit(false);
+			try (PreparedStatement preparedStatement = connection.prepareStatement(PublicConstant.INSERT_NEW_ORDER,
+					Statement.RETURN_GENERATED_KEYS)) {
+				logger.info(preparedStatement);
+				preparedStatement.setInt(1, order.getCustomerId());
+				preparedStatement.setDate(2, new Date(System.currentTimeMillis()));
+				preparedStatement.execute();
+				ResultSet rs = preparedStatement.getGeneratedKeys();
+				if (rs.next()) {
+					insertedId = rs.getInt(1);
+				}
+				connection.commit();
+			} catch (Exception e) {
+				connection.rollback();
+				logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
 			}
+			return insertedId;
+		}
+	}
+
+	public void deleteOrderByOrderId(int orderId) throws SQLException {
+		try (Connection connection = JDBCUtil.getConnection();
+				PreparedStatement preparedStatement = connection
+						.prepareStatement(PublicConstant.DELETE_ORDER_BY_ORDER_ID)) {
+			logger.info(preparedStatement);
+			preparedStatement.setInt(1, orderId);
+			preparedStatement.executeUpdate();
 		} catch (Exception e) {
 			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
 		}
-		return insertedId;
 	}
 
 	public List<Order> selectAllOrderByCustomerId(int customerId) {

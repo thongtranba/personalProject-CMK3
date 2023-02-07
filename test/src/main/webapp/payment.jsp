@@ -24,7 +24,7 @@
 				<div class="col-xs-12 ">
 					<h4>You have completed your order. To continue shopping, click</h4>
 					<a href="home">Here</a> <br>
-					<h5>Check your purchase, click</h5>
+					<h4>Check your purchase, click</h4>
 					<a href="cart?command=MY_ORDER&id=${sessionScope.customerId}">Here</a>
 				</div>
 			</div>

@@ -120,16 +120,30 @@ public class CartController extends HttpServlet {
 			int customerId = (int) session.getAttribute(PublicConstant.CUSTOMERID);
 			Order order = Order.NewOrderByCustomerId(customerId);
 			int orderId = orderDAO.addOrder(order);
+			boolean flag = false;
 			for (int key : orderList.keySet()) {
 				OrderItem orderItem = new OrderItem(key, orderList.get(key), orderId);
-				orderItemDAO.addOrderItem(orderItem);
-				int inventoryQuantity = productDAO.takeInventoryQuantity(key);
-				int newQuantity = inventoryQuantity - orderList.get(key);
-				productDAO.updateQuantityByProductId(key, newQuantity);
+				boolean orderStatus = orderItemDAO.addOrderItem(orderItem);
+				logger.info(orderStatus);
+				if (orderStatus == true) {
+					int inventoryQuantity = productDAO.takeInventoryQuantity(key);
+					int newQuantity = inventoryQuantity - orderList.get(key);
+					productDAO.updateQuantityByProductId(key, newQuantity);
+				} else {
+					flag = true;
+				}
 			}
-			session.removeAttribute(PublicConstant.CART);
-			RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.PAYMENT_JSP);
-			dispatcher.forward(request, response);
+			if (flag == true) {
+				orderDAO.deleteOrderByOrderId(orderId);
+				request.setAttribute(PublicConstant.ORDER_FAIL_NOTIFICATION,
+						PublicConstant.ORDER_FAIL_NOTIFICATION_MESSAGE);
+				RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.NOTIFICATION_JSP);
+				dispatcher.forward(request, response);
+			} else {
+				session.removeAttribute(PublicConstant.CART);
+				RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.PAYMENT_JSP);
+				dispatcher.forward(request, response);
+			}
 		} catch (Exception e) {
 			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
 		}

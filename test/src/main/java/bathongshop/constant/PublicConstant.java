@@ -18,11 +18,13 @@ public class PublicConstant {
 	public static final String DELETE_CUSTOMER_SQL = "delete from customer where id =?";
 	public static final String UPDATE_CUSTOMER_SQL = "update customer set username =?, password=?, mobile=?, email=?, address =? where id =?";
 	public static final String LOGIN_BY_USERNAME_PASSWORD = "select * from customer where email = ? and password = ? ";
+	public static final String CHECK_DUPLICATED_EMAIL_MOBILE_SQL = "select * from customer where email = ? or mobile = ?";
 
 	// OrderDAO
 	public static final String INSERT_NEW_ORDER = "INSERT INTO `order` (customer_id, created_date) VALUES (?, ?)";
 	public static final String SELECT_ORDER_BY_CUTOMER_ID = "select * from bathongshop.order where customer_id = ?";
 	public static final String CREATED_DATE_COLUMN = "created_date";
+	public static final String DELETE_ORDER_BY_ORDER_ID = "delete from bathongshop.order where id =?";
 
 	// OrderItemDAO
 	public static final String INSERT_ORDER_ITEM = "INSERT order_item (order_id, product_id, quantity) VALUES (?, ?, ?)";
@@ -50,7 +52,7 @@ public class PublicConstant {
 			+ " join bathongshop.order on bathongshop.order.id = order_item.order_id"
 			+ " where bathongshop.order.id = ?";
 	public static final String SELECT_SALE_OFF_PRODDUCTS = "select * from product where discount_price > '0' ";
-	public static final String SELECT_PRODUCT_ORDER_BY = "select * from product where category_id =?"+ "  ORDER by ";
+	public static final String SELECT_PRODUCT_ORDER_BY = "select * from product where category_id =?" + "  ORDER by ";
 	public static final String SELECT_PRODUCT_ORDER_BY_WITH_BRANDID = "select product.id, product.name, product.inventory_quantity, product.discount_price, product.price, product.image, brand.name from product "
 			+ " join brand on brand.id = product.brand_id" + " where category_id =? and brand.id = ?" + "  ORDER by "
 			+ "product.";
@@ -72,6 +74,7 @@ public class PublicConstant {
 	public static final String LOGIN = "LOGIN";
 	public static final String LOGOUT = "LOGOUT";
 	public static final String REGISTER = "REGISTER";
+	public static final String UPDATE = "UPDATE";
 	public static final String EMAIL = "email";
 	public static final String PASSWORD = "password";
 	public static final String LOGIN_NOTIFICATION = "loginNotification";
@@ -82,6 +85,16 @@ public class PublicConstant {
 	public static final String ADDRESS = "address";
 	public static final String REGISTER_NOTIFICATION = "registerNotification";
 	public static final String REGISTER_NOTIFICATION_MESSAGE = "Registered Successfully!";
+	public static final String REGISTER_DUPLICATED_NOTIFICATION = "duplicatedNotification";
+	public static final String REGISTER_DUPLICATED_NOTIFICATION_MESSAGE = "Your email or mobile has been used! Please, try a new one";
+	public static final String REGISTER_FAIL_NOTIFICATION = "registerFailNotification";
+	public static final String REGISTER_FAIL_NOTIFICATION_MESSAGE = "Register Fail! Please try again or contact to our customer service";
+	public static final String UPDATE_NOTIFICATION = "updateNotification";
+	public static final String UPDATE_NOTIFICATION_MESSAGE = "Updated Successfully!";
+	public static final String UPDATE_DUPLICATED_NOTIFICATION = "updateDuplicatedNotification";
+	public static final String UPDATE_DUPLICATED_NOTIFICATION_MESSAGE = "Your email or mobile has been used! Please, try a new one to update your account";
+	public static final String UPDATE_FAIL_NOTIFICATION = "updateFAILNotification";
+	public static final String UPDATE_FAIL_NOTIFICATION_MESSAGE = "Update Fail! Please try again or contact to our customer service";
 
 	// Cart controller
 	public static final String CART_URL = "/cart";
@@ -99,7 +112,10 @@ public class PublicConstant {
 	public static final String PRODUCT_DETAIL_PAGE_BY_ID = "product?id=";
 	public static final String ORDER_LIST = "orderList";
 	public static final String ORDER_ID = "orderId";
-	public static final String PRODUCT_LIST_ATTRIBUTE  ="productList";
+	public static final String PRODUCT_LIST_ATTRIBUTE = "productList";
+	public static final String ORDER_FAIL_NOTIFICATION = "orderFailNotification";
+	public static final String ORDER_FAIL_NOTIFICATION_MESSAGE = "Your order has been FAIL! Please try again or contact to our customer services.";
+	
 
 	// Category controller
 	public static final String CATEGORY_URL = "/category";
@@ -175,9 +191,8 @@ public class PublicConstant {
 	public static final String HOME_JSP = "home.jsp";
 	public static final String PRODUCT_DETAIL_JSP = "product-detail.jsp";
 	public static final String SEARCH_JSP = "search-product.jsp";
-	
-	
-	//log4j
+
+	// log4j
 	public static final String THIS_IS_INFO = "This is Info!";
 	public static final String THIS_IS_WARN = "This is Warn!";
 	public static final String THIS_IS_DEBUG = "This is Debug!";

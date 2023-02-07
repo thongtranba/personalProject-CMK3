@@ -37,6 +37,9 @@ public class AuthenticationController extends HttpServlet {
 		case PublicConstant.REGISTER:
 			register(request, response);
 			break;
+		case PublicConstant.UPDATE:
+			update(request, response);
+			break;
 		case PublicConstant.LOGOUT:
 			logOut(request, response);
 			break;
@@ -62,6 +65,7 @@ public class AuthenticationController extends HttpServlet {
 				session.setAttribute(PublicConstant.CUSTOMERID, customer.getId());
 				session.setAttribute(PublicConstant.USERNAME, customer.getUsername());
 				session.setAttribute(PublicConstant.MOBILE, customer.getMobile());
+				session.setAttribute(PublicConstant.EMAIL, customer.getEmail());
 				session.setAttribute(PublicConstant.ADDRESS, customer.getAddress());
 				RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.HOME_CONTROLLER);
 				dispatcher.forward(request, response);
@@ -74,19 +78,75 @@ public class AuthenticationController extends HttpServlet {
 	private void register(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
+			int result = Integer.parseInt(PublicConstant.CONSTANT_0);
 			String username = request.getParameter(PublicConstant.USERNAME);
 			String password = request.getParameter(PublicConstant.PASSWORD);
 			String mobile = request.getParameter(PublicConstant.MOBILE);
 			String email = request.getParameter(PublicConstant.EMAIL);
 			String address = request.getParameter(PublicConstant.ADDRESS);
 			Customer newCustomer = new Customer(username, password, mobile, email, address);
-			int result = customerDAO.insertCustomer(newCustomer);
+			boolean duplicatedEmailOrMobile = customerDAO.checkDuplicatedEmailAndMobile(email, mobile);
+			if (duplicatedEmailOrMobile == true) {
+				request.setAttribute(PublicConstant.REGISTER_DUPLICATED_NOTIFICATION,
+						PublicConstant.REGISTER_DUPLICATED_NOTIFICATION_MESSAGE);
+				RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.NOTIFICATION_JSP);
+				dispatcher.forward(request, response);
+			} else {
+				result = customerDAO.insertCustomer(newCustomer);
+			}
+
 			if (result == Integer.parseInt(PublicConstant.CONSTANT_1)) {
 				request.setAttribute(PublicConstant.REGISTER_NOTIFICATION,
 						PublicConstant.REGISTER_NOTIFICATION_MESSAGE);
+				RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.NOTIFICATION_JSP);
+				dispatcher.forward(request, response);
+			} else {
+				request.setAttribute(PublicConstant.REGISTER_FAIL_NOTIFICATION,
+						PublicConstant.REGISTER_FAIL_NOTIFICATION_MESSAGE);
+				RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.NOTIFICATION_JSP);
+				dispatcher.forward(request, response);
 			}
-			RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.NOTIFICATION_JSP);
-			dispatcher.forward(request, response);
+
+		} catch (Exception e) {
+			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
+		}
+	}
+
+	private void update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			HttpSession session = request.getSession();
+			boolean result = false;
+			int customerId = (int) session.getAttribute(PublicConstant.CUSTOMERID);
+			String username = request.getParameter(PublicConstant.USERNAME);
+			String password = request.getParameter(PublicConstant.PASSWORD);
+			String mobile = request.getParameter(PublicConstant.MOBILE);
+			String email = request.getParameter(PublicConstant.EMAIL);
+			String address = request.getParameter(PublicConstant.ADDRESS);
+			Customer updateCustomer = new Customer(username, password, mobile, email, address);
+			boolean duplicatedEmailOrMobile = customerDAO.checkDuplicatedEmailAndMobile(email, mobile);
+			if (duplicatedEmailOrMobile == true) {
+				request.setAttribute(PublicConstant.UPDATE_DUPLICATED_NOTIFICATION,
+						PublicConstant.UPDATE_DUPLICATED_NOTIFICATION_MESSAGE);
+				RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.NOTIFICATION_JSP);
+				dispatcher.forward(request, response);
+			} else {
+				result = customerDAO.updateCustomer(updateCustomer, customerId);
+			}
+			if (result == true) {
+				session.removeAttribute(PublicConstant.USERNAME);
+				session.removeAttribute(PublicConstant.MOBILE);
+				session.removeAttribute(PublicConstant.ADDRESS);
+				session.removeAttribute(PublicConstant.EMAIL);
+				request.setAttribute(PublicConstant.UPDATE_NOTIFICATION, PublicConstant.UPDATE_NOTIFICATION_MESSAGE);
+				RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.NOTIFICATION_JSP);
+				dispatcher.forward(request, response);
+			} else {
+				request.setAttribute(PublicConstant.UPDATE_FAIL_NOTIFICATION,
+						PublicConstant.UPDATE_FAIL_NOTIFICATION_MESSAGE);
+				RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.NOTIFICATION_JSP);
+				dispatcher.forward(request, response);
+			}
+
 		} catch (Exception e) {
 			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
 		}
@@ -98,6 +158,7 @@ public class AuthenticationController extends HttpServlet {
 			session.removeAttribute(PublicConstant.USERNAME);
 			session.removeAttribute(PublicConstant.MOBILE);
 			session.removeAttribute(PublicConstant.ADDRESS);
+			session.removeAttribute(PublicConstant.EMAIL);
 			response.sendRedirect(PublicConstant.HOME_CONTROLLER);
 		} catch (Exception e) {
 			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());

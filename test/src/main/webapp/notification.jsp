@@ -21,24 +21,7 @@
 				</div>
 			</div>
 			<div class="row">
-				<c:if test="${registerNotification != null}">
-					<div class="col-md-12 col-xs-12 ">
-
-						${registerNotification}. To continue shopping,
-						<button class="btn btn-primary btn-login">Login</button>
-					</div>
-					<div class="col-md-12 col-xs-12 ">
-						<img
-							src="https://www.iiba.org/contentassets/a77b7d7258614d758252b46f26728dda/member-card-768x432.jpg"
-							height="70%" width="70%" />
-					</div>
-				</c:if>
-				<c:if test="${loginNotification != null}">
-					<div class="col-md-12 col-xs-12 ">
-						${loginNotification}. Try again,
-						<button class="btn btn-primary btn-login">Login</button>
-					</div>
-				</c:if>
+				<jsp:include page="layout/view-notification.jsp" />
 			</div>
 		</div>
 	</main>

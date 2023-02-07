@@ -7,7 +7,8 @@ This is a web application that demonstrates an E-commerce website using the MVC 
 - Show products by category
 - Pagination for category page
 - Sorting by product brand, price, name for category page
-- Customer register and login/logout
+- User register and login/logout
+- Update user's information
 - Show the seleacted product detail
 - Search products 
 - Add to cart

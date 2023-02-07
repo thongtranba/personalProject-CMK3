@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<form action="cart?command=SUBMIT_CART" method="POST">
 <aside class="col-md-6 cart-checkout">
 	<c:forEach var="item" items="${cart}" varStatus="status">
 		<div class="row">
@@ -22,6 +23,7 @@
 			<div class="col-xs-3 text-right">
 				<input type="hidden" name="subTotal" /> <span class="subTotal"></span>
 			</div>
+			<input type="hidden" name="JSONString" />
 		</div>
 		<hr>
 	</c:forEach>
@@ -70,7 +72,6 @@
 				oninvalid="this.setCustomValidity('type your address')"
 				oninput="this.setCustomValidity('')">
 		</div>
-
 	</div>
 	<h4>Payment</h4>
 	<div class="form-group">
@@ -86,7 +87,7 @@
 		<div></div>
 	</div>
 	<div>
-		<button id="send-products" class="btn btn-sm btn-primary pull-right ">Pay</button>
+		<button type="submit" class="btn btn-sm btn-primary pull-right ">Pay</button>
 	</div>
 </div>
-
+</form>

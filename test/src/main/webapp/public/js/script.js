@@ -27,7 +27,6 @@ $(function() {
 		$("html").animate({ scrollTop: 0 }, 800);
 	});
 
-
 	$(".btn-register").click(function() {
 		$("#modal-login").modal("hide");
 		$("#modal-register").modal("show");
@@ -231,23 +230,8 @@ $(document).ready(function() {
 
 	console.log(localStorage.getItem('cartList'));
 
-	$("#send-products").click(function() {
-		$.ajax({
-			type: "POST",
 
-			url: "cart?command=SUBMIT_CART",
-
-			data: { JSONString: localStorage.getItem('cartList') },
-
-			success: function(response) {
-				localStorage.clear();
-				window.location.href = "payment.jsp";
-			},
-			error: function(response) {
-				alear("error: try again!")
-			},
-		});
-	});
+	$("input[name=JSONString]").val(localStorage.getItem('cartList'));
 
 })
 
