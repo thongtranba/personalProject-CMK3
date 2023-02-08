@@ -15,8 +15,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import bathongshop.constant.CategoryIdEnum;
+import bathongshop.constant.ConstantDoubleEnum;
 import bathongshop.constant.SortByEnum;
-import bathongshop.constant.ConstantVariableEnum;
+import bathongshop.constant.ConstantIntegerEnum;
 import bathongshop.constant.PublicConstant;
 import bathongshop.dao.BrandDAO;
 import bathongshop.dao.ProductDAO;
@@ -68,7 +69,7 @@ public class CategoryController extends HttpServlet {
 			String sortType = takeSortTypeBySortRequest(sort);
 			int itemPerPage = Integer.parseInt(PublicConstant.ITEM_PER_PAGE);
 			int totalProducts = productDAO.totalCategoryProduct(categoryId);
-			int startItem = (pageId - ConstantVariableEnum.CONSTANT_1.getValue()) * itemPerPage;
+			int startItem = (pageId - ConstantIntegerEnum.CONSTANT_1.getValue()) * itemPerPage;
 			int totalPage = takeTotalPage(totalProducts, itemPerPage);
 			String[] sortSelect = { PublicConstant.DEFAULT_COMMAND, PublicConstant.PRICE_ASC_COMMAND,
 					PublicConstant.PRICE_DESC_COMMAND, PublicConstant.AZ_COMMAND, PublicConstant.ZA_COMMAND };
@@ -158,8 +159,7 @@ public class CategoryController extends HttpServlet {
 	}
 
 	public int takeTotalPage(int totalProducts, int itemPerPage) {
-		int totalPage = (int) Math
-				.ceil(totalProducts * Double.parseDouble(PublicConstant.CONSTANT_DOUBLE_1) / itemPerPage);
+		int totalPage = (int) Math.ceil(totalProducts * ConstantDoubleEnum.CONSTANT_1.getValue() / itemPerPage);
 		return totalPage;
 	}
 

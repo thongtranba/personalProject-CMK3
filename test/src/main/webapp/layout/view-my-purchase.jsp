@@ -8,7 +8,7 @@
 		<c:forEach var="order" items="${orderList}">
 			<div class="row">
 				<div class="col-md-12">
-					<h5 class="date">Date: ${order.createdDate}</h5>
+					<h4 class="date">Date: ${order.createdDate}</h4>
 					<span> <a
 						href="cart?command=MY_ORDER_DETAILS&orderId=${order.id}">Order
 							number: #${order.id}</a>

@@ -204,7 +204,7 @@ $(document).ready(function() {
 	});
 
 	function checkout() {
-		window.location.href = "order.jsp";
+		window.location.href = "checkout-order.jsp";
 	}
 	var total = 0;
 	var products = [];
@@ -239,7 +239,10 @@ $(document).ready(function() {
 	};
 
 	console.log(localStorage.getItem('cartList'));
-
+	
+	$("#pay-now").click(function() {
+		localStorage.clear();
+	})
 
 	$("input[name=JSONString]").val(localStorage.getItem('cartList'));
 

@@ -1,12 +1,12 @@
 package bathongshop.constant;
 
-public enum ConstantVariableEnum {
+public enum ConstantIntegerEnum {
 	
 	CONSTANT_1(1), CONSTANT_0(0);
 
 	private int value;
 
-	private ConstantVariableEnum(int value) {
+	private ConstantIntegerEnum(int value) {
 		this.value = value;
 	}
 

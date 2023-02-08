@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import bathongshop.constant.ConstantVariableEnum;
+import bathongshop.constant.ConstantIntegerEnum;
 import bathongshop.constant.NotificationEnum;
 import bathongshop.constant.PublicConstant;
 import bathongshop.dao.OrderDAO;
@@ -47,7 +47,7 @@ public class CartController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String command = request.getParameter(PublicConstant.COMMAND);
-		int productId = ConstantVariableEnum.CONSTANT_0.getValue();
+		int productId = ConstantIntegerEnum.CONSTANT_0.getValue();
 		switch (command) {
 		case PublicConstant.ADD_TO_CART:
 			productId = Integer.parseInt(request.getParameter(PublicConstant.PRODUCTID));
@@ -182,7 +182,9 @@ public class CartController extends HttpServlet {
 			throws ServletException, IOException {
 		try {
 			int id = Integer.parseInt(request.getParameter(PublicConstant.ORDER_ID));
+			int orderPayment = Integer.parseInt(request.getParameter("orderPayment"));
 			List<ProductModel> products = productDAO.selectAllProductByOrderId(id);
+			request.setAttribute("orderPayment", orderPayment);
 			request.setAttribute(PublicConstant.ORDER_ID, id);
 			request.setAttribute(PublicConstant.PRODUCT_LIST_ATTRIBUTE, products);
 			RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.MY_ORDER_DETAIL_JSP);

@@ -6,14 +6,8 @@ public class Order {
 	private int id;
 	private int customerId;
 	private Date createdDate;
+	private String paymentStatus;
 	private static Order order = null;
-
-	public static Order getOrderByCustomerId(int id, Date createdDate) {
-		if (order == null) {
-			order = new Order(id, createdDate);
-		}
-		return order;
-	}
 
 	public static Order newOrderByCustomerId(int customerId) {
 		if (order == null) {
@@ -36,14 +30,11 @@ public class Order {
 
 	}
 
-	public Order() {
-
-	}
-
-	public Order(int id, Date createdDate) {
+	public Order(int id, Date createdDate, String paymentStatus) {
 		super();
 		this.id = id;
 		this.createdDate = createdDate;
+		this.paymentStatus = paymentStatus;
 	}
 
 	public int getId() {
@@ -68,6 +59,14 @@ public class Order {
 
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
+	}
+
+	public String getPaymentStatus() {
+		return paymentStatus;
+	}
+
+	public void setPaymentStatus(String paymentStatus) {
+		this.paymentStatus = paymentStatus;
 	}
 
 }

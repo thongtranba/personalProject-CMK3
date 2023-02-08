@@ -44,7 +44,7 @@
 			<div class="col-lg-6 col-md-6 col-sm-10 hotline-search">
 				<form class="header-form" action="search">
 					<div class="input-group">
-						<input type="search" class="form-control search"
+						<input type="search" class="form-control search" required
 							placeholder="Search your products" name="search"
 							autocomplete="off" value="" />
 						<div class="input-group-btn">

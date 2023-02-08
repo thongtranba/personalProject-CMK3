@@ -7,6 +7,18 @@ public class PublicConstant {
 	public static final String jdbcUsername = "bathong";
 	public static final String jdbcPassword = "123123";
 
+	// paymentService
+	public static final String CLIENT_ID = "AYjRKHMA7XtqCrQx5JazxcgPnu7hv7dBj4M2FlgohBJgjoTc87zW-ceQo6pNvibgXzaTq8mwcQgawNC4";
+	public static final String CLIENT_SECRET = "EBbUv-XFRxbC4O49ZmP-J8zKw2xoytE06uDWYGa6_MPTC9yE6mIfxFxYmzqE7s0NAJM-zfvgXUhLqJ_x";
+	public static final String MODE = "sandbox";
+	public static final String PAYPAL = "paypal";
+	public static final String FIRSTNAME = "firstName";
+	public static final String CANCLE_URL = "http://localhost:8080/bathongshop/payment?command=CHECKOUT_PAYEMENT";
+	public static final String RETURN_URL = "http://localhost:8080/bathongshop/payment?command=REVIEW_PAYMENT";
+	public static final String EUR = "EUR";
+	public static final String SET_DESCRIPTION = "Purchase from BaThongShop";
+	public static final String APPROVAL_URL = "approval_url";
+
 	// BrandDAO
 	public static final String SELECT_ALL_BRAND = "select * from brand";
 
@@ -119,7 +131,6 @@ public class PublicConstant {
 	public static final String PRICE_COLUMN = "price";
 	public static final String NAME_COLUMN = "name";
 	public static final String ITEM_PER_PAGE = "9";
-	public static final String CONSTANT_DOUBLE_1 = "1.0";
 	public static final String BRAND_LIST = "brandList";
 	public static final String SORT_SELECT = "sortSelect";
 	public static final String SORT_SELECTED = "sortSelected";
@@ -135,6 +146,21 @@ public class PublicConstant {
 	public static final String POPULAR_PRODUCT = "popularProduct";
 	public static final String LATEST_PRODUCT = "latestProduct";
 	public static final String SERVICE_PRODUCT = "service";
+	
+	// Payment controller
+	public static final String PAYMENT_URL = "/payment";
+	public static final String PAY_COMMAND = "PAY";
+	public static final String REVIEW_PAYMENT_COMMAND = "REVIEW_PAYMENT";
+	public static final String EXECUTE_PAMENT_COMMAND = "EXECUTE_PAYMENT";
+	public static final String CHECKOUT_COMMAND = "CHECKOUT_PAYEMENT";
+	public static final String PAYMENT_ID = "paymentId";
+	public static final String PAYER_ID = "PayerID";
+	public static final String PAYER = "payer";
+	public static final String TRANSACTION = "transaction";
+	public static final String SHIPPING_ADDRESS = "shippingAddress";
+	public static final String PAYEMENT_REVIEW_JSP = "payment-review.jsp?paymentId=";
+	public static final String PAYERID_PARAMETER = "&PayerID=";
+	
 
 	// Product detail controller
 	public static final String PRODUCT_DETAIL_URL = "/product";
@@ -162,6 +188,7 @@ public class PublicConstant {
 	public static final String HOME_JSP = "home.jsp";
 	public static final String PRODUCT_DETAIL_JSP = "product-detail.jsp";
 	public static final String SEARCH_JSP = "search-product.jsp";
+	public static final String PAYMENT_RECEIPT_JSP = "payment-receipt.jsp";
 
 	// log4j
 	public static final String THIS_IS_INFO = "This is Info!";

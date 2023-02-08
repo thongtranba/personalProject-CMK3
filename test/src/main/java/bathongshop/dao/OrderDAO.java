@@ -12,7 +12,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import bathongshop.constant.ConstantVariableEnum;
+import bathongshop.constant.ConstantIntegerEnum;
 import bathongshop.constant.PublicConstant;
 import bathongshop.entity.Order;
 import bathongshop.jdbcutil.JDBCUtil;
@@ -29,7 +29,7 @@ public class OrderDAO {
 	}
 
 	public int addOrder(Order order) throws SQLException {
-		int insertedId = ConstantVariableEnum.CONSTANT_0.getValue();
+		int insertedId = ConstantIntegerEnum.CONSTANT_0.getValue();
 		try (Connection connection = JDBCUtil.getConnection()) {
 			connection.setAutoCommit(false);
 			try (PreparedStatement preparedStatement = connection.prepareStatement(PublicConstant.INSERT_NEW_ORDER,
@@ -67,18 +67,32 @@ public class OrderDAO {
 		List<Order> orders = new ArrayList<>();
 		try (Connection connection = JDBCUtil.getConnection();
 				PreparedStatement preparedStatement = connection
-						.prepareStatement(PublicConstant.SELECT_ORDER_BY_CUTOMER_ID);) {
+						.prepareStatement(PublicConstant.SELECT_ORDER_BY_CUTOMER_ID)) {
 			preparedStatement.setInt(1, customerId);
 			logger.info(preparedStatement);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				int id = rs.getInt(PublicConstant.ID);
 				Date createdDate = rs.getDate(PublicConstant.CREATED_DATE_COLUMN);
-				orders.add(new Order(id, createdDate));
+				String orderPayment = rs.getString("order_payment");
+				orders.add(new Order(id, createdDate, orderPayment));
 			}
 		} catch (Exception e) {
 			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
 		}
 		return orders;
+	}
+
+	public void updateOrderReferenceByUserId(int userId, String paypementStatus) {
+		try (Connection connection = JDBCUtil.getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(
+						"update order set payment_status = ? WHERE customer_id = ? AND order_payment is null")) {
+			preparedStatement.setInt(1, userId);
+			preparedStatement.setString(2, paypementStatus);
+			logger.info(preparedStatement);
+			preparedStatement.executeUpdate();
+		} catch (Exception e) {
+			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
+		}
 	}
 }

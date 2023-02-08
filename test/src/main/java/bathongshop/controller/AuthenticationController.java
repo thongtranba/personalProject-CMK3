@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import bathongshop.constant.ConstantVariableEnum;
+import bathongshop.constant.ConstantIntegerEnum;
 import bathongshop.constant.NotificationEnum;
 import bathongshop.constant.PublicConstant;
 import bathongshop.dao.CustomerDAO;
@@ -81,7 +81,7 @@ public class AuthenticationController extends HttpServlet {
 	private void register(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-			int result = ConstantVariableEnum.CONSTANT_0.getValue();
+			int result = ConstantIntegerEnum.CONSTANT_0.getValue();
 			String username = request.getParameter(PublicConstant.USERNAME);
 			String password = request.getParameter(PublicConstant.PASSWORD);
 			String mobile = request.getParameter(PublicConstant.MOBILE);
@@ -98,7 +98,7 @@ public class AuthenticationController extends HttpServlet {
 				result = customerDAO.insertCustomer(newCustomer);
 			}
 
-			if (result == ConstantVariableEnum.CONSTANT_1.getValue()) {
+			if (result == ConstantIntegerEnum.CONSTANT_1.getValue()) {
 				request.setAttribute(NotificationEnum.REGISTER_NOTIFICATION.getValue(),
 						NotificationEnum.REGISTER_NOTIFICATION_MESSAGE.getValue());
 				RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.NOTIFICATION_JSP);

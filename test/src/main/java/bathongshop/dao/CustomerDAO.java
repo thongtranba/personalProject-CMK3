@@ -10,7 +10,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import bathongshop.constant.ConstantVariableEnum;
+import bathongshop.constant.ConstantIntegerEnum;
 import bathongshop.constant.PublicConstant;
 import bathongshop.entity.Customer;
 import bathongshop.jdbcutil.JDBCUtil;
@@ -45,7 +45,7 @@ public class CustomerDAO {
 	}
 
 	public int insertCustomer(Customer customer) throws SQLException {
-		int result = ConstantVariableEnum.CONSTANT_0.getValue();
+		int result = ConstantIntegerEnum.CONSTANT_0.getValue();
 		try (Connection connection = JDBCUtil.getConnection()) {
 			connection.setAutoCommit(false);
 			try (PreparedStatement preparedStatement = connection
@@ -57,7 +57,7 @@ public class CustomerDAO {
 				preparedStatement.setString(5, customer.getAddress());
 				logger.info(preparedStatement);
 				result = preparedStatement.executeUpdate();
-				if (result != ConstantVariableEnum.CONSTANT_0.getValue()) {
+				if (result != ConstantIntegerEnum.CONSTANT_0.getValue()) {
 					connection.commit();
 				}
 			} catch (Exception e) {
@@ -70,7 +70,7 @@ public class CustomerDAO {
 
 	public boolean updateCustomer(Customer updateCustomer, int id) throws SQLException {
 		boolean status = false;
-		int result = ConstantVariableEnum.CONSTANT_0.getValue();
+		int result = ConstantIntegerEnum.CONSTANT_0.getValue();
 		try (Connection connection = JDBCUtil.getConnection()) {
 			connection.setAutoCommit(false);
 			try (PreparedStatement preparedStatement = connection
@@ -82,7 +82,7 @@ public class CustomerDAO {
 				preparedStatement.setString(5, updateCustomer.getAddress());
 				preparedStatement.setInt(6, id);
 				result = preparedStatement.executeUpdate();
-				if (result != ConstantVariableEnum.CONSTANT_0.getValue()) {
+				if (result != ConstantIntegerEnum.CONSTANT_0.getValue()) {
 					connection.commit();
 					status = true;
 				}
@@ -99,7 +99,7 @@ public class CustomerDAO {
 		try (Connection connection = JDBCUtil.getConnection();
 				PreparedStatement statement = connection.prepareStatement(PublicConstant.DELETE_CUSTOMER_SQL);) {
 			statement.setInt(1, id);
-			rowDeleted = statement.executeUpdate() > ConstantVariableEnum.CONSTANT_0.getValue();
+			rowDeleted = statement.executeUpdate() > ConstantIntegerEnum.CONSTANT_0.getValue();
 		}
 		return rowDeleted;
 	}

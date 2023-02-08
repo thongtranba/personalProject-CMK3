@@ -3,6 +3,7 @@
 <div class="row">
 	<div class="col-xs-6">
 		<h4 class="home-title">Order number: #${orderId}</h4>
+		<h5>Payment reference: ${orderPayment}</h5>
 	</div>
 	<aside class="col-md-12 cart-checkout">
 		<c:set var="total" value="0" />
@@ -30,7 +31,7 @@
 				</div>
 				<div class="col-md-2 col-xs-3 text-right">
 					<c:set var="subtotal" value="${inputQuantity * price}" />
-					<span> <fmt:formatNumber type="number"    groupingUsed = "false"
+					<span> <fmt:formatNumber type="number" groupingUsed="false"
 							value="${subtotal}" /> euro
 					</span>
 				</div>
@@ -41,7 +42,7 @@
 		<div class="row">
 			<div class="col-xs-6">Goods</div>
 			<div class="col-xs-6 text-right">
-				<fmt:formatNumber type="number"   groupingUsed = "false"
+				<fmt:formatNumber type="number" groupingUsed="false"
 					value="${total}" />
 				euro
 			</div>
@@ -55,7 +56,7 @@
 			<div class="col-xs-6">Total</div>
 			<div class="col-xs-6 text-right">
 				<c:set var="paymentTotal" value="${total + 3.9}" />
-				<fmt:formatNumber type="number"  groupingUsed = "false"
+				<fmt:formatNumber type="number" groupingUsed="false"
 					value="${paymentTotal}" />
 				euro
 			</div>
