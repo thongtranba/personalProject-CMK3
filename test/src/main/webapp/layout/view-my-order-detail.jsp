@@ -3,7 +3,6 @@
 <div class="row">
 	<div class="col-xs-6">
 		<h4 class="home-title">Order number: #${orderId}</h4>
-		<h5>Payment reference: ${orderPayment}</h5>
 	</div>
 	<aside class="col-md-12 cart-checkout">
 		<c:set var="total" value="0" />
@@ -60,6 +59,10 @@
 					value="${paymentTotal}" />
 				euro
 			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-6">Payment Status</div>
+			<div class="col-xs-6 text-right">${paymentStatus}</div>
 		</div>
 	</aside>
 

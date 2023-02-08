@@ -232,7 +232,7 @@ $(document).ready(function() {
 		$(".delivery-fee").html(deliveryFee + " euro");
 		$("input[name=delivery]").val(deliveryFee);
 
-		var paymentTotal = total + 3.9;
+		var paymentTotal = Math.round((total + 3.9)*100)/100;
 		$(".payment-total").html(paymentTotal + " euro");
 		$("input[name=total]").val(paymentTotal);
 

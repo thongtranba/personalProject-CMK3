@@ -40,7 +40,7 @@ public class OrderDAO {
 				preparedStatement.execute();
 				ResultSet rs = preparedStatement.getGeneratedKeys();
 				if (rs.next()) {
-					insertedId = rs.getInt(1);
+					insertedId = rs.getInt(ConstantIntegerEnum.CONSTANT_1.getValue());
 				}
 				connection.commit();
 			} catch (Exception e) {
@@ -74,7 +74,7 @@ public class OrderDAO {
 			while (rs.next()) {
 				int id = rs.getInt(PublicConstant.ID);
 				Date createdDate = rs.getDate(PublicConstant.CREATED_DATE_COLUMN);
-				String orderPayment = rs.getString("order_payment");
+				String orderPayment = rs.getString(PublicConstant.PAYMENT_STATUS_COLUMN);
 				orders.add(new Order(id, createdDate, orderPayment));
 			}
 		} catch (Exception e) {
@@ -83,12 +83,13 @@ public class OrderDAO {
 		return orders;
 	}
 
-	public void updateOrderReferenceByUserId(int userId, String paypementStatus) {
+	public void updatePaymentStatusByOrderId(int orderId) {
+		String status = PublicConstant.STATUS;
 		try (Connection connection = JDBCUtil.getConnection();
-				PreparedStatement preparedStatement = connection.prepareStatement(
-						"update order set payment_status = ? WHERE customer_id = ? AND order_payment is null")) {
-			preparedStatement.setInt(1, userId);
-			preparedStatement.setString(2, paypementStatus);
+				PreparedStatement preparedStatement = connection
+						.prepareStatement(PublicConstant.UPDATE_PAYMENT_STATUS)) {
+			preparedStatement.setString(1, status);
+			preparedStatement.setInt(2, orderId);
 			logger.info(preparedStatement);
 			preparedStatement.executeUpdate();
 		} catch (Exception e) {

@@ -182,10 +182,10 @@ public class CartController extends HttpServlet {
 			throws ServletException, IOException {
 		try {
 			int id = Integer.parseInt(request.getParameter(PublicConstant.ORDER_ID));
-			int orderPayment = Integer.parseInt(request.getParameter("orderPayment"));
+			String status = request.getParameter(PublicConstant.PAYMENT_STATUS);
 			List<ProductModel> products = productDAO.selectAllProductByOrderId(id);
-			request.setAttribute("orderPayment", orderPayment);
 			request.setAttribute(PublicConstant.ORDER_ID, id);
+			request.setAttribute(PublicConstant.PAYMENT_STATUS, status);
 			request.setAttribute(PublicConstant.PRODUCT_LIST_ATTRIBUTE, products);
 			RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.MY_ORDER_DETAIL_JSP);
 			dispatcher.forward(request, response);

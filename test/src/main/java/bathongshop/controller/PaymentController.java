@@ -1,6 +1,7 @@
 package bathongshop.controller;
 
 import java.io.IOException;
+import java.net.http.HttpClient.Redirect;
 import java.sql.SQLException;
 
 import java.util.Arrays;
@@ -68,7 +69,7 @@ public class PaymentController extends HttpServlet {
 			executePayment(request, response);
 			break;
 		case PublicConstant.CHECKOUT_COMMAND:
-			orderSummary(request, response);
+			checkoutOrder(request, response);
 			break;
 		}
 	}
@@ -83,11 +84,12 @@ public class PaymentController extends HttpServlet {
 			for (OrderedModel orderedModel : orderProducts) {
 				orderList.put(orderedModel.getProductId(), orderedModel.getQuantity());
 			}
-			
+
 			HttpSession session = request.getSession(false);
 			int customerId = (int) session.getAttribute(PublicConstant.CUSTOMERID);
 			Order order = Order.newOrderByCustomerId(customerId);
 			int orderId = orderDAO.addOrder(order);
+			session.setAttribute(PublicConstant.ORDER_ID, orderId);
 			for (int key : orderList.keySet()) {
 				OrderItem orderItem = new OrderItem(key, orderList.get(key), orderId);
 				boolean orderStatus = orderItemDAO.addOrderItem(orderItem);
@@ -97,7 +99,7 @@ public class PaymentController extends HttpServlet {
 					productDAO.updateQuantityByProductId(key, newQuantity);
 				}
 			}
-			
+
 			List<ProductModel> products = productDAO.selectAllProductByOrderId(orderId);
 			double subtotal = calculateSubTotal(orderId);
 			double shippingFee = ConstantDoubleEnum.CONSTANT_SHIPPINGFEE.getValue();
@@ -182,16 +184,19 @@ public class PaymentController extends HttpServlet {
 	protected void executePayment(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
+
 			String paymentId = request.getParameter(PublicConstant.PAYMENT_ID);
 			String payerId = request.getParameter(PublicConstant.PAYER_ID);
-
+			HttpSession session = request.getSession();
+			int orderId = (int) session.getAttribute(PublicConstant.ORDER_ID);
 			PaymentService paymentServices = new PaymentService();
 			Payment payment = paymentServices.executePayment(paymentId, payerId);
 			PayerInfo payerInfo = payment.getPayer().getPayerInfo();
 			Transaction transaction = payment.getTransactions().get(ConstantIntegerEnum.CONSTANT_0.getValue());
-			
-			HttpSession session = request.getSession();
+			orderDAO.updatePaymentStatusByOrderId(orderId);
+
 			session.removeAttribute(PublicConstant.CART);
+			session.removeAttribute(PublicConstant.ORDER_ID);
 			request.setAttribute(PublicConstant.PAYER, payerInfo);
 			request.setAttribute(PublicConstant.TRANSACTION, transaction);
 			request.getRequestDispatcher(PublicConstant.PAYMENT_RECEIPT_JSP).forward(request, response);
@@ -201,19 +206,12 @@ public class PaymentController extends HttpServlet {
 		}
 	}
 
-	protected void orderSummary(HttpServletRequest request, HttpServletResponse response)
+	protected void checkoutOrder(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		HttpSession session = request.getSession(false);
+
 		try {
-			int customerId = (int) session.getAttribute(PublicConstant.CUSTOMERID);
-			double subTotal = 0;
-			double shippingFee = 3.9;
-			double total = subTotal + shippingFee;
-			session.setAttribute("subTotal", subTotal);
-			session.setAttribute("shippingFee", shippingFee);
-			session.setAttribute("total", total);
-			RequestDispatcher dp = request.getRequestDispatcher("checkout.jsp");
-			dp.forward(request, response);
+			response.sendRedirect(PublicConstant.CHECKOUT_ORDER_JSP);
+
 		} catch (Exception e) {
 			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
 		}

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 import bathongshop.constant.PublicConstant;
 import bathongshop.dao.ProductDAO;
 import bathongshop.entity.Product;
@@ -39,6 +40,7 @@ public class HomeController extends HttpServlet {
 			List<Product> popularProduct = productDAO.selectPopularProducts();
 			List<Product> lastestProduct = productDAO.selectLatestProducts();
 			List<Product> service = productDAO.selectService();
+						
 			request.setAttribute(PublicConstant.POPULAR_PRODUCT, popularProduct);
 			request.setAttribute(PublicConstant.LATEST_PRODUCT, lastestProduct);
 			request.setAttribute(PublicConstant.SERVICE_PRODUCT, service);

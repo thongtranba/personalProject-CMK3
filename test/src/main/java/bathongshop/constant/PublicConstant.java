@@ -36,7 +36,10 @@ public class PublicConstant {
 	public static final String INSERT_NEW_ORDER = "INSERT INTO `order` (customer_id, created_date) VALUES (?, ?)";
 	public static final String SELECT_ORDER_BY_CUTOMER_ID = "select * from bathongshop.order where customer_id = ?";
 	public static final String CREATED_DATE_COLUMN = "created_date";
+	public static final String PAYMENT_STATUS_COLUMN = "payment_status";
 	public static final String DELETE_ORDER_BY_ORDER_ID = "delete from bathongshop.order where id =?";
+	public static final String STATUS = "paid";
+	public static final String UPDATE_PAYMENT_STATUS = "update bathongshop.order set payment_status = ? where id=?";
 
 	// OrderItemDAO
 	public static final String INSERT_ORDER_ITEM = "INSERT order_item (order_id, product_id, quantity) VALUES (?, ?, ?)";
@@ -108,6 +111,7 @@ public class PublicConstant {
 	public static final String PRODUCT_DETAIL_PAGE_BY_ID = "product?id=";
 	public static final String ORDER_LIST = "orderList";
 	public static final String ORDER_ID = "orderId";
+	public static final String PAYMENT_STATUS = "paymentStatus";
 	public static final String PRODUCT_LIST_ATTRIBUTE = "productList";
 
 	// Category controller
@@ -189,6 +193,7 @@ public class PublicConstant {
 	public static final String PRODUCT_DETAIL_JSP = "product-detail.jsp";
 	public static final String SEARCH_JSP = "search-product.jsp";
 	public static final String PAYMENT_RECEIPT_JSP = "payment-receipt.jsp";
+	public static final String CHECKOUT_ORDER_JSP = "checkout-order.jsp";
 
 	// log4j
 	public static final String THIS_IS_INFO = "This is Info!";
