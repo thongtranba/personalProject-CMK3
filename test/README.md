@@ -69,12 +69,12 @@ Here are some screenshots that show the E-commerce demo application in use
 ![App Screenshot](https://live.staticflickr.com/65535/52586089415_ea965032f1_k.jpg)
 
 #### My purchase:
+![App Screenshot](https://live.staticflickr.com/65535/52623597929_cded077ea5_k.jpg)
+
+#### Payment by PAYPAL:
 ![App Screenshot](https://live.staticflickr.com/65535/52677616764_3178036d69_k.jpg)
 
 ![App Screenshot](https://live.staticflickr.com/65535/52677616774_b7354e3ba6_k.jpg)
-
-#### Payment by PAYPAL:
-![App Screenshot](https://live.staticflickr.com/65535/52623597929_cded077ea5_k.jpg)
 
 #### Order detail:
 ![App Screenshot](https://live.staticflickr.com/65535/52623826233_8328dc8900_k.jpg)
