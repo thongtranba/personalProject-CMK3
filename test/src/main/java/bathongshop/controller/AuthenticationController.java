@@ -13,6 +13,8 @@ import javax.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import bathongshop.constant.ConstantVariableEnum;
+import bathongshop.constant.NotificationEnum;
 import bathongshop.constant.PublicConstant;
 import bathongshop.dao.CustomerDAO;
 import bathongshop.entity.Customer;
@@ -57,7 +59,8 @@ public class AuthenticationController extends HttpServlet {
 			String password = request.getParameter(PublicConstant.PASSWORD);
 			Customer customer = customerDAO.validate(email, password);
 			if (customer == null) {
-				request.setAttribute(PublicConstant.LOGIN_NOTIFICATION, PublicConstant.LOGIN_NOTIFICATION_MESSAGE);
+				request.setAttribute(NotificationEnum.LOGIN_NOTIFICATION.getValue(),
+						NotificationEnum.LOGIN_NOTIFICATION_MESSAGE.getValue());
 				RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.NOTIFICATION_JSP);
 				dispatcher.forward(request, response);
 			} else {
@@ -78,7 +81,7 @@ public class AuthenticationController extends HttpServlet {
 	private void register(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-			int result = Integer.parseInt(PublicConstant.CONSTANT_0);
+			int result = ConstantVariableEnum.CONSTANT_0.getValue();
 			String username = request.getParameter(PublicConstant.USERNAME);
 			String password = request.getParameter(PublicConstant.PASSWORD);
 			String mobile = request.getParameter(PublicConstant.MOBILE);
@@ -87,22 +90,22 @@ public class AuthenticationController extends HttpServlet {
 			Customer newCustomer = new Customer(username, password, mobile, email, address);
 			boolean duplicatedEmailOrMobile = customerDAO.checkDuplicatedEmailAndMobile(email, mobile);
 			if (duplicatedEmailOrMobile == true) {
-				request.setAttribute(PublicConstant.REGISTER_DUPLICATED_NOTIFICATION,
-						PublicConstant.REGISTER_DUPLICATED_NOTIFICATION_MESSAGE);
+				request.setAttribute(NotificationEnum.REGISTER_DUPLICATED_NOTIFICATION.getValue(),
+						NotificationEnum.REGISTER_DUPLICATED_NOTIFICATION_MESSAGE.getValue());
 				RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.NOTIFICATION_JSP);
 				dispatcher.forward(request, response);
 			} else {
 				result = customerDAO.insertCustomer(newCustomer);
 			}
 
-			if (result == Integer.parseInt(PublicConstant.CONSTANT_1)) {
-				request.setAttribute(PublicConstant.REGISTER_NOTIFICATION,
-						PublicConstant.REGISTER_NOTIFICATION_MESSAGE);
+			if (result == ConstantVariableEnum.CONSTANT_1.getValue()) {
+				request.setAttribute(NotificationEnum.REGISTER_NOTIFICATION.getValue(),
+						NotificationEnum.REGISTER_NOTIFICATION_MESSAGE.getValue());
 				RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.NOTIFICATION_JSP);
 				dispatcher.forward(request, response);
 			} else {
-				request.setAttribute(PublicConstant.REGISTER_FAIL_NOTIFICATION,
-						PublicConstant.REGISTER_FAIL_NOTIFICATION_MESSAGE);
+				request.setAttribute(NotificationEnum.REGISTER_FAIL_NOTIFICATION.getValue(),
+						NotificationEnum.REGISTER_FAIL_NOTIFICATION_MESSAGE.getValue());
 				RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.NOTIFICATION_JSP);
 				dispatcher.forward(request, response);
 			}
@@ -125,8 +128,8 @@ public class AuthenticationController extends HttpServlet {
 			Customer updateCustomer = new Customer(username, password, mobile, email, address);
 			boolean duplicatedEmailOrMobile = customerDAO.checkDuplicatedEmailAndMobile(email, mobile);
 			if (duplicatedEmailOrMobile == true) {
-				request.setAttribute(PublicConstant.UPDATE_DUPLICATED_NOTIFICATION,
-						PublicConstant.UPDATE_DUPLICATED_NOTIFICATION_MESSAGE);
+				request.setAttribute(NotificationEnum.UPDATE_DUPLICATED_NOTIFICATION.getValue(),
+						NotificationEnum.UPDATE_DUPLICATED_NOTIFICATION_MESSAGE.getValue());
 				RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.NOTIFICATION_JSP);
 				dispatcher.forward(request, response);
 			} else {
@@ -137,12 +140,13 @@ public class AuthenticationController extends HttpServlet {
 				session.removeAttribute(PublicConstant.MOBILE);
 				session.removeAttribute(PublicConstant.ADDRESS);
 				session.removeAttribute(PublicConstant.EMAIL);
-				request.setAttribute(PublicConstant.UPDATE_NOTIFICATION, PublicConstant.UPDATE_NOTIFICATION_MESSAGE);
+				request.setAttribute(NotificationEnum.UPDATE_NOTIFICATION.getValue(),
+						NotificationEnum.UPDATE_NOTIFICATION_MESSAGE.getValue());
 				RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.NOTIFICATION_JSP);
 				dispatcher.forward(request, response);
 			} else {
-				request.setAttribute(PublicConstant.UPDATE_FAIL_NOTIFICATION,
-						PublicConstant.UPDATE_FAIL_NOTIFICATION_MESSAGE);
+				request.setAttribute(NotificationEnum.UPDATE_FAIL_NOTIFICATION.getValue(),
+						NotificationEnum.UPDATE_FAIL_NOTIFICATION_MESSAGE.getValue());
 				RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.NOTIFICATION_JSP);
 				dispatcher.forward(request, response);
 			}

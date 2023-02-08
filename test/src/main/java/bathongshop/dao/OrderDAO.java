@@ -12,6 +12,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import bathongshop.constant.ConstantVariableEnum;
 import bathongshop.constant.PublicConstant;
 import bathongshop.entity.Order;
 import bathongshop.jdbcutil.JDBCUtil;
@@ -28,7 +29,7 @@ public class OrderDAO {
 	}
 
 	public int addOrder(Order order) throws SQLException {
-		int insertedId = Integer.parseInt(PublicConstant.CONSTANT_0);
+		int insertedId = ConstantVariableEnum.CONSTANT_0.getValue();
 		try (Connection connection = JDBCUtil.getConnection()) {
 			connection.setAutoCommit(false);
 			try (PreparedStatement preparedStatement = connection.prepareStatement(PublicConstant.INSERT_NEW_ORDER,

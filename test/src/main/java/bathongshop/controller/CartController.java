@@ -21,6 +21,8 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import bathongshop.constant.ConstantVariableEnum;
+import bathongshop.constant.NotificationEnum;
 import bathongshop.constant.PublicConstant;
 import bathongshop.dao.OrderDAO;
 import bathongshop.dao.OrderItemDAO;
@@ -45,7 +47,7 @@ public class CartController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String command = request.getParameter(PublicConstant.COMMAND);
-		int productId = Integer.parseInt(PublicConstant.CONSTANT_0);
+		int productId = ConstantVariableEnum.CONSTANT_0.getValue();
 		switch (command) {
 		case PublicConstant.ADD_TO_CART:
 			productId = Integer.parseInt(request.getParameter(PublicConstant.PRODUCTID));
@@ -82,11 +84,11 @@ public class CartController extends HttpServlet {
 			if (cart == null) {
 				cart = new HashMap<Integer, ProductModel>();
 			}
-			String notification = PublicConstant.ADD_TO_CART_NOTIFICATION_MESSAGE;
+			String notification = NotificationEnum.ADD_TO_CART_NOTIFICATION_MESSAGE.getValue();
 			cart.put(product.getId(), product);
 			session.setAttribute(PublicConstant.CART, cart);
 			request.setAttribute(PublicConstant.PRODUCT, product);
-			request.setAttribute(PublicConstant.ADD_TO_CART_NOTIFICATION, notification);
+			request.setAttribute(NotificationEnum.ADD_TO_CART_NOTIFICATION.getValue(), notification);
 			RequestDispatcher dispatcher = request
 					.getRequestDispatcher(PublicConstant.PRODUCT_DETAIL_PAGE_BY_ID + productId);
 			dispatcher.forward(request, response);
@@ -135,8 +137,8 @@ public class CartController extends HttpServlet {
 			}
 			if (flag == true) {
 				orderDAO.deleteOrderByOrderId(orderId);
-				request.setAttribute(PublicConstant.ORDER_FAIL_NOTIFICATION,
-						PublicConstant.ORDER_FAIL_NOTIFICATION_MESSAGE);
+				request.setAttribute(NotificationEnum.ORDER_FAIL_NOTIFICATION.getValue(),
+						NotificationEnum.ORDER_FAIL_NOTIFICATION_MESSAGE.getValue());
 				RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.NOTIFICATION_JSP);
 				dispatcher.forward(request, response);
 			} else {

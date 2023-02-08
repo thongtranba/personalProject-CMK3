@@ -77,24 +77,10 @@ public class PublicConstant {
 	public static final String UPDATE = "UPDATE";
 	public static final String EMAIL = "email";
 	public static final String PASSWORD = "password";
-	public static final String LOGIN_NOTIFICATION = "loginNotification";
-	public static final String LOGIN_NOTIFICATION_MESSAGE = "Login fail!!";
 	public static final String CUSTOMERID = "customerId";
 	public static final String USERNAME = "username";
 	public static final String MOBILE = "mobile";
 	public static final String ADDRESS = "address";
-	public static final String REGISTER_NOTIFICATION = "registerNotification";
-	public static final String REGISTER_NOTIFICATION_MESSAGE = "Registered Successfully!";
-	public static final String REGISTER_DUPLICATED_NOTIFICATION = "duplicatedNotification";
-	public static final String REGISTER_DUPLICATED_NOTIFICATION_MESSAGE = "Your email or mobile has been used! Please, try a new one";
-	public static final String REGISTER_FAIL_NOTIFICATION = "registerFailNotification";
-	public static final String REGISTER_FAIL_NOTIFICATION_MESSAGE = "Register Fail! Please try again or contact to our customer service";
-	public static final String UPDATE_NOTIFICATION = "updateNotification";
-	public static final String UPDATE_NOTIFICATION_MESSAGE = "Updated Successfully!";
-	public static final String UPDATE_DUPLICATED_NOTIFICATION = "updateDuplicatedNotification";
-	public static final String UPDATE_DUPLICATED_NOTIFICATION_MESSAGE = "Your email or mobile has been used! Please, try a new one to update your account";
-	public static final String UPDATE_FAIL_NOTIFICATION = "updateFAILNotification";
-	public static final String UPDATE_FAIL_NOTIFICATION_MESSAGE = "Update Fail! Please try again or contact to our customer service";
 
 	// Cart controller
 	public static final String CART_URL = "/cart";
@@ -106,16 +92,11 @@ public class PublicConstant {
 	public static final String PRODUCTID = "productId";
 	public static final String JSON_STRING = "JSONString";
 	public static final String CART = "cart";
-	public static final String ADD_TO_CART_NOTIFICATION_MESSAGE = "you added to cart! check your cart.";
 	public static final String PRODUCT = "product";
-	public static final String ADD_TO_CART_NOTIFICATION = "notification";
 	public static final String PRODUCT_DETAIL_PAGE_BY_ID = "product?id=";
 	public static final String ORDER_LIST = "orderList";
 	public static final String ORDER_ID = "orderId";
 	public static final String PRODUCT_LIST_ATTRIBUTE = "productList";
-	public static final String ORDER_FAIL_NOTIFICATION = "orderFailNotification";
-	public static final String ORDER_FAIL_NOTIFICATION_MESSAGE = "Your order has been FAIL! Please try again or contact to our customer services.";
-	
 
 	// Category controller
 	public static final String CATEGORY_URL = "/category";
@@ -125,17 +106,11 @@ public class PublicConstant {
 	public static final String PAGEID_PARAMETER = "pageId";
 	public static final String SORT_PARAMETER = "sort";
 	public static final String BRAND_ID = "brandId";
-	public static final String CATEGORYID_DEFAULT = "0";
 	public static final String RACKETS_PAGE_COMMAND = "rackets";
 	public static final String BAGS_PAGE_COMMAND = "bags";
 	public static final String CLOTHING_PAGE_COMMAND = "clothing";
 	public static final String SHOES_PAGE_COMMAND = "shoes";
 	public static final String STRING_PAGE_COMMAND = "strings";
-	public static final String RACKETS_CATEGORYID = "1";
-	public static final String BAGS_CATEGORYID = "2";
-	public static final String CLOTHING_CATEGORYID = "3";
-	public static final String SHOES_CATEGORYID = "4";
-	public static final String STRING_CATEGORYID = "5";
 	public static final String DEFAULT_COMMAND = "Default";
 	public static final String PRICE_ASC_COMMAND = "Price ASC";
 	public static final String PRICE_DESC_COMMAND = "Price DESC";
@@ -143,10 +118,7 @@ public class PublicConstant {
 	public static final String ZA_COMMAND = "ZA";
 	public static final String PRICE_COLUMN = "price";
 	public static final String NAME_COLUMN = "name";
-	public static final String ASC = " ASC";
-	public static final String DESC = " DESC";
 	public static final String ITEM_PER_PAGE = "9";
-	public static final String CONSTANT_1 = "1";
 	public static final String CONSTANT_DOUBLE_1 = "1.0";
 	public static final String BRAND_LIST = "brandList";
 	public static final String SORT_SELECT = "sortSelect";
@@ -179,7 +151,6 @@ public class PublicConstant {
 	public static final String ID = "id";
 	public static final String EMPTY_STRING = "";
 	public static final String ALL_PRODUCT = "products:: ";
-	public static final String CONSTANT_0 = "0";
 
 	// JSP page
 	public static final String NOTIFICATION_JSP = "notification.jsp";

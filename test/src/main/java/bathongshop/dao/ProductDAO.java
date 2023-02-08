@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.apache.logging.log4j.*;
 
+import bathongshop.constant.ConstantVariableEnum;
 import bathongshop.constant.PublicConstant;
 import bathongshop.entity.Product;
 import bathongshop.jdbcutil.JDBCUtil;
@@ -68,7 +69,7 @@ public class ProductDAO {
 	}
 
 	public int takeInventoryQuantity(int productId) {
-		int inventoryQuantity = Integer.parseInt(PublicConstant.CONSTANT_0);
+		int inventoryQuantity = ConstantVariableEnum.CONSTANT_0.getValue();
 		try (Connection connection = JDBCUtil.getConnection();
 				PreparedStatement preparedStatement = connection
 						.prepareStatement(PublicConstant.TAKE_INVENTORY_QUANTITY)) {
@@ -92,7 +93,7 @@ public class ProductDAO {
 			preparedStatement.setInt(1, quantity);
 			preparedStatement.setInt(2, productId);
 			logger.info(preparedStatement);
-			rowUpdated = preparedStatement.executeUpdate() > Integer.parseInt(PublicConstant.CONSTANT_0);
+			rowUpdated = preparedStatement.executeUpdate() > ConstantVariableEnum.CONSTANT_0.getValue();
 		}
 		return rowUpdated;
 	}
@@ -102,7 +103,7 @@ public class ProductDAO {
 		try (Connection connection = JDBCUtil.getConnection();
 				PreparedStatement statement = connection.prepareStatement(PublicConstant.DELETE_PRODUCT_SQL);) {
 			statement.setInt(1, id);
-			rowDeleted = statement.executeUpdate() > Integer.parseInt(PublicConstant.CONSTANT_0);
+			rowDeleted = statement.executeUpdate() > ConstantVariableEnum.CONSTANT_0.getValue();
 		}
 		return rowDeleted;
 	}
@@ -237,7 +238,7 @@ public class ProductDAO {
 	}
 
 	public int totalCategoryProduct(int categoryId) {
-		int totalProducts = Integer.parseInt(PublicConstant.CONSTANT_0);
+		int totalProducts = ConstantVariableEnum.CONSTANT_0.getValue();
 		try (Connection connection = JDBCUtil.getConnection();
 				PreparedStatement preparedStatement = connection
 						.prepareStatement(PublicConstant.COUNT_CATEGORY_PRODUCTS);) {
@@ -256,7 +257,7 @@ public class ProductDAO {
 	public List<Product> selectAllProductByCategoryId(int categoryId, int startItem, int itemPerPage, String sortColumn,
 			String sortType, int brandId) {
 		List<Product> products = new ArrayList<>();
-		if (brandId == Integer.parseInt(PublicConstant.CONSTANT_0)) {
+		if (brandId == ConstantVariableEnum.CONSTANT_0.getValue()) {
 			try (Connection connection = JDBCUtil.getConnection();
 					PreparedStatement preparedStatement = connection
 							.prepareStatement(PublicConstant.SELECT_PRODUCT_ORDER_BY + sortColumn + sortType

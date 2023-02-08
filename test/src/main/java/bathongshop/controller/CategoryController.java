@@ -14,6 +14,9 @@ import javax.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import bathongshop.constant.CategoryIdEnum;
+import bathongshop.constant.SortByEnum;
+import bathongshop.constant.ConstantVariableEnum;
 import bathongshop.constant.PublicConstant;
 import bathongshop.dao.BrandDAO;
 import bathongshop.dao.ProductDAO;
@@ -59,13 +62,13 @@ public class CategoryController extends HttpServlet {
 					: PublicConstant.DEFAULT_COMMAND;
 			int brandId = request.getParameter(PublicConstant.BRAND_ID) != null
 					? Integer.parseInt(request.getParameter(PublicConstant.BRAND_ID))
-					: Integer.parseInt(PublicConstant.CATEGORYID_DEFAULT);
+					: CategoryIdEnum.CATEGORYID_DEFAULT.getValue();
 			int categoryId = takeCategoryIdByCategoryPage(categoryPage);
 			String sortColumn = takeSortColumnBySortRequest(sort);
 			String sortType = takeSortTypeBySortRequest(sort);
 			int itemPerPage = Integer.parseInt(PublicConstant.ITEM_PER_PAGE);
 			int totalProducts = productDAO.totalCategoryProduct(categoryId);
-			int startItem = (pageId - Integer.parseInt(PublicConstant.CONSTANT_1)) * itemPerPage;
+			int startItem = (pageId - ConstantVariableEnum.CONSTANT_1.getValue()) * itemPerPage;
 			int totalPage = takeTotalPage(totalProducts, itemPerPage);
 			String[] sortSelect = { PublicConstant.DEFAULT_COMMAND, PublicConstant.PRICE_ASC_COMMAND,
 					PublicConstant.PRICE_DESC_COMMAND, PublicConstant.AZ_COMMAND, PublicConstant.ZA_COMMAND };
@@ -95,16 +98,16 @@ public class CategoryController extends HttpServlet {
 			sortColumn = PublicConstant.ID;
 			break;
 		case PublicConstant.PRICE_ASC_COMMAND:
-			sortColumn = PublicConstant.PRICE_COLUMN;
+			sortColumn = SortByEnum.PRICE_COLUMN.getString();
 			break;
 		case PublicConstant.PRICE_DESC_COMMAND:
-			sortColumn = PublicConstant.PRICE_COLUMN;
+			sortColumn = SortByEnum.PRICE_COLUMN.getString();
 			break;
 		case PublicConstant.AZ_COMMAND:
-			sortColumn = PublicConstant.NAME_COLUMN;
+			sortColumn = SortByEnum.NAME_COLUMN.getString();
 			break;
 		case PublicConstant.ZA_COMMAND:
-			sortColumn = PublicConstant.NAME_COLUMN;
+			sortColumn = SortByEnum.NAME_COLUMN.getString();
 			break;
 		}
 		return sortColumn;
@@ -114,41 +117,41 @@ public class CategoryController extends HttpServlet {
 		String sortType = PublicConstant.EMPTY_STRING;
 		switch (sort) {
 		case PublicConstant.DEFAULT_COMMAND:
-			sortType = PublicConstant.ASC;
+			sortType = SortByEnum.ASC.getString();
 			break;
 		case PublicConstant.PRICE_ASC_COMMAND:
-			sortType = PublicConstant.ASC;
+			sortType = SortByEnum.ASC.getString();
 			break;
 		case PublicConstant.PRICE_DESC_COMMAND:
-			sortType = PublicConstant.DESC;
+			sortType = SortByEnum.DESC.getString();
 			break;
 		case PublicConstant.AZ_COMMAND:
-			sortType = PublicConstant.ASC;
+			sortType = SortByEnum.ASC.getString();
 			break;
 		case PublicConstant.ZA_COMMAND:
-			sortType = PublicConstant.DESC;
+			sortType = SortByEnum.DESC.getString();
 			break;
 		}
 		return sortType;
 	}
 
 	public int takeCategoryIdByCategoryPage(String categoryPage) {
-		int categoryId = Integer.parseInt(PublicConstant.CATEGORYID_DEFAULT);
+		int categoryId = CategoryIdEnum.CATEGORYID_DEFAULT.getValue();
 		switch (categoryPage) {
 		case PublicConstant.RACKETS_PAGE_COMMAND:
-			categoryId = Integer.parseInt(PublicConstant.RACKETS_CATEGORYID);
+			categoryId = CategoryIdEnum.RACKETS_CATEGORYID.getValue();
 			break;
 		case PublicConstant.BAGS_PAGE_COMMAND:
-			categoryId = Integer.parseInt(PublicConstant.BAGS_CATEGORYID);
+			categoryId = CategoryIdEnum.BAGS_CATEGORYID.getValue();
 			break;
 		case PublicConstant.CLOTHING_PAGE_COMMAND:
-			categoryId = Integer.parseInt(PublicConstant.CLOTHING_CATEGORYID);
+			categoryId = CategoryIdEnum.CLOTHING_CATEGORYID.getValue();
 			break;
 		case PublicConstant.SHOES_PAGE_COMMAND:
-			categoryId = Integer.parseInt(PublicConstant.SHOES_CATEGORYID);
+			categoryId = CategoryIdEnum.SHOES_CATEGORYID.getValue();
 			break;
 		case PublicConstant.STRING_PAGE_COMMAND:
-			categoryId = Integer.parseInt(PublicConstant.STRING_CATEGORYID);
+			categoryId = CategoryIdEnum.STRING_CATEGORYID.getValue();
 			break;
 		}
 		return categoryId;

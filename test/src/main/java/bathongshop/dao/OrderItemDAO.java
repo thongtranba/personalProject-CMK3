@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import bathongshop.constant.ConstantVariableEnum;
 import bathongshop.constant.PublicConstant;
 import bathongshop.entity.OrderItem;
 import bathongshop.jdbcutil.JDBCUtil;
@@ -24,7 +25,7 @@ public class OrderItemDAO {
 
 	public boolean addOrderItem(OrderItem orderItem) throws SQLException {
 		boolean status = false;
-		int result = Integer.parseInt(PublicConstant.CONSTANT_0);
+		int result = ConstantVariableEnum.CONSTANT_0.getValue();
 		try (Connection connection = JDBCUtil.getConnection()) {
 			connection.setAutoCommit(false);
 			try (PreparedStatement preparedStatement = connection.prepareStatement(PublicConstant.INSERT_ORDER_ITEM)) {
@@ -33,7 +34,7 @@ public class OrderItemDAO {
 				preparedStatement.setInt(2, orderItem.getProductId());
 				preparedStatement.setInt(3, orderItem.getQuantity());
 				result = preparedStatement.executeUpdate();
-				if (result != Integer.parseInt(PublicConstant.CONSTANT_0)) {
+				if (result != ConstantVariableEnum.CONSTANT_0.getValue()) {
 					connection.commit();
 					status = true;
 				}
