@@ -52,8 +52,7 @@
 										</div>
 										<div class="col-sm-6 col-md-2">
 											<input class="productId" type="hidden"
-												value="${item.value.id}"> 
-												<a class="product-name"
+												value="${item.value.id}"> <a class="product-name"
 												href="product?id=${item.value.id}">${item.value.name }</a>
 										</div>
 										<div class="col-sm-6 col-md-2">
@@ -71,7 +70,7 @@
 										</div>
 										<div class="col-sm-6 col-md-2">
 
-											<input name="inputQty" class="cartQtyInput" type="number"
+											<input type="number" name="inputQty" id="inputQty" class="cartQtyInput"
 												value="1" min="1" max="${item.value.inventoryQuantity}">
 
 

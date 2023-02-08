@@ -120,7 +120,7 @@ public class CartController extends HttpServlet {
 			}
 			HttpSession session = request.getSession();
 			int customerId = (int) session.getAttribute(PublicConstant.CUSTOMERID);
-			Order order = Order.NewOrderByCustomerId(customerId);
+			Order order = Order.newOrderByCustomerId(customerId);
 			int orderId = orderDAO.addOrder(order);
 			boolean flag = false;
 			for (int key : orderList.keySet()) {

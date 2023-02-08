@@ -15,7 +15,7 @@ public class Order {
 		return order;
 	}
 
-	public static Order NewOrderByCustomerId(int customerId) {
+	public static Order newOrderByCustomerId(int customerId) {
 		if (order == null) {
 			order = new Order(customerId);
 		}

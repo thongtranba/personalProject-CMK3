@@ -140,15 +140,17 @@ $(document).ready(function() {
 	var cartItems = $(".totalItem").val();
 	console.log("cart: " + cartItems);
 
-	$(".btn-cart-detail").click(function() {
+	$(".btn-cart-detail").click(function(event) {
+		event.preventDefault();
 		$("#modal-cart-detail").modal("show");
 		totalprice();
 	});
 
-	$("input[name=inputQty").on('click', function(event) {
+	$("input[name=inputQty]").on("click", function(event) {
 		event.preventDefault();
-		inputQty = $('.cartQtyInput').val();
+		var inputQty = $(".cartQtyInput").val();
 		totalprice(inputQty);
+
 	});
 
 	function totalprice() {
@@ -158,16 +160,24 @@ $(document).ready(function() {
 		var subtotal = 0;
 
 		for (var i = 0; i < cartItems; i++) {
-			inputQty = $(".cartQtyInput").eq(i).val();
+			var productId = $(".productId").eq(i).val();
+			if ($(".cartQtyInput").eq(i).val() == 1 && localStorage.getItem(productId)) {
+				inputQty = JSON.parse(localStorage.getItem(productId));
+				$(".cartQtyInput").eq(i).val(inputQty)
+			} else {
+				inputQty = $(".cartQtyInput").eq(i).val();
+			}
 			console.log("inputQty: " + inputQty);
-
 			price = $(".cart-price").eq(i).text();
 			subtotal = Math.round((inputQty * price) * 100) / 100;
 			console.log("subtotal: " + subtotal);
+			var productId = $(".productId").eq(i).val();
+			localStorage.setItem(productId, inputQty);
+			$(".remove-product").eq(i).click(function() {
+				localStorage.removeItem(productId);
 
-
+			});
 			$(".subTotal").eq(i).html(subtotal + " euro");
-
 			total = total + (price * inputQty);
 		}
 
@@ -175,7 +185,7 @@ $(document).ready(function() {
 		$(".price-total").html(total + " euro");
 	}
 
-	$("input[name=checkout]").on('click', function(event) {
+	$("input[name=checkout]").on('click', function() {
 		var cartList = [];
 
 		for (var i = 0; i < cartItems; i++) {
