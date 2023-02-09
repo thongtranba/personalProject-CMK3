@@ -161,13 +161,17 @@ $(document).ready(function() {
 
 		for (var i = 0; i < cartItems; i++) {
 			var productId = $(".productId").eq(i).val();
-			if ($(".cartQtyInput").eq(i).val() == 0 && localStorage.getItem(productId)) {
+			if ($(".cartQtyInput").eq(i).val() == 0 && !localStorage.getItem(productId)) {
+				inputQty = 1;
+				$(".cartQtyInput").eq(i).val(inputQty);
+			} else if ($(".cartQtyInput").eq(i).val() == 0 && localStorage.getItem(productId)) {
 				inputQty = JSON.parse(localStorage.getItem(productId));
 				$(".cartQtyInput").eq(i).val(inputQty)
 			} else {
 				inputQty = $(".cartQtyInput").eq(i).val();
 			}
 			console.log("inputQty: " + inputQty);
+
 			price = $(".cart-price").eq(i).text();
 			subtotal = Math.round((inputQty * price) * 100) / 100;
 			console.log("subtotal: " + subtotal);
