@@ -52,6 +52,6 @@
 	<classpathentry kind="lib" path="D:/Informatics job/Java Course/backendIntensive_3/testProject/test/src/main/webapp/WEB-INF/lib/maven-shade-plugin-3.4.1.jar"/>
 	<classpathentry kind="lib" path="D:/Informatics job/Java Course/backendIntensive_3/testProject/test/src/main/webapp/WEB-INF/lib/gson-2.10.1.jar"/>
 	<classpathentry kind="lib" path="D:/Informatics job/Java Course/backendIntensive_3/testProject/test/src/main/webapp/WEB-INF/lib/log4j-over-slf4j-2.0.6.jar"/>
-	<classpathentry kind="lib" path="D:/Informatics job/Java Course/backendIntensive_3/testProject/test/src/main/webapp/WEB-INF/lib/log4j-slf4j-impl-2.19.0.jar"/>
+	<classpathentry kind="lib" path="D:/Informatics job/Java Course/backendIntensive_3/testProject/test/src/main/webapp/WEB-INF/lib/log4j-slf4j-impl-2.18.0.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

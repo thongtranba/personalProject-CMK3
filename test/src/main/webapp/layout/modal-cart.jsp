@@ -71,7 +71,7 @@
 										<div class="col-sm-6 col-md-2">
 
 											<input type="number" name="inputQty" id="inputQty" class="cartQtyInput"
-												value="1" min="1" max="${item.value.inventoryQuantity}">
+												value="0" min="1" max="${item.value.inventoryQuantity}">
 
 
 										</div>

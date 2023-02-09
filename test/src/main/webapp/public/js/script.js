@@ -161,7 +161,7 @@ $(document).ready(function() {
 
 		for (var i = 0; i < cartItems; i++) {
 			var productId = $(".productId").eq(i).val();
-			if ($(".cartQtyInput").eq(i).val() == 1 && localStorage.getItem(productId)) {
+			if ($(".cartQtyInput").eq(i).val() == 0 && localStorage.getItem(productId)) {
 				inputQty = JSON.parse(localStorage.getItem(productId));
 				$(".cartQtyInput").eq(i).val(inputQty)
 			} else {
@@ -232,14 +232,14 @@ $(document).ready(function() {
 		$(".delivery-fee").html(deliveryFee + " euro");
 		$("input[name=delivery]").val(deliveryFee);
 
-		var paymentTotal = Math.round((total + 3.9)*100)/100;
+		var paymentTotal = Math.round((total + 3.9) * 100) / 100;
 		$(".payment-total").html(paymentTotal + " euro");
 		$("input[name=total]").val(paymentTotal);
 
 	};
 
 	console.log(localStorage.getItem('cartList'));
-	
+
 	$("#pay-now").click(function() {
 		localStorage.clear();
 	})
