@@ -11,10 +11,10 @@ import bathongshop.model.ProductModel;
 
 public class PaymentService {
 	public String authorizePayment(CheckOutDetail checkoutDetail, String firstName, String email,
-			List<ProductModel> orderList) throws PayPalRESTException {
+			List<ProductModel> productList) throws PayPalRESTException {
 		Payer payer = getPayerInformation(firstName, email);
 		RedirectUrls redirectUrls = getRedirectURLs();
-		List<Transaction> listTransaction = getTransactionInformation(checkoutDetail, orderList);
+		List<Transaction> listTransaction = getTransactionInformation(checkoutDetail, productList);
 		Payment requestPayment = new Payment();
 		requestPayment.setTransactions(listTransaction);
 		requestPayment.setRedirectUrls(redirectUrls);
@@ -42,14 +42,14 @@ public class PaymentService {
 		return redirectUrls;
 	}
 
-	private List<Transaction> getTransactionInformation(CheckOutDetail checkoutDetail, List<ProductModel> orderList) {
+	private List<Transaction> getTransactionInformation(CheckOutDetail checkoutDetail, List<ProductModel> productList) {
 		Details details = new Details();
 		details.setShipping(String.valueOf(checkoutDetail.getShippingFee()));
 		details.setSubtotal(String.valueOf(checkoutDetail.getSubTotal()));
 		Amount amount = new Amount();
 		amount.setCurrency(PublicConstant.EUR);
 		double itemAmount = ConstantDoubleEnum.CONSTANT_0.getValue();
-		for (ProductModel product : orderList) {
+		for (ProductModel product : productList) {
 			if (product.getDiscountPrice() != ConstantDoubleEnum.CONSTANT_0.getValue()) {
 				itemAmount = itemAmount + (product.getDiscountPrice() * product.getInputQuantity());
 			} else {
@@ -63,7 +63,7 @@ public class PaymentService {
 		transaction.setDescription(PublicConstant.SET_DESCRIPTION);
 		ItemList itemList = new ItemList();
 		List<Item> items = new ArrayList<>();
-		for (ProductModel product : orderList) {
+		for (ProductModel product : productList) {
 			Item item = new Item();
 			item.setCurrency(PublicConstant.EUR);
 			item.setName(product.getName());

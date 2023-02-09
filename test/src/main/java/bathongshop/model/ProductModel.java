@@ -40,6 +40,9 @@ public class ProductModel {
 		this.image = image;
 	}
 
+	public ProductModel() {
+		}
+
 	public int getInputQuantity() {
 		return inputQuantity;
 	}

@@ -4,7 +4,7 @@
 		<table>
 			<tr>
 				<td colspan="2"><b>Transaction Details:</b></td>
-				<td><input type="hidden" name="paymentId" 
+				<td><input type="hidden" name="paymentId"
 					value="${param.paymentId}" /> <input type="hidden" name="PayerID"
 					value="${param.PayerID}" /></td>
 			</tr>
@@ -69,8 +69,8 @@
 				<td>${shippingAddress.postalCode}</td>
 			</tr>
 			<tr>
-				<td colspan="2" align="center"><input type="submit" id="pay-now" class="btn btn-primary"
-					value="Pay Now" /></td>
+				<td colspan="2" align="center"><input
+					type="submit" id="pay-now" class="btn btn-primary" value="Pay Now" /></td>
 			</tr>
 		</table>
 	</form>

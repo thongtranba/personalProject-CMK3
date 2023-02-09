@@ -1,7 +1,6 @@
 package bathongshop.controller;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,19 +16,13 @@ import javax.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import bathongshop.constant.ConstantIntegerEnum;
 import bathongshop.constant.NotificationEnum;
 import bathongshop.constant.PublicConstant;
 import bathongshop.dao.OrderDAO;
-import bathongshop.dao.OrderItemDAO;
+
 import bathongshop.dao.ProductDAO;
 import bathongshop.entity.Order;
-import bathongshop.entity.OrderItem;
-import bathongshop.model.OrderedModel;
 import bathongshop.model.ProductModel;
 
 @WebServlet(PublicConstant.CART_URL)
@@ -37,7 +30,6 @@ public class CartController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ProductDAO productDAO = ProductDAO.getProductDAO();
 	private OrderDAO orderDAO = OrderDAO.getOrderDAO();
-	private OrderItemDAO orderItemDAO = OrderItemDAO.getOrderItemDAO();
 	private static Logger logger = LogManager.getLogger(CartController.class);
 
 	public CartController() {
@@ -56,10 +48,6 @@ public class CartController extends HttpServlet {
 		case PublicConstant.REMOVE:
 			productId = Integer.parseInt(request.getParameter(PublicConstant.PRODUCTID));
 			removeCart(request, response, productId);
-			break;
-		case PublicConstant.SUBMIT_CART:
-			String JSONString = request.getParameter(PublicConstant.JSON_STRING);
-			submitCart(request, response, JSONString);
 			break;
 		case PublicConstant.MY_ORDER:
 			myOrder(request, response);
@@ -107,62 +95,6 @@ public class CartController extends HttpServlet {
 		} catch (Exception e) {
 			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
 		}
-	}
-
-	private void submitCart(HttpServletRequest request, HttpServletResponse response, String JSONString)
-			throws ServletException, IOException {
-		logger.info(JSONString);
-		try {
-			List<OrderedModel> orderProducts = jsonData(JSONString);
-			Map<Integer, Integer> orderList = new HashMap<Integer, Integer>();
-			for (OrderedModel orderedModel : orderProducts) {
-				orderList.put(orderedModel.getProductId(), orderedModel.getQuantity());
-			}
-			HttpSession session = request.getSession();
-			int customerId = (int) session.getAttribute(PublicConstant.CUSTOMERID);
-			Order order = Order.newOrderByCustomerId(customerId);
-			int orderId = orderDAO.addOrder(order);
-			boolean flag = false;
-			for (int key : orderList.keySet()) {
-				OrderItem orderItem = new OrderItem(key, orderList.get(key), orderId);
-				boolean orderStatus = orderItemDAO.addOrderItem(orderItem);
-				logger.info(orderStatus);
-				if (orderStatus == true) {
-					int inventoryQuantity = productDAO.takeInventoryQuantity(key);
-					int newQuantity = inventoryQuantity - orderList.get(key);
-					productDAO.updateQuantityByProductId(key, newQuantity);
-				} else {
-					flag = true;
-				}
-			}
-			if (flag == true) {
-				orderDAO.deleteOrderByOrderId(orderId);
-				request.setAttribute(NotificationEnum.ORDER_FAIL_NOTIFICATION.getValue(),
-						NotificationEnum.ORDER_FAIL_NOTIFICATION_MESSAGE.getValue());
-				RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.NOTIFICATION_JSP);
-				dispatcher.forward(request, response);
-			} else {
-				session.removeAttribute(PublicConstant.CART);
-				RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.PAYMENT_JSP);
-				dispatcher.forward(request, response);
-			}
-		} catch (Exception e) {
-			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
-		}
-	}
-
-	public List<OrderedModel> jsonData(String JSONString) throws JsonProcessingException {
-		try {
-			ObjectMapper mapper = new ObjectMapper();
-			mapper.setSerializationInclusion(Include.NON_NULL);
-			List<OrderedModel> list = Arrays.asList(mapper.readValue(JSONString, OrderedModel[].class));
-			return list;
-		} catch (IllegalArgumentException e) {
-			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
-		} catch (NullPointerException e) {
-			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
-		}
-		return null;
 	}
 
 	private void myOrder(HttpServletRequest request, HttpServletResponse response)

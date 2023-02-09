@@ -22,6 +22,10 @@
 			<td>${transaction.description}</td>
 		</tr>
 		<tr>
+			<td><b>Order number: </b></td>
+			<td>#${orderId}</td>
+		</tr>
+		<tr>
 			<td><b>Subtotal:</b></td>
 			<td>${transaction.amount.details.subtotal}EUR</td>
 		</tr>

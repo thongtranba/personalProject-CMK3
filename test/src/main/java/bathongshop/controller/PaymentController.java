@@ -1,9 +1,9 @@
 package bathongshop.controller;
 
 import java.io.IOException;
-import java.net.http.HttpClient.Redirect;
-import java.sql.SQLException;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -32,6 +32,7 @@ import com.paypal.base.rest.PayPalRESTException;
 
 import bathongshop.constant.ConstantDoubleEnum;
 import bathongshop.constant.ConstantIntegerEnum;
+import bathongshop.constant.NotificationEnum;
 import bathongshop.constant.PublicConstant;
 import bathongshop.dao.OrderDAO;
 import bathongshop.dao.OrderItemDAO;
@@ -78,32 +79,16 @@ public class PaymentController extends HttpServlet {
 			throws ServletException, IOException {
 		try {
 			String JSONString = request.getParameter(PublicConstant.JSON_STRING);
+			HttpSession session = request.getSession();
+			session.setAttribute(PublicConstant.JSON_STRING, JSONString);
 			logger.info(JSONString);
+
 			List<OrderedModel> orderProducts = jsonData(JSONString);
-			Map<Integer, Integer> orderList = new HashMap<Integer, Integer>();
-			for (OrderedModel orderedModel : orderProducts) {
-				orderList.put(orderedModel.getProductId(), orderedModel.getQuantity());
-			}
+			List<ProductModel> products = getProductListByOrderList(orderProducts);
 
-			HttpSession session = request.getSession(false);
-			int customerId = (int) session.getAttribute(PublicConstant.CUSTOMERID);
-			Order order = Order.newOrderByCustomerId(customerId);
-			int orderId = orderDAO.addOrder(order);
-			session.setAttribute(PublicConstant.ORDER_ID, orderId);
-			for (int key : orderList.keySet()) {
-				OrderItem orderItem = new OrderItem(key, orderList.get(key), orderId);
-				boolean orderStatus = orderItemDAO.addOrderItem(orderItem);
-				if (orderStatus == true) {
-					int inventoryQuantity = productDAO.takeInventoryQuantity(key);
-					int newQuantity = inventoryQuantity - orderList.get(key);
-					productDAO.updateQuantityByProductId(key, newQuantity);
-				}
-			}
-
-			List<ProductModel> products = productDAO.selectAllProductByOrderId(orderId);
-			double subtotal = calculateSubTotal(orderId);
+			double subtotal = calculateSubTotal(products);
 			double shippingFee = ConstantDoubleEnum.CONSTANT_SHIPPINGFEE.getValue();
-			double total = calculateSubTotal(orderId) + ConstantDoubleEnum.CONSTANT_SHIPPINGFEE.getValue();
+			double total = subtotal + ConstantDoubleEnum.CONSTANT_SHIPPINGFEE.getValue();
 			Date checkoutDate = new Date();
 
 			CheckOutDetail checkoutDetail = new CheckOutDetail();
@@ -112,6 +97,7 @@ public class PaymentController extends HttpServlet {
 			checkoutDetail.setShippingFee(shippingFee);
 			checkoutDetail.setTotal(total);
 			checkoutDetail.setCheckOutDate(checkoutDate);
+
 			String firstName = String.valueOf(session.getAttribute(PublicConstant.USERNAME));
 			String email = String.valueOf(session.getAttribute(PublicConstant.EMAIL));
 
@@ -141,10 +127,25 @@ public class PaymentController extends HttpServlet {
 		return null;
 	}
 
-	public double calculateSubTotal(int orderId) throws Exception {
+	public List<ProductModel> getProductListByOrderList(List<OrderedModel> orderProducts)
+			throws JsonProcessingException {
+		try {
+			List<ProductModel> list = new ArrayList<ProductModel>();
+			for (OrderedModel orderedProduct : orderProducts) {
+				ProductModel product = productDAO.selectProduct(orderedProduct.getProductId());
+				product.setInputQuantity(orderedProduct.getQuantity());
+				list.add(product);
+			}
+			return list;
+		} catch (Exception e) {
+			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
+		}
+		return null;
+	}
+
+	public double calculateSubTotal(List<ProductModel> products) throws Exception {
 		double subtotal = ConstantDoubleEnum.CONSTANT_0.getValue();
 		try {
-			List<ProductModel> products = productDAO.selectAllProductByOrderId(orderId);
 			for (ProductModel product : products) {
 				if (product.getDiscountPrice() != ConstantDoubleEnum.CONSTANT_0.getValue()) {
 					subtotal = subtotal + (product.getDiscountPrice() * product.getInputQuantity());
@@ -188,33 +189,58 @@ public class PaymentController extends HttpServlet {
 			String paymentId = request.getParameter(PublicConstant.PAYMENT_ID);
 			String payerId = request.getParameter(PublicConstant.PAYER_ID);
 			HttpSession session = request.getSession();
-			int orderId = (int) session.getAttribute(PublicConstant.ORDER_ID);
+			String JSONString = String.valueOf(session.getAttribute(PublicConstant.JSON_STRING));
+
 			PaymentService paymentServices = new PaymentService();
 			Payment payment = paymentServices.executePayment(paymentId, payerId);
 			PayerInfo payerInfo = payment.getPayer().getPayerInfo();
 			Transaction transaction = payment.getTransactions().get(ConstantIntegerEnum.CONSTANT_0.getValue());
-			orderDAO.updatePaymentStatusByOrderId(orderId);
 
-			session.removeAttribute(PublicConstant.CART);
-			session.removeAttribute(PublicConstant.ORDER_ID);
-			request.setAttribute(PublicConstant.PAYER, payerInfo);
-			request.setAttribute(PublicConstant.TRANSACTION, transaction);
-			request.getRequestDispatcher(PublicConstant.PAYMENT_RECEIPT_JSP).forward(request, response);
+			List<OrderedModel> orderProducts = jsonData(JSONString);
+			Map<Integer, Integer> orderList = new HashMap<Integer, Integer>();
+			for (OrderedModel orderedModel : orderProducts) {
+				orderList.put(orderedModel.getProductId(), orderedModel.getQuantity());
+			}
 
-		} catch (PayPalRESTException e) {
+			int customerId = (int) session.getAttribute(PublicConstant.CUSTOMERID);
+			Order order = Order.newOrderByCustomerId(customerId);
+			int orderId = orderDAO.addOrder(order);
+			boolean flag = false;
+			for (int key : orderList.keySet()) {
+				OrderItem orderItem = new OrderItem(key, orderList.get(key), orderId);
+				boolean orderStatus = orderItemDAO.addOrderItem(orderItem);
+				if (orderStatus == true) {
+					int inventoryQuantity = productDAO.takeInventoryQuantity(key);
+					int newQuantity = inventoryQuantity - orderList.get(key);
+					productDAO.updateQuantityByProductId(key, newQuantity);
+					orderDAO.updatePaymentStatusByOrderId(orderId);
+				} else {
+					flag = true;
+				}
+			}
+			if (flag == true) {
+				orderDAO.deleteOrderByOrderId(orderId);
+				request.setAttribute(NotificationEnum.ORDER_FAIL_NOTIFICATION.getValue(),
+						NotificationEnum.ORDER_FAIL_NOTIFICATION_MESSAGE.getValue());
+				RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.NOTIFICATION_JSP);
+				dispatcher.forward(request, response);
+			} else {
+				session.removeAttribute(PublicConstant.CART);
+				session.removeAttribute(PublicConstant.JSON_STRING);
+				request.setAttribute(PublicConstant.ORDER_ID, orderId);
+				request.setAttribute(PublicConstant.PAYER, payerInfo);
+				request.setAttribute(PublicConstant.TRANSACTION, transaction);
+				request.getRequestDispatcher(PublicConstant.PAYMENT_RECEIPT_JSP).forward(request, response);
+			}
+
+		} catch (Exception e) {
 			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
 		}
 	}
 
 	protected void checkoutOrder(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		try {
-			response.sendRedirect(PublicConstant.CHECKOUT_ORDER_JSP);
-
-		} catch (Exception e) {
-			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
-		}
+		response.sendRedirect(PublicConstant.CHECKOUT_ORDER_JSP);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

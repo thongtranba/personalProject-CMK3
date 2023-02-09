@@ -76,7 +76,7 @@
 	<h4>Payment</h4>
 	<div class="form-group">
 		<label> <input type="radio" name="payment_method" checked
-			value="0"> Visa cart
+			value="0"> Paypal
 		</label>
 		<div></div>
 	</div>
