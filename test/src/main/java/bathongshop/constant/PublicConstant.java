@@ -108,7 +108,7 @@ public class PublicConstant {
 	public static final String JSON_STRING = "JSONString";
 	public static final String CART = "cart";
 	public static final String PRODUCT = "product";
-	public static final String PRODUCT_DETAIL_PAGE_BY_ID = "product?id=";
+	public static final String PRODUCT_DETAIL_PAGE_BY_ID = "category?command=PRODUCT_DETAIL&id=";
 	public static final String ORDER_LIST = "orderList";
 	public static final String ORDER_ID = "orderId";
 	public static final String PAYMENT_STATUS = "paymentStatus";

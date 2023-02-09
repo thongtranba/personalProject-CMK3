@@ -56,7 +56,6 @@
 			<h5
 				style="background-color: #eea97e; color: #010111; border-radius: 5px; text-align: center">${notification}</h5>
 		</c:if>
-
 		<c:if test="${product.inventoryQuantity == 0}">
 			<input class="addToCart" type="button"
 				style="background-color: #b3b1af; border-style: none; border-radius: 5px; color: #ffffff;"
@@ -86,9 +85,7 @@
 					<c:out value="${product.description}" />
 				</div>
 				<div role="tabpanel" class="tab-pane" id="product-technology">
-
 					<p>updating</p>
-
 				</div>
 				<div role="tabpanel" class="tab-pane" id="product-comment">
 					<form class="form-comment" action="" method="POST" role="form">

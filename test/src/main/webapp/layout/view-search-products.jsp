@@ -19,7 +19,7 @@
 			<div class="button-product-action clearfix">
 
 				<div class="quickview icon">
-					<a class="btn btn-outline-inverse" href="product?id=${product.id}"
+					<a class="btn btn-outline-inverse" href="category?command=PRODUCT_DETAIL&id=${product.id}"
 						title="quick view"> details <i class="fa fa-eye"></i>
 					</a>
 				</div>

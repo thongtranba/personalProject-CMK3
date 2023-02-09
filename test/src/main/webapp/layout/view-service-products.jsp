@@ -30,7 +30,7 @@
 
 				<div class="quickview icon">
 					<a class="btn btn-outline-inverse"
-						href="product?id=${product.id}"
+						href="category?command=PRODUCT_DETAIL&id=${product.id}"
 						title="quick view"> details <i class="fa fa-eye"></i>
 					</a>
 				</div>
