@@ -11,7 +11,7 @@ import org.apache.logging.log4j.Logger;
 
 import bathongshop.constant.PublicConstant;
 import bathongshop.entity.Brand;
-import bathongshop.jdbcutil.JDBCUtil;
+import bathongshop.util.jdbc.JDBCUtil;
 
 public class BrandDAO {
 	private static Logger logger = LogManager.getLogger(BrandDAO.class);

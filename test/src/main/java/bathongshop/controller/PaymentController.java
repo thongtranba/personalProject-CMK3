@@ -42,7 +42,7 @@ import bathongshop.entity.OrderItem;
 import bathongshop.model.CheckOutDetail;
 import bathongshop.model.OrderedModel;
 import bathongshop.model.ProductModel;
-import bathongshop.payment.PaymentService;
+import bathongshop.util.payment.PaymentService;
 
 @WebServlet(PublicConstant.PAYMENT_URL)
 public class PaymentController extends HttpServlet {

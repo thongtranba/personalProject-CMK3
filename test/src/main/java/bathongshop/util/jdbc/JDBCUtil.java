@@ -1,4 +1,4 @@
-package bathongshop.jdbcutil;
+package bathongshop.util.jdbc;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

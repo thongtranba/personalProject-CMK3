@@ -10,7 +10,7 @@ import org.apache.logging.log4j.Logger;
 import bathongshop.constant.ConstantIntegerEnum;
 import bathongshop.constant.PublicConstant;
 import bathongshop.entity.OrderItem;
-import bathongshop.jdbcutil.JDBCUtil;
+import bathongshop.util.jdbc.JDBCUtil;
 
 public class OrderItemDAO {
 	private static Logger logger = LogManager.getLogger(OrderItemDAO.class);

@@ -1,4 +1,4 @@
-package bathongshop.payment;
+package bathongshop.util.payment;
 
 import java.util.*;
 

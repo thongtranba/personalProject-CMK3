@@ -15,7 +15,7 @@ import org.apache.logging.log4j.Logger;
 import bathongshop.constant.ConstantIntegerEnum;
 import bathongshop.constant.PublicConstant;
 import bathongshop.entity.Order;
-import bathongshop.jdbcutil.JDBCUtil;
+import bathongshop.util.jdbc.JDBCUtil;
 
 public class OrderDAO {
 	private static Logger logger = LogManager.getLogger(OrderDAO.class);

@@ -12,8 +12,8 @@ import org.apache.logging.log4j.*;
 import bathongshop.constant.ConstantIntegerEnum;
 import bathongshop.constant.PublicConstant;
 import bathongshop.entity.Product;
-import bathongshop.jdbcutil.JDBCUtil;
 import bathongshop.model.ProductModel;
+import bathongshop.util.jdbc.JDBCUtil;
 
 public class ProductDAO {
 	private static ProductDAO productDAO = null;
