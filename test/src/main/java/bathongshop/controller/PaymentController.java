@@ -168,7 +168,7 @@ public class PaymentController extends HttpServlet {
 			PaymentService paymentServices = new PaymentService();
 			Payment payment = paymentServices.getPaymentDetails(paymentId);
 			PayerInfo payerInfo = payment.getPayer().getPayerInfo();
-			Transaction transaction = payment.getTransactions().get(0);
+			Transaction transaction = payment.getTransactions().get(ConstantIntegerEnum.CONSTANT_0.getValue());
 			ShippingAddress shippingAddress = transaction.getItemList().getShippingAddress();
 
 			request.setAttribute(PublicConstant.PAYER, payerInfo);

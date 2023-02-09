@@ -53,7 +53,7 @@
 										<div class="col-sm-6 col-md-2">
 											<input class="productId" type="hidden"
 												value="${item.value.id}"> <a class="product-name"
-												href="product?id=${item.value.id}">${item.value.name }</a>
+												href="category?command=PRODUCT_DETAIL&id=${item.value.id}">${item.value.name }</a>
 										</div>
 										<div class="col-sm-6 col-md-2">
 											<c:if test="${item.value.discountPrice == 0.0}">

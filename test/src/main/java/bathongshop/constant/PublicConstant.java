@@ -117,6 +117,8 @@ public class PublicConstant {
 	// Category controller
 	public static final String CATEGORY_URL = "/category";
 	public static final String CATEGORY_COMMAND = "CATEGORY";
+	public static final String PRODUCT_DETAIL_COMMAND = "PRODUCT_DETAIL";
+	public static final String SEARCH_COMMAND = "SEARCH";
 	public static final String SALEOFF_COMMAND = "SALEOFF";
 	public static final String CATEGORY_PARAMETER = "category";
 	public static final String PAGEID_PARAMETER = "pageId";

@@ -9,7 +9,7 @@
 			</div>
 			<div class="col-xs-7">
 				<input type="hidden" name="productName" value="${item.value.name }" />
-				<a class="product-name" href="product?id=${item.value.id}">${item.value.name }
+				<a class="product-name" href="category?command=PRODUCT_DETAIL&id=${item.value.id}">${item.value.name }
 					euro</a> <br> <span class="qty"></span> x
 				<c:if test="${item.value.discountPrice == 0.0}">
 					<span class="cart-price">${item.value.price} </span>

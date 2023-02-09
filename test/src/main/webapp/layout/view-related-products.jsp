@@ -12,7 +12,7 @@
 						<div class="product-meta">
 							<h5 class="name">
 								<a class="product-name"
-									href="product?id=${product.id}"
+									href="category?command=PRODUCT_DETAIL&id=${product.id}"
 									title="${product.name}">${product.name}</a>
 							</h5>
 								<div class="product-item-price">

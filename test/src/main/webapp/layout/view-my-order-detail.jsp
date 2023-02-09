@@ -13,7 +13,7 @@
 						alt="${product.name}" />
 				</div>
 				<div class="col-md-6 col-xs-7">
-					<a class="product-name" href="product?id=${product.id}">${product.name}</a>
+					<a class="product-name" href="category?command=PRODUCT_DETAIL&id=${product.id}">${product.name}</a>
 					<br>
 					<c:set var="inputQuantity" value="${product.inputQuantity}" />
 					<span>${product.inputQuantity}</span> x

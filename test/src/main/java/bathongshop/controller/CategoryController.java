@@ -23,6 +23,7 @@ import bathongshop.dao.BrandDAO;
 import bathongshop.dao.ProductDAO;
 import bathongshop.entity.Brand;
 import bathongshop.entity.Product;
+import bathongshop.model.ProductModel;
 
 @WebServlet(PublicConstant.CATEGORY_URL)
 public class CategoryController extends HttpServlet {
@@ -41,6 +42,12 @@ public class CategoryController extends HttpServlet {
 		switch (command) {
 		case PublicConstant.CATEGORY_COMMAND:
 			category(request, response);
+			break;
+		case PublicConstant.PRODUCT_DETAIL_COMMAND:
+			productDetail(request, response);
+			break;
+		case PublicConstant.SEARCH_COMMAND:
+			search(request, response);
 			break;
 		case PublicConstant.SALEOFF_COMMAND:
 			saleOff(request, response);
@@ -64,18 +71,21 @@ public class CategoryController extends HttpServlet {
 			int brandId = request.getParameter(PublicConstant.BRAND_ID) != null
 					? Integer.parseInt(request.getParameter(PublicConstant.BRAND_ID))
 					: CategoryIdEnum.CATEGORYID_DEFAULT.getValue();
-			int categoryId = takeCategoryIdByCategoryPage(categoryPage);
-			String sortColumn = takeSortColumnBySortRequest(sort);
-			String sortType = takeSortTypeBySortRequest(sort);
+
+			int categoryId = getCategoryIdByCategoryPage(categoryPage);
+			String sortColumn = getSortColumnBySortRequest(sort);
+			String sortType = getSortTypeBySortRequest(sort);
 			int itemPerPage = Integer.parseInt(PublicConstant.ITEM_PER_PAGE);
 			int totalProducts = productDAO.totalCategoryProduct(categoryId);
 			int startItem = (pageId - ConstantIntegerEnum.CONSTANT_1.getValue()) * itemPerPage;
-			int totalPage = takeTotalPage(totalProducts, itemPerPage);
+			int totalPage = getTotalPage(totalProducts, itemPerPage);
+
 			String[] sortSelect = { PublicConstant.DEFAULT_COMMAND, PublicConstant.PRICE_ASC_COMMAND,
 					PublicConstant.PRICE_DESC_COMMAND, PublicConstant.AZ_COMMAND, PublicConstant.ZA_COMMAND };
 			List<Brand> brandList = brandDAO.selectAllBrands();
 			List<Product> categoryList = productDAO.selectAllProductByCategoryId(categoryId, startItem, itemPerPage,
 					sortColumn, sortType, brandId);
+
 			HttpSession session = request.getSession();
 			session.setAttribute(PublicConstant.CATEGORY_PAGE, categoryPage);
 			request.setAttribute(PublicConstant.BRAND_LIST, brandList);
@@ -92,7 +102,7 @@ public class CategoryController extends HttpServlet {
 		}
 	}
 
-	public String takeSortColumnBySortRequest(String sort) {
+	public String getSortColumnBySortRequest(String sort) {
 		String sortColumn = PublicConstant.EMPTY_STRING;
 		switch (sort) {
 		case PublicConstant.DEFAULT_COMMAND:
@@ -114,7 +124,7 @@ public class CategoryController extends HttpServlet {
 		return sortColumn;
 	}
 
-	public String takeSortTypeBySortRequest(String sort) {
+	public String getSortTypeBySortRequest(String sort) {
 		String sortType = PublicConstant.EMPTY_STRING;
 		switch (sort) {
 		case PublicConstant.DEFAULT_COMMAND:
@@ -136,7 +146,7 @@ public class CategoryController extends HttpServlet {
 		return sortType;
 	}
 
-	public int takeCategoryIdByCategoryPage(String categoryPage) {
+	public int getCategoryIdByCategoryPage(String categoryPage) {
 		int categoryId = CategoryIdEnum.CATEGORYID_DEFAULT.getValue();
 		switch (categoryPage) {
 		case PublicConstant.RACKETS_PAGE_COMMAND:
@@ -158,9 +168,38 @@ public class CategoryController extends HttpServlet {
 		return categoryId;
 	}
 
-	public int takeTotalPage(int totalProducts, int itemPerPage) {
+	public int getTotalPage(int totalProducts, int itemPerPage) {
 		int totalPage = (int) Math.ceil(totalProducts * ConstantDoubleEnum.CONSTANT_1.getValue() / itemPerPage);
 		return totalPage;
+	}
+
+	protected void productDetail(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		try {
+			int id = Integer.parseInt(request.getParameter(PublicConstant.ID));
+			ProductModel existingProduct = productDAO.selectProduct(id);
+			List<Product> relatedProduct = productDAO.selectRelatedProducts();
+			request.setAttribute(PublicConstant.RELATED_PRODUCT, relatedProduct);
+			request.setAttribute(PublicConstant.PRODUCT, existingProduct);
+			RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.PRODUCT_DETAIL_JSP);
+			dispatcher.forward(request, response);
+		} catch (Exception e) {
+			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
+		}
+	}
+
+	protected void search(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		try {
+			String search = request.getParameter(PublicConstant.SEARCH);
+			List<Product> searchProducts = productDAO.searchProducts(search);
+			request.setAttribute(PublicConstant.SEARCH_STRING, search);
+			request.setAttribute(PublicConstant.SEARCH_PRODUCT, searchProducts);
+			RequestDispatcher dispatcher = request.getRequestDispatcher(PublicConstant.SEARCH_JSP);
+			dispatcher.forward(request, response);
+		} catch (Exception e) {
+			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
+		}
 	}
 
 	public void saleOff(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
