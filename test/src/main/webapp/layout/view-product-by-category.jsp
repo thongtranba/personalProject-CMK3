@@ -15,13 +15,13 @@
 				<div class="product-item-price">
 					<c:if test="${product.discountPrice == 0.0}">
 						<span>Price: </span>
-						<span class="product-item-price">${product.price} euro</span>
+						<span class="product-item-price">${product.price} EUR</span>
 					</c:if>
 					<c:if test="${product.discountPrice != 0.0}">
 						<span>Price: </span>
-						<span class="product-item-regular">${product.price} euro</span>
+						<span class="product-item-regular">${product.price} EUR</span>
 						<span class="product-item-discount">${product.discountPrice}
-							euro</span>
+							EUR</span>
 					</c:if>
 				</div>
 			</div>

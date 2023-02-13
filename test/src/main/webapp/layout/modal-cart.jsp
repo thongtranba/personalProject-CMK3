@@ -36,7 +36,6 @@
 						<hr />
 						<input class="totalItem" type="hidden"
 							value="${sessionScope.cart.size()}">
-
 						<c:if test="${not empty cart }">
 							<c:forEach var="item" items="${cart}" varStatus="status">
 								<div class="clearfix text-left">
@@ -57,23 +56,20 @@
 										</div>
 										<div class="col-sm-6 col-md-2">
 											<c:if test="${item.value.discountPrice == 0.0}">
-
 												<span class="cart-price">${item.value.price} </span>
-												<span>euro</span>
+												<span>EUR</span>
 											</c:if>
 											<c:if test="${item.value.discountPrice != 0.0}">
-
 												<span class="cart-price">${item.value.discountPrice}
 												</span>
-												<span>euro</span>
+												<span>EUR</span>
 											</c:if>
 										</div>
 										<div class="col-sm-6 col-md-2">
 
-											<input type="number" name="inputQty" id="inputQty" class="cartQtyInput"
-												value="0" min="1" max="${item.value.inventoryQuantity}">
-
-
+											<input type="number" name="inputQty" id="inputQty"
+												class="cartQtyInput" value="0" min="1"
+												max="${item.value.inventoryQuantity}">
 										</div>
 										<div class="col-sm-6 col-md-2">
 											<span class="subTotal"></span>
@@ -102,7 +98,6 @@
 						</p>
 						<input type="button" data-dismiss="modal" class="btn btn-default"
 							value="Continue shopping" />
-
 						<c:if test="${sessionScope.username != null && !empty cart }">
 							<input type="button" name="checkout" class="btn btn-primary"
 								value="Check out" />

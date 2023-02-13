@@ -20,12 +20,12 @@
 					<c:if test="${product.discountPrice == 0.0}">
 						<c:set var="price" value="${product.price}" />
 						<span class="cart-price">${product.price} </span>
-						<span>euro</span>
+						<span>EUR</span>
 					</c:if>
 					<c:if test="${product.discountPrice != 0.0}">
 						<c:set var="price" value="${product.discountPrice}" />
 						<span class="cart-price">${product.discountPrice} </span>
-						<span>euro</span>
+						<span>EUR</span>
 					</c:if>
 				</div>
 				<div class="col-md-2 col-xs-3 text-right">

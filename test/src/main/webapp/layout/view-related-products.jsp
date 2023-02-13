@@ -1,5 +1,5 @@
 <div class="row product-related equal">
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 	<div class="col-md-12">
 		<div class="owl-carousel owl-theme">
 			<c:forEach var="product" items="${relatedProduct}">
@@ -15,17 +15,16 @@
 									href="category?command=PRODUCT_DETAIL&id=${product.id}"
 									title="${product.name}">${product.name}</a>
 							</h5>
-								<div class="product-item-price">
+							<div class="product-item-price">
 								<c:if test="${product.discountPrice == 0.0}">
 									<span>Price: </span>
-									<span class="product-item-price">${product.price} euro</span>
-
+									<span class="product-item-price">${product.price} EUR</span>
 								</c:if>
 								<c:if test="${product.discountPrice != 0.0}">
 									<span>Price: </span>
-									<span class="product-item-regular">${product.price} euro</span>
+									<span class="product-item-regular">${product.price} EUR</span>
 									<span class="product-item-discount">${product.discountPrice}
-										euro</span>
+										EUR</span>
 								</c:if>
 							</div>
 						</div>
@@ -39,7 +38,6 @@
 						</div>
 					</div>
 				</div>
-
 			</c:forEach>
 		</div>
 	</div>

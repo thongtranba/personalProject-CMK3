@@ -181,12 +181,12 @@ $(document).ready(function() {
 				localStorage.removeItem(productId);
 
 			});
-			$(".subTotal").eq(i).html(subtotal + " euro");
+			$(".subTotal").eq(i).html(subtotal + " EUR");
 			total = total + (price * inputQty);
 		}
 
 		total = Math.round(total * 100) / 100;
-		$(".price-total").html(total + " euro");
+		$(".price-total").html(total + " EUR");
 	}
 
 	$("input[name=checkout]").on('click', function() {
@@ -224,20 +224,20 @@ $(document).ready(function() {
 			var subtotal = Math.round((inputQty * price) * 100) / 100;
 
 			$(".qty").eq(i).html(inputQty);
-			$(".subTotal").eq(i).html(subtotal + " euro");
+			$(".subTotal").eq(i).html(subtotal + " EUR");
 			$("input[name=subTotal]").eq(i).val(subtotal);
 			total = total + (inputQty * price);
 		}
 
 		total = Math.round(total * 100) / 100;
-		$(".price-total").html(total + " euro");
+		$(".price-total").html(total + " EUR");
 
 		var deliveryFee = 3.9;
-		$(".delivery-fee").html(deliveryFee + " euro");
+		$(".delivery-fee").html(deliveryFee + " EUR");
 		$("input[name=delivery]").val(deliveryFee);
 
 		var paymentTotal = Math.round((total + 3.9) * 100) / 100;
-		$(".payment-total").html(paymentTotal + " euro");
+		$(".payment-total").html(paymentTotal + " EUR");
 		$("input[name=total]").val(paymentTotal);
 
 	};
