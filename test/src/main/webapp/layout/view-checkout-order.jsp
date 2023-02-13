@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<form action="payment?command=PAY" method="POST">
+<form action="payment?command=PAYMENT" method="POST">
 	<aside class="col-md-6 cart-checkout">
 		<c:forEach var="item" items="${cart}" varStatus="status">
 			<div class="row">

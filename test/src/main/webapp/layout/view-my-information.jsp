@@ -35,8 +35,7 @@
 	<div class="form-group">
 		<input type="password" class="form-control" id="password"
 			name="re-password" placeholder="Re-password" required
-			autocomplete="off" autosave="off"
-			pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$"
+			autocomplete="off" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$"
 			oninvalid="this.setCustomValidity('at least 8 letters: number, upper case, lower case')"
 			oninput="this.setCustomValidity('')" />
 	</div>

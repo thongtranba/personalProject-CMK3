@@ -60,7 +60,7 @@ public class PaymentController extends HttpServlet {
 			throws ServletException, IOException {
 		String command = request.getParameter(PublicConstant.COMMAND);
 		switch (command) {
-		case PublicConstant.PAY_COMMAND:
+		case PublicConstant.PAYMENT_COMMAND:
 			payment(request, response);
 			break;
 		case PublicConstant.REVIEW_PAYMENT_COMMAND:

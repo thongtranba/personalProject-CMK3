@@ -155,7 +155,7 @@ public class PublicConstant {
 
 	// Payment controller
 	public static final String PAYMENT_URL = "/payment";
-	public static final String PAY_COMMAND = "PAY";
+	public static final String PAYMENT_COMMAND = "PAYMENT";
 	public static final String REVIEW_PAYMENT_COMMAND = "REVIEW_PAYMENT";
 	public static final String EXECUTE_PAMENT_COMMAND = "EXECUTE_PAYMENT";
 	public static final String CHECKOUT_COMMAND = "CHECKOUT_PAYEMENT";
