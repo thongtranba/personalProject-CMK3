@@ -80,8 +80,7 @@ public class CategoryController extends HttpServlet {
 			int startItem = (pageId - ConstantIntegerEnum.CONSTANT_1.getValue()) * itemPerPage;
 			int totalPage = getTotalPage(totalProducts, itemPerPage);
 
-			String[] sortSelect = { PublicConstant.DEFAULT_COMMAND, PublicConstant.PRICE_ASC_COMMAND,
-					PublicConstant.PRICE_DESC_COMMAND, PublicConstant.AZ_COMMAND, PublicConstant.ZA_COMMAND };
+			String[] sortSelect = getArrayString();
 			List<Brand> brandList = brandDAO.selectAllBrands();
 			List<Product> categoryList = productDAO.selectAllProductByCategoryId(categoryId, startItem, itemPerPage,
 					sortColumn, sortType, brandId);
@@ -171,6 +170,13 @@ public class CategoryController extends HttpServlet {
 	public int getTotalPage(int totalProducts, int itemPerPage) {
 		int totalPage = (int) Math.ceil(totalProducts * ConstantDoubleEnum.CONSTANT_1.getValue() / itemPerPage);
 		return totalPage;
+	}
+
+	public String[] getArrayString() {
+		String[] ArrayString = { PublicConstant.DEFAULT_COMMAND, PublicConstant.PRICE_ASC_COMMAND,
+				PublicConstant.PRICE_DESC_COMMAND, PublicConstant.AZ_COMMAND, PublicConstant.ZA_COMMAND };
+		;
+		return ArrayString;
 	}
 
 	protected void productDetail(HttpServletRequest request, HttpServletResponse response)

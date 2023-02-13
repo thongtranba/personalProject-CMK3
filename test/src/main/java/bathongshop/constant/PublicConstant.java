@@ -30,7 +30,7 @@ public class PublicConstant {
 	public static final String DELETE_CUSTOMER_SQL = "delete from customer where id =?";
 	public static final String UPDATE_CUSTOMER_SQL = "update customer set username =?, password=?, mobile=?, email=?, address =? where id =?";
 	public static final String LOGIN_BY_USERNAME_PASSWORD = "select * from customer where email = ? and password = ? ";
-	public static final String CHECK_DUPLICATED_EMAIL_MOBILE_SQL = "select * from customer where email = ? or mobile = ?";
+	public static final String CHECK_DUPLICATED_EMAIL_MOBILE_SQL = "select * from customer where not id = ? and (email = ? or mobile = ?) ";
 
 	// OrderDAO
 	public static final String INSERT_NEW_ORDER = "INSERT INTO `order` (customer_id, created_date) VALUES (?, ?)";
@@ -152,7 +152,7 @@ public class PublicConstant {
 	public static final String POPULAR_PRODUCT = "popularProduct";
 	public static final String LATEST_PRODUCT = "latestProduct";
 	public static final String SERVICE_PRODUCT = "service";
-	
+
 	// Payment controller
 	public static final String PAYMENT_URL = "/payment";
 	public static final String PAY_COMMAND = "PAY";
@@ -166,7 +166,6 @@ public class PublicConstant {
 	public static final String SHIPPING_ADDRESS = "shippingAddress";
 	public static final String PAYEMENT_REVIEW_JSP = "payment-review.jsp?paymentId=";
 	public static final String PAYERID_PARAMETER = "&PayerID=";
-	
 
 	// Product detail controller
 	public static final String PRODUCT_DETAIL_URL = "/product";

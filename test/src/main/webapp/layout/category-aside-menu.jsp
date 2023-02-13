@@ -14,9 +14,12 @@
 					<li><label for="${brand.name}"></label> <input type="radio"
 						id="${brand.name}" name="${brand.name}"
 						onclick="window.location.href='category?command=CATEGORY&category=${categoryPage}&pageId=1&brandId=${brand.id}&sort=${sortSelected}'" />
-						<i class="fa"></i> ${brand.name}
+						<i class="fa"></i>${brand.name}
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>
 	</ul>
+	<input type="button"
+		onclick="window.location.href='category?command=CATEGORY&category=${categoryPage}&pageId=1&brandId=0&sort=${sortSelected}'"
+		value="Reset" class="btn btn-primary " /> <i class="fa"></i>
 </div>

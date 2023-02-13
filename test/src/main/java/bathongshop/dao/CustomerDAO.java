@@ -44,6 +44,25 @@ public class CustomerDAO {
 		return duplicated;
 	}
 
+	public boolean checkDuplicatedForUpdate(String email, String password, int id) throws SQLException {
+		boolean duplicated = false;
+		try (Connection connection = JDBCUtil.getConnection();
+				PreparedStatement preparedStatement = connection
+						.prepareStatement(PublicConstant.CHECK_DUPLICATED_EMAIL_MOBILE_SQL)) {
+			preparedStatement.setInt(1, id);
+			preparedStatement.setString(2, email);
+			preparedStatement.setString(3, password);
+			logger.info(preparedStatement);
+			ResultSet rs = preparedStatement.executeQuery();
+			if (rs.next()) {
+				duplicated = true;
+			}
+		} catch (Exception e) {
+			logger.error(PublicConstant.THIS_IS_ERROR, e.getMessage());
+		}
+		return duplicated;
+	}
+
 	public int insertCustomer(Customer customer) throws SQLException {
 		int result = ConstantIntegerEnum.CONSTANT_0.getValue();
 		try (Connection connection = JDBCUtil.getConnection()) {

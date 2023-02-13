@@ -126,7 +126,7 @@ public class AuthenticationController extends HttpServlet {
 			String email = request.getParameter(PublicConstant.EMAIL);
 			String address = request.getParameter(PublicConstant.ADDRESS);
 			Customer updateCustomer = new Customer(username, password, mobile, email, address);
-			boolean duplicatedEmailOrMobile = customerDAO.checkDuplicatedEmailAndMobile(email, mobile);
+			boolean duplicatedEmailOrMobile = customerDAO.checkDuplicatedForUpdate(email, mobile, customerId);
 			if (duplicatedEmailOrMobile == true) {
 				request.setAttribute(NotificationEnum.UPDATE_DUPLICATED_NOTIFICATION.getValue(),
 						NotificationEnum.UPDATE_DUPLICATED_NOTIFICATION_MESSAGE.getValue());
