@@ -1,15 +1,15 @@
-# My personal project in the Backend Intensive course (Java) of Coding Mentor (https://codingmentor.com.au/course/16)
+# My Java personal project
 
-This is a web application that demonstrates an E-commerce website using the MVC + MySQL. The application loads products from the database and displays them. Users can select to display products in each category. Users can click on any product to get more information including the pricing, pictures, and description. User can select items and add them to their shopping cart.
+This is a web application that demonstrates an E-commerce website using MVC + MySQL. The application loads products from the database and displays them. Users can select to display products in each category. Users can click on any product to get more information including the pricing, pictures, and description. User can select items and add them to their shopping cart.
 
 ## Features
 
 - Show products by category
 - Pagination for category page
 - Sorting by product brand, price, name for category page
-- User register and login/logout
+- User register and log in/logout
 - Update user's information
-- Show the seleacted product detail
+- Show the selected product detail
 - Search products 
 - Add to cart
 - Payment by PayPal
@@ -27,7 +27,7 @@ This is a web application that demonstrates an E-commerce website using the MVC 
 
 #### Back-end: 
 - Java fundamental (OOP + data structure + algorithm) with Eclipse
-- Design Pattern : Singleton
+- Design Pattern: Singleton
 
 ![App Screenshot](https://live.staticflickr.com/65535/52673200594_c70b1310eb_z.jpg)
 - ERD relationship and design
@@ -38,7 +38,7 @@ This is a web application that demonstrates an E-commerce website using the MVC 
 ![App Screenshot](https://live.staticflickr.com/65535/52668416613_d32471034c_c.jpg)
 - 404,403,500... error handler
 ![App Screenshot](https://live.staticflickr.com/65535/52672410257_0ec8278278_k.jpg)
-- MySQL: query, tables and sample data with Workbench
+- MySQL: query, tables, and sample data with Workbench
 
 ![App Screenshot](https://live.staticflickr.com/65535/52585970304_3b63d91f63_m.jpg)
 
